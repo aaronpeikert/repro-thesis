@@ -5,9 +5,18 @@ bookdown::gitbook:
       before: |
         <li><a href="./">Master Thesis | Aaron Peikert</a></li>
     download: ["pdf", "epub"]
+    github-repo: "aaronpeikert/repro-thesis"
+    edit: https://github.com/aaronpeikert/repro-thesis/edit/master/%s
+    sharing:
+      facebook: no
+      github: yes
+      twitter: no
+      linkedin: no
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
   keep_tex: yes
+  highlight_bw: yes
+  
 bookdown::epub_book: default
