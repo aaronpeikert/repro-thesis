@@ -1,8 +1,10 @@
 \PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[]{book}
+\documentclass[12pt,]{book}
 \usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1.5}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -34,6 +36,7 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
@@ -66,6 +69,8 @@
 \makeatother
 
 \usepackage{booktabs}
+\usepackage{libertine}
+\usepackage{libertinust1math}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -92,10 +97,14 @@
 
 This is a short summary.
 
+\hypertarget{references}{%
+\chapter*{References}\label{references}}
+\addcontentsline{toc}{chapter}{References}
+
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
 
-Claerbout \& Karrenbach define reproducibility as the ability to gain the same results, from the same dataset.
+Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) define reproducibility as the ability to gain the same results, from the same dataset.
 In contrast, they call a result replicable if one draws the same conclusion from a new dataset.
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.
 The scientific community agrees that their work should be ideally reproducible.
@@ -123,7 +132,7 @@ Does the predicate ``reproducible'' here reduce the number of mistakes or enable
 Or could one audit it and use it in replication? Hardly.
 This admittedly constructed case shows us: we are not interested in reproducibility, we are interested in its side effects.
 
-Spoiling its elegant simplicity, I change the definition by Claerbout \& Karrenbach to address this issue, by further demanding that reproducibility must facilitate replication.
+Spoiling its elegant simplicity, I change the definition by Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) to address this issue, by further demanding that reproducibility must facilitate replication.
 Hence, I would call a result only then reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to do so.
 With such a notion, the only valid cause of reproducibility is transparency.
 Because only if it is clear how the data relates to its results, both reproducibility and replication get promoted.
@@ -169,5 +178,9 @@ Setting up the workflow eats up a considerable chunk of the researchers time, wh
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may be automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.
 Providing an easier to use and more accessible version of the analysis workflow by Peikert \& Brandmaier (2020) is the goal of this thesis and the herein presented repro package for the R programming language.
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-claerboutElectronicDocumentsGive1992}{}%
+Claerbout, J. F., \& Karrenbach, M. (1992). Electronic documents give reproducible research a new meaning. \emph{SEG Technical Program Expanded Abstracts 1992}, 601--604. \url{https://doi.org/https://doi.org/10.1190/1.1822162}
 
 \end{document}
