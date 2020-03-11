@@ -1,0 +1,23 @@
+--- 
+title: "Reproducibility made simple"
+subtitle: "Automating reproducible research workflows"
+author: "Aaron Peikert"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [packages.bib, literature.bib]
+csl: apa7.csl
+link-citations: yes
+description: ""
+---
+
+# Abstract {-}
+
+This is a short summary.
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

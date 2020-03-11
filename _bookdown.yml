@@ -1,0 +1,5 @@
+book_filename: "ma"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
