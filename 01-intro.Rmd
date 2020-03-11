@@ -1,6 +1,6 @@
 # Introduction
 
-Claerbout & Karrenbach define reproducibility as the ability to gain the same results, from the same dataset.
+@claerboutElectronicDocumentsGive1992 define reproducibility as the ability to gain the same results, from the same dataset.
 In contrast, they call a result replicable if one draws the same conclusion from a new dataset.
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.
 The scientific community agrees that their work should be ideally reproducible.
@@ -28,7 +28,7 @@ Does the predicate "reproducible" here reduce the number of mistakes or enables 
 Or could one audit it and use it in replication? Hardly.
 This admittedly constructed case shows us: we are not interested in reproducibility, we are interested in its side effects.
 
-Spoiling its elegant simplicity, I change the definition by Claerbout & Karrenbach to address this issue, by further demanding that reproducibility must facilitate replication.
+Spoiling its elegant simplicity, I change the definition by @claerboutElectronicDocumentsGive1992 to address this issue, by further demanding that reproducibility must facilitate replication.
 Hence, I would call a result only then reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to do so.
 With such a notion, the only valid cause of reproducibility is transparency.
 Because only if it is clear how the data relates to its results, both reproducibility and replication get promoted.
@@ -59,7 +59,7 @@ The use of machine learning techniques, once enabled by the computer taking over
 More massive amounts of more complicated computer code than ever create room for errors and misunderstandings.
 Yet, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone to reproduce even the most sophisticated analysis.
 
-Peikert & Brandmaier (2020) put forth an analysis workflow which provides just this accessibility for everyone to reproduce any analysis.
+@peikertReproducibleDataAnalysis2019 put forth an analysis workflow which provides just this accessibility for everyone to reproduce any analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
 Setting up the workflow eats up a considerable chunk of the researchers time, which they may better spend at advancing research. This additional effort offsets the increasing productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or oppose it, requires concrete, practical benefits.

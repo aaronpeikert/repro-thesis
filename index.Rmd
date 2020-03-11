@@ -4,11 +4,15 @@ subtitle: "Automating reproducible research workflows"
 author: "Aaron Peikert"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-documentclass: book
+documentclass: article
 bibliography: [packages.bib, literature.bib]
 csl: apa7.csl
 link-citations: yes
 description: ""
+fontsize: 12pt
+linestretch: 1.5
+geometry: "left=2.5cm, right=2.5cm"
+papersize: a4
 ---
 
 # Abstract {-}
