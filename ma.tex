@@ -1,7 +1,7 @@
 \PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[12pt,]{book}
+\documentclass[12pt,a4paper,]{article}
 \usepackage{lmodern}
 \usepackage{setspace}
 \setstretch{1.5}
@@ -36,7 +36,7 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+\usepackage[left=2.5cm, right=2.5cm]{geometry}
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
@@ -71,6 +71,11 @@
 \usepackage{booktabs}
 \usepackage{libertine}
 \usepackage{libertinust1math}
+\usepackage{emptypage}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -88,21 +93,17 @@
 \maketitle
 
 {
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
 \hypertarget{abstract}{%
-\chapter*{Abstract}\label{abstract}}
-\addcontentsline{toc}{chapter}{Abstract}
+\section*{Abstract}\label{abstract}}
+\addcontentsline{toc}{section}{Abstract}
 
 This is a short summary.
 
-\hypertarget{references}{%
-\chapter*{References}\label{references}}
-\addcontentsline{toc}{chapter}{References}
-
 \hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}}
 
 Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) define reproducibility as the ability to gain the same results, from the same dataset.
 In contrast, they call a result replicable if one draws the same conclusion from a new dataset.
@@ -172,15 +173,22 @@ The use of machine learning techniques, once enabled by the computer taking over
 More massive amounts of more complicated computer code than ever create room for errors and misunderstandings.
 Yet, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone to reproduce even the most sophisticated analysis.
 
-Peikert \& Brandmaier (2020) put forth an analysis workflow which provides just this accessibility for everyone to reproduce any analysis.
+Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) put forth an analysis workflow which provides just this accessibility for everyone to reproduce any analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
 Setting up the workflow eats up a considerable chunk of the researchers time, which they may better spend at advancing research. This additional effort offsets the increasing productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may be automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.
 Providing an easier to use and more accessible version of the analysis workflow by Peikert \& Brandmaier (2020) is the goal of this thesis and the herein presented repro package for the R programming language.
 
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-claerboutElectronicDocumentsGive1992}{}%
-Claerbout, J. F., \& Karrenbach, M. (1992). Electronic documents give reproducible research a new meaning. \emph{SEG Technical Program Expanded Abstracts 1992}, 601--604. \url{https://doi.org/https://doi.org/10.1190/1.1822162}
+Claerbout, J. F., \& Karrenbach, M. (1992). Electronic documents give reproducible research a new meaning. \emph{SEG Technical Program Expanded Abstracts 1992}, 601--604. \url{https://doi.org/10.1190/1.1822162}
+
+\leavevmode\hypertarget{ref-peikertReproducibleDataAnalysis2019}{}%
+Peikert, A., \& Brandmaier, A. M. (2019). \emph{A Reproducible Data Analysis Workflow with R Markdown, Git, Make, and Docker} {[}Preprint{]}. PsyArXiv. \url{https://doi.org/10.31234/osf.io/8xzqy}
 
 \end{document}
