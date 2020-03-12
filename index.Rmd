@@ -11,7 +11,7 @@ link-citations: yes
 description: ""
 fontsize: 12pt
 linestretch: 1.5
-geometry: "left=2.5cm, right=2.5cm"
+geometry: "left=2.5cm, right=2cm"
 papersize: a4
 ---
 
@@ -19,9 +19,3 @@ papersize: a4
 
 This is a short summary.
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```
