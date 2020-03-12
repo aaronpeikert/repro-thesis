@@ -6,12 +6,9 @@ bookdown::gitbook:
         <li><a href="./">Master Thesis | Aaron Peikert</a></li>
     download: ["pdf", "epub"]
     github-repo: "aaronpeikert/repro-thesis"
+    view: https://github.com/aaronpeikert/repro-thesis/blob/master/%s
     edit: https://github.com/aaronpeikert/repro-thesis/edit/master/%s
-    sharing:
-      facebook: no
-      github: yes
-      twitter: no
-      linkedin: no
+    sharing: no
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
