@@ -36,7 +36,7 @@ It follows that something is no longer either reproducible or not, but there are
 Note, that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researches about the analyses method, being openly accessible and providing reusable components.
 
 This much more demanding standard of reproducibility may gain justification by two recent developments in the social sciences in general and psychology in particular: the emergence of a "replication crises" [@ioannidisWhyMostPublished2005] and the rise of "machine learning" [@jordanMachineLearningTrends2015] as a scientific tool.
-Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories [@gigerenzerNullRitualWhat2004, @meehlTheoreticalRisksTabular1978].
+Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories [@gigerenzerNullRitualWhat2004; @meehlTheoreticalRisksTabular1978].
 It turns out, if one fits the same statistical model as published on newly gathered data, one fails to achieve the same results as published more often than not [@opensciencecollaborationEstimatingReproducibilityPsychological2015].
 Such failure to replicate findings previously believed to be robust has amounted to a level some social scientists call a crisis.
 They put forth various causes and remedies to this crisis.
