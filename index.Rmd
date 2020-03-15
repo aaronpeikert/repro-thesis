@@ -14,8 +14,3 @@ linestretch: 1.5
 geometry: "left=2.5cm, right=2cm"
 papersize: a4
 ---
-
-# Abstract {-}
-
-This is a short summary.
-
