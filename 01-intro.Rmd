@@ -1,4 +1,4 @@
-# Introduction
+# Theorethical Considerations
 
 @claerboutElectronicDocumentsGive1992 define reproducibility as the ability to gain the same results, from the same dataset.
 In contrast, they call a result replicable if one draws the same conclusion from a new dataset.

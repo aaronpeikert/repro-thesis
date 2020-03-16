@@ -1,0 +1,44 @@
+# Workflow
+
+This section summarises the workflow proposed by @peikertReproducibleDataAnalysis2019 [see also @theturingwaycommunityTuringWayHandbook2019 for a very similar approach].
+Their workflow rests on five pillars:
+
+1. project management
+: a folder containing all files, referring to each other using relative paths
+
+2. literate programming
+: a central dynamic document, that relates code to thought
+
+3. version control
+: a system in place that manages revisions of all files
+
+4. dependency management
+: a formal description of how files relate to each other
+
+5. containerization
+: an exact specification of the computational environment
+
+They ensure that the relations, between thought, code and data along with their change over time and environment are understandable for humans and unambiguous for computers.
+The transparency for researchers, serves the metascientific, the automation through machines the practical arguments for reproducibility, as explained in the [Theorethical Considerations].
+
+> Happy families are all alike; every unhappy family is unhappy in its own way.
+>
+> --- Lew Nikolajewitsch Tolstoi
+
+I am convinced that an analysis is non-reproducible because it fails to fix one of the above relations (between: thought, code, data, change & environment); leading to a plethora of causes one may consider.
+But a reproducible one is always reproducible because it is understandable to other researchers, transferable across machines and conserved through time.
+The first goal, comprehensibility to the scientific community, is probably the most important, because, as I argued before, reproducibility is rendered useless without it.
+At the same time, it is the most difficult to achieve as it is a non-technical requirement, for which no set of rules may assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
+Transfer and conservation, on the other hand, are problems with technical solutions. @peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language [@R-base].
+
+[^writing]: @williamsStyleLessonsClarity2017 provides some excellent principles for writing clearly.
+
+[^clean]: @martinCleanCoderCode2011 proposes a coding paradigm that found widespread use because of its focus on understandability.
+
+## RMarkdown
+
+## Git
+
+## Make
+
+## Docker
