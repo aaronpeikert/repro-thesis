@@ -15,7 +15,7 @@ Beyond these two purely pragmatic reasons, reproduction is crucial, depending on
 Philosophers of Science characterise Science by a shared method of determining if a statement about the world is "true" [@andersonScientificMethod2016] or more broadly evaluating the statements verisimilitude [@popperCommentsTruthGrowth1962; @tichyVerisimilitudeRedefined1976; @gilbertModelBuildingDefinition1991; @meehlAppraisingAmendingTheories1990].
 If this method is for experts to agree on the assumptions and deduce some truth, reproducibility is hardly necessary.
 On the other hand, it gains importance if one induces facts by carefully observing the world. The decisive difference is that the former gains credibility through the authority of the experts, while the latter is trustworthy because anyone may verify it.
-Science should provide facts general enough to be theoretically verifiable by anyone is an argument deeply persuasive to me.
+That Science should provide facts general enough to be theoretically verifiable by anyone, is an argument deeply persuasive to me.
 Some have even argued that this democratisation of Science is what fueled the scientific revolution [@heilbronOxfordCompanionHistory2004, Scientific Revolution].
 The scientific revolution had the experiment as an agreed-upon method to observe the reality and a much later revolution provides statistical modelling [@rodgersEpistemologyMathematicalStatistical2010] as a means to induction.
 This consensus, about how to observe and how to induce, gives modern scientific enterprises much of its credibility.
