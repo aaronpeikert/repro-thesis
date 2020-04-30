@@ -14,7 +14,8 @@ At the same time, other researchers may benefit from reusing materials from an a
 Beyond these two purely pragmatic reasons, reproduction is crucial, depending on the philosophical view of Science one subscribes to, because it allows independent validation and enables replication.
 Philosophers of Science characterise Science by a shared method of determining if a statement about the world is "true" [@andersonScientificMethod2016] or more broadly evaluating the statements verisimilitude [@popperCommentsTruthGrowth1962; @tichyVerisimilitudeRedefined1976; @gilbertModelBuildingDefinition1991; @meehlAppraisingAmendingTheories1990].
 If this method is for experts to agree on the assumptions and deduce some truth, reproducibility is hardly necessary.
-On the other hand, it gains importance if one induces facts by carefully observing the world. The decisive difference is that the former gains credibility through the authority of the experts, while the latter is trustworthy because anyone may verify it.
+On the other hand, it gains importance if one induces facts by carefully observing the world.
+The decisive difference is that the former gains credibility through the authority of the experts, while the latter is trustworthy because anyone may verify it.
 That Science should provide facts general enough to be theoretically verifiable by anyone, is an argument deeply persuasive to me.
 Some have even argued that this democratisation of Science is what fueled the scientific revolution [@heilbronOxfordCompanionHistory2004, Scientific Revolution].
 The scientific revolution had the experiment as an agreed-upon method to observe the reality and a much later revolution provides statistical modelling [@rodgersEpistemologyMathematicalStatistical2010] as a means to induction.
@@ -34,6 +35,15 @@ With such a notion, the only valid cause of reproducibility is transparency.
 Because only if it is clear how the data relates to its results, both reproducibility and replication get promoted.
 It follows that something is no longer either reproducible or not, but there are shades, because a research product may promote replication to varying degrees.
 Note, that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researches about the analyses method, being openly accessible and providing reusable components.
+
+Hence reproducibility has a technical side, ensuring the same results, and a non-technical side, facilitating understanding.
+The former facilitates the practical advantages while the latter serves the metascientific purposes of reproducibility.
+An important caveat of the technical aspekt, is that generating the same results from the same data should be possible unregarding time and machine.
+Following a reproducibile analysis should be:
+
+1. understandable by other researcher
+2. transferable across machine
+3. conserved through time.
 
 This much more demanding standard of reproducibility may gain justification by two recent developments in the social sciences in general and psychology in particular: the emergence of a "replication crises" [@ioannidisWhyMostPublished2005] and the rise of "machine learning" [@jordanMachineLearningTrends2015] as a scientific tool.
 Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories [@gigerenzerNullRitualWhat2004; @meehlTheoreticalRisksTabular1978].
@@ -55,14 +65,15 @@ I argue that a research product resting on these pillars facilitates replication
 If everyone has access to a scientific product and its data along with the source code, leading them to understand the methodology and thus enabling them to criticise the result and educate themself, one is in the best position to replicate it.
 Hence, any one's ability to reproduce such result gives a tangible affirmation of its usefulness to the scientific community.
 
-Reproducibility is nothing special when anyone can perform the calculations needed with a pocket calculator; however, the more and more frequent use of computer-intensive methods renders such expectation questionable.
+However, reproducibility is nothing special when anyone can perform the calculations needed with a pocket calculator; however, the more and more frequent use of computer-intensive methods renders such expectation questionable.
 The use of machine learning techniques, once enabled by the computer taking over strenuous works, now impedes our quest for reproducibility. 
 More massive amounts of more complicated computer code than ever create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis [@hutsonArtificialIntelligenceFaces2018].
 Yet, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone to reproduce even the most sophisticated analysis.
 
 @peikertReproducibleDataAnalysis2019 put forth an analysis workflow which provides just this accessibility for everyone to reproduce any analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
-Setting up the workflow eats up a considerable chunk of the researchers time, which they may better spend at advancing research. This additional effort offsets the inrease in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
+Setting up the workflow eats up a considerable chunk of the researchers time, which they may better spend at advancing research.
+This additional effort offsets the increase in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may be automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.
 Providing an easier to use and more accessible version of the analysis workflow by @peikertReproducibleDataAnalysis2019 is the goal of this thesis and the herein presented `repro`-package for the R programming language [@R-repro].
