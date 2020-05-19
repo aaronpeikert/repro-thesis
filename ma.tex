@@ -37,6 +37,46 @@
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage[left=2.5cm, right=2cm]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
@@ -87,7 +127,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Automating reproducible research workflows}
 \author{Aaron Peikert}
-\date{2020-03-13}
+\date{2020-05-05}
 
 \begin{document}
 \maketitle
@@ -102,8 +142,8 @@
 
 This is a short summary.
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\hypertarget{theorethical-considerations}{%
+\section{Theorethical Considerations}\label{theorethical-considerations}}
 
 Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) define reproducibility as the ability to gain the same results, from the same dataset.
 In contrast, they call a result replicable if one draws the same conclusion from a new dataset.
@@ -119,8 +159,9 @@ At the same time, other researchers may benefit from reusing materials from an a
 Beyond these two purely pragmatic reasons, reproduction is crucial, depending on the philosophical view of Science one subscribes to, because it allows independent validation and enables replication.
 Philosophers of Science characterise Science by a shared method of determining if a statement about the world is ``true'' (Andersen \& Hepburn, \protect\hyperlink{ref-andersonScientificMethod2016}{2016}) or more broadly evaluating the statements verisimilitude (Gilbert, \protect\hyperlink{ref-gilbertModelBuildingDefinition1991}{1991}; Meehl, \protect\hyperlink{ref-meehlAppraisingAmendingTheories1990}{1990}; Popper, \protect\hyperlink{ref-popperCommentsTruthGrowth1962}{1962}; Tichỳ, \protect\hyperlink{ref-tichyVerisimilitudeRedefined1976}{1976}).
 If this method is for experts to agree on the assumptions and deduce some truth, reproducibility is hardly necessary.
-On the other hand, it gains importance if one induces facts by carefully observing the world. The decisive difference is that the former gains credibility through the authority of the experts, while the latter is trustworthy because anyone may verify it.
-Science should provide facts general enough to be theoretically verifiable by anyone is an argument deeply persuasive to me.
+On the other hand, it gains importance if one induces facts by carefully observing the world.
+The decisive difference is that the former gains credibility through the authority of the experts, while the latter is trustworthy because anyone may verify it.
+That Science should provide facts general enough to be theoretically verifiable by anyone, is an argument deeply persuasive to me.
 Some have even argued that this democratisation of Science is what fueled the scientific revolution (Heilbron, \protect\hyperlink{ref-heilbronOxfordCompanionHistory2004}{2004}, Scientific Revolution).
 The scientific revolution had the experiment as an agreed-upon method to observe the reality and a much later revolution provides statistical modelling (Rodgers, \protect\hyperlink{ref-rodgersEpistemologyMathematicalStatistical2010}{2010}) as a means to induction.
 This consensus, about how to observe and how to induce, gives modern scientific enterprises much of its credibility.
@@ -139,6 +180,22 @@ With such a notion, the only valid cause of reproducibility is transparency.
 Because only if it is clear how the data relates to its results, both reproducibility and replication get promoted.
 It follows that something is no longer either reproducible or not, but there are shades, because a research product may promote replication to varying degrees.
 Note, that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g.~by educating other researches about the analyses method, being openly accessible and providing reusable components.
+
+Hence reproducibility has a technical side, ensuring the same results, and a non-technical side, facilitating understanding.
+The former facilitates the practical advantages while the latter serves the metascientific purposes of reproducibility.
+An important caveat of the technical aspekt, is that generating the same results from the same data should be possible unregarding time and machine.
+Following a reproducibile analysis should be:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  understandable by other researcher
+\item
+  transferable across machine
+\item
+  conserved through time.
+\end{enumerate}
 
 This much more demanding standard of reproducibility may gain justification by two recent developments in the social sciences in general and psychology in particular: the emergence of a ``replication crises'' (Ioannidis, \protect\hyperlink{ref-ioannidisWhyMostPublished2005}{2005}) and the rise of ``machine learning'' (Jordan \& Mitchell, \protect\hyperlink{ref-jordanMachineLearningTrends2015}{2015}) as a scientific tool.
 Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories (Gigerenzer et al., \protect\hyperlink{ref-gigerenzerNullRitualWhat2004}{2004}; Meehl, \protect\hyperlink{ref-meehlTheoreticalRisksTabular1978}{1978}).
@@ -169,17 +226,232 @@ I argue that a research product resting on these pillars facilitates replication
 If everyone has access to a scientific product and its data along with the source code, leading them to understand the methodology and thus enabling them to criticise the result and educate themself, one is in the best position to replicate it.
 Hence, any one's ability to reproduce such result gives a tangible affirmation of its usefulness to the scientific community.
 
-Reproducibility is nothing special when anyone can perform the calculations needed with a pocket calculator; however, the more and more frequent use of computer-intensive methods renders such expectation questionable.
+However, reproducibility is nothing special when anyone can perform the calculations needed with a pocket calculator; however, the more and more frequent use of computer-intensive methods renders such expectation questionable.
 The use of machine learning techniques, once enabled by the computer taking over strenuous works, now impedes our quest for reproducibility.
 More massive amounts of more complicated computer code than ever create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis (Hutson, \protect\hyperlink{ref-hutsonArtificialIntelligenceFaces2018}{2018}).
 Yet, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone to reproduce even the most sophisticated analysis.
 
 Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) put forth an analysis workflow which provides just this accessibility for everyone to reproduce any analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
-Setting up the workflow eats up a considerable chunk of the researchers time, which they may better spend at advancing research. This additional effort offsets the inrease in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
+Setting up the workflow eats up a considerable chunk of the researchers time, which they may better spend at advancing research.
+This additional effort offsets the increase in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may be automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.
 Providing an easier to use and more accessible version of the analysis workflow by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) is the goal of this thesis and the herein presented \texttt{repro}-package for the R programming language (Peikert \& Brandmaier, \protect\hyperlink{ref-R-repro}{2020}).
+
+\hypertarget{technical-solutions}{%
+\section{Technical Solutions}\label{technical-solutions}}
+
+This section summarises the workflow proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}; see also The Turing Way Community et al., \protect\hyperlink{ref-theturingwaycommunityTuringWayHandbook2019}{2019} for a very similar approach).
+They argue that to ensure reproducibility, publically sharing code is not enough.
+Instead, reproducibility has to rest on five pillars:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \begin{description}
+  \tightlist
+  \item[file management]
+  a folder containing all files, referring to each other using relative paths
+  \end{description}
+\item
+  \begin{description}
+  \tightlist
+  \item[literate programming]
+  a central dynamic document, that relates code to thought
+  \end{description}
+\item
+  \begin{description}
+  \tightlist
+  \item[version control]
+  a system in place that manages revisions of all files over time
+  \end{description}
+\item
+  \begin{description}
+  \tightlist
+  \item[dependency management]
+  a formal description of how files relate to each other
+  \end{description}
+\item
+  \begin{description}
+  \tightlist
+  \item[containerization]
+  an exact specification of the computational environment
+  \end{description}
+\end{enumerate}
+
+These pillars specify the relations between thought, code and data along with their change over time and environment unambiguesly and hence meet all requirements of reproducibility:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  understandable by other researcher
+\item
+  transferable across machine
+\item
+  conserved through time
+\end{enumerate}
+
+While comprehensibility to the scientific community, is probably the more important goal, it is the most difficult to achieve.
+That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing\footnote{Williams (\protect\hyperlink{ref-williamsStyleLessonsClarity2017}{2017}) provides some excellent principles for writing clearly.} and clean code\footnote{Martin (\protect\hyperlink{ref-martinCleanCoderCode2011}{2011}) proposes a coding paradigm that found widespread use because of its focus on understandability.} certainly help).
+Transfer and conservation, on the other hand, are problems with technical solutions.
+Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language (R Core Team, \protect\hyperlink{ref-R-base}{2020}).
+However, they stress that any combination of tools is suitable as long as it facilitates the above pillars.
+
+\hypertarget{file-organisation}{%
+\subsection{File Organisation}\label{file-organisation}}
+
+There is only one primary guideline for organizing files: all files need to be moveable to another place. This implies two rules to follow:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Everything in one folder.
+\item
+  Every path relative to that folder.
+\end{enumerate}
+
+This simple concept of a ``project'' folder is facilitated by two R specific tools, \href{https://r4ds.had.co.nz/workflow-projects.html}{RStudio projects} and the \texttt{here} package (Müller, \protect\hyperlink{ref-R-here}{2017}).
+The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
+However, unlike the native R solution, it does so consistently across operating systems and across scripts and RMarkdowns.
+
+Using meaningful names and adhering to conventions help other people understand how files are organized.
+For example, the filename \texttt{R/reshape.R} follows both standard naming conventions (all lowercase, ends with .R, placed within the R directory) and is meaningful, while \texttt{myScripts/munge\_Data.r} is probably a lot harder to understand and remember for most R-users.
+
+\hypertarget{rmarkdown}{%
+\subsection{RMarkdown}\label{rmarkdown}}
+
+Even with the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
+Providing a direct link, RMarkdown allows interspersing text with code and its results producing a wide range of output formats\footnote{The document you are viewing also results from a collection of \href{https://github.com/aaronpeikert/repro-thesis}{RMarkdowns}.}.
+The key feature is that every time an RMarkdown is rerun, the results are reproduced dynamically.
+This functionality eliminates errors due to copying and pasting results from statistical software to a text processor, a mistake that may be all too common (Nuijten et al., \protect\hyperlink{ref-nuijtenPrevalenceStatisticalReporting2016}{2016} reports that 50\% of papers from the psychological sciences contain an error that may be prevented).
+
+In an RMarkdown three parts can be distinguished:
+
+\begin{itemize}
+\tightlist
+\item
+  one specifying its output,
+\item
+  one containing code and
+\item
+  one with descriptive text.
+\end{itemize}
+
+Each part uses its own language, all of them designed with ease of use and readability in mind.
+The section containing the output format and other metadata alongside is written in YAML (see the example below).
+This specification is located at the top and separated by three dashes at the beginning and end of the section.
+(R-)Code executing an analysis can be placed in a distinct chunk or inline within the text.
+The former has three backticks on their own line signifying beginning and end.
+The later is quoted in a pair single backticks.
+Examples of both methods can be found below.
+Text, which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language ``Markdown''.
+Markdown allows annotating text to signify formattings such as bold, italic, links and the inclusion of images.
+
+The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown (\href{https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd\#L15-L39}{adapted source code} from Xie et al. (\protect\hyperlink{ref-xieMarkdownDefinitiveGuide2019}{2019})/\href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{---}
+\FunctionTok{title:}\AttributeTok{ }\StringTok{"Hello R Markdown"}
+\FunctionTok{author:}\AttributeTok{ }\StringTok{"Awesome Me"}
+\FunctionTok{date:}\AttributeTok{ }\StringTok{"2018-02-14"}
+\FunctionTok{output:}\AttributeTok{ html_document}
+\OtherTok{---}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{This is a paragraph in an R Markdown document.}
+
+\NormalTok{Below is a code chunk:}
+
+\NormalTok{```\{r\}}
+\NormalTok{fit = lm(dist ~ speed, data = cars)}
+\NormalTok{b   = coef(fit)}
+\NormalTok{plot(cars)}
+\NormalTok{abline(fit)}
+\NormalTok{```}
+
+\NormalTok{The slope of the regression is }\BaseNTok{`r b[1]`}\NormalTok{.}
+\end{Highlighting}
+\end{Shaded}
+
+Resulting in this document:
+
+{[}fixme{]}
+
+\hypertarget{git}{%
+\subsection{Git}\label{git}}
+
+Text, code and results of a scientific document are refined in cycles of many revisions to accomodate highest standards.
+As changes accumulate, different versions do too, posing a problem for reproducibility as it may be difficult to find out which version of code relates to the final product.
+One may argue that in the typical publication process the final product is obvius: the published paper, so only one version is important.
+However, reproduction may be crucial even before publication as part of the peer review process.
+Also recent trends in the publication process like preprints, open review, registered reports and post publication review, blur the lines between published and unpublished.
+
+Git tracks versions of the project folder by making snapshots of a given state, called commits.
+Each commit has an unique id, called hash, a short description of the changes made, called commit message and a link to the previus commit.
+This creates a ``pedigree'' of versions where it is easy to see how things have evolved.
+Going back in time to a specific version only requires to know the hash of the commit.
+To mark commits as special milestones they can be tagged e.g.~as preregestration, preprint, submission or publication.
+
+While mastering Git requires some experience, most of the time only four commands are needed:
+
+\begin{description}
+\tightlist
+\item[git init]
+use git in the current directory
+\item[git add]
+take snapshot of the given file
+\item[git commit]
+create a commit of all added files
+\item[git push]
+upload recent commits to a server
+\item[git pull]
+download and integrate recent commits from server
+\end{description}
+
+While a few other commands are neccesary to set up Git in a given project directory, this work is done by the \texttt{repro}-package.
+
+\hypertarget{make}{%
+\subsection{Make}\label{make}}
+
+In an analysis the results depend on code which in turn depends on data.
+However, seldomly the data is analysed as is, but some code is dedicated to prepare it.
+Most likely each analysis needs a slightly different version of the data.
+An analysis of missingness requires the missings to be retained, but some statistical models do not allow it.
+Or the modelling software requires data to be differently shaped, then the plotting library.
+It is also often the case that one analysis is based on the output of another and so forth.
+As these relations can become quite complicated it is nessary to make them explicit to avoid confusion.
+Dependency management provides a formalism that descripes how files depend on other files.
+More specifically it provides an automated way to create files from other files, e.g.~it automatically generates a cleaned version of the data, by relying on a cleaning script and the raw data.
+Such relations may be layered; hence, if a plot requires this cleaned dataset, first the cleaned dataset and then the plot are generated automatically.
+Such structure allows to save considerable computing time, as dependencies are not generated again if they allready exist, but only when one of their dependencies have changed.
+Hence in the example, upon recreation of the plot, the cleaned dataset is not again generated as long as neither the cleaning script nor the raw data have changed.
+Such clever behavior is most usefull when the preprosessing requires a lot computing time as is typical in neuroimaging or machine learning.
+
+Make is a tool for dependency management, while originally designed for the compilation of programs, it is now increasingly recognized as a tool for reproducibility.
+It allows for all features above and more as it is a own programming language.
+However, the repro package provides a much simplified interface to the most important features, echewing the need to learn yet another language.
+
+\hypertarget{docker}{%
+\subsection{Docker}\label{docker}}
+
+Most computer code is not self-contained, but needs libraries and other software to work (e.g.~the R programming language or packages).
+This poses a risk for reproducibility because it may not be clear what besides the code and data is necessary and how to install it.
+Even when all needed software and their exact versions are recorded meticulously it may be a challange to install them.
+First, it is difficult to maintain different software versions on the same computer and second it may be unclear how to obtain an exact copy of some years old software version.
+Setting up a computer exactly as someonelses is difficult enough, but replicating some other computer how it was years ago is at best painstaking.
+
+To overcome this challange the software environment of a project needs to be separeted from the rest of the software environment. Technically such seperation is called virtualization, becouse one software environment is hosted on another. Such virtual envitonment allows each project to have its own software environment without interfeering wich each other. Hence such setup is ideal for conservation and can be easily recreated on another machine.
+
+Docker allows virtualization of the whole software stack down to the operating system, but in a much more lightweight way then traditional virtual machines. This lightweight but comprehensive virtualization is called containerization. Containers save storage by being based on each other enabling reuse. Hence if two containers are based e.g.~on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a simple specification called \texttt{Dockerfile}, that defines on wich container it should be based and what software should be installed within it.
+
+The \texttt{repro}-package automatically infers which packages are needed and creates an appropriate Dockerfiles and the container from it.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -225,6 +497,9 @@ Jordan, M. I., \& Mitchell, T. M. (2015). Machine learning: Trends, perspectives
 \leavevmode\hypertarget{ref-krakerCaseOpenScience2011}{}%
 Kraker, P., Leony, D., Reinhardt, W., Gü, N., \& Beham, nter. (2011). The case for an open science in technology enhanced learning. \emph{International Journal of Technology Enhanced Learning}, \emph{3}(6), 643. \url{https://doi.org/10.1504/IJTEL.2011.045454}
 
+\leavevmode\hypertarget{ref-martinCleanCoderCode2011}{}%
+Martin, R. C. (2011). \emph{The clean coder: A code of conduct for professional programmers / Robert C. Martin} (1. print.). Prentice Hall.
+
 \leavevmode\hypertarget{ref-maxwellPsychologySufferingReplication2015}{}%
 Maxwell, S. E., Lau, M. Y., \& Howard, G. S. (2015). Is psychology suffering from a replication crisis? What does ``failure to replicate'' really mean? \emph{American Psychologist}, \emph{70}(6), 487.
 
@@ -234,8 +509,14 @@ Meehl, P. E. (1990). Appraising and Amending Theories: The Strategy of Lakatosia
 \leavevmode\hypertarget{ref-meehlTheoreticalRisksTabular1978}{}%
 Meehl, P. E. (1978). Theoretical risks and tabular asterisks: Sir Karl, Sir Ronald, and the slow progress of soft psychology. \emph{Journal of Consulting and Clinical Psychology}, \emph{46}(4), 806--834. \url{https://doi.org/10.1037/0022-006X.46.4.806}
 
+\leavevmode\hypertarget{ref-R-here}{}%
+Müller, K. (2017). \emph{Here: A simpler way to find your files}. \url{https://CRAN.R-project.org/package=here}
+
 \leavevmode\hypertarget{ref-nosekPreregistrationRevolution2018}{}%
 Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution. \emph{Proceedings of the National Academy of Sciences}, \emph{115}(11), 2600--2606. \url{https://doi.org/10.1073/pnas.1708274114}
+
+\leavevmode\hypertarget{ref-nuijtenPrevalenceStatisticalReporting2016}{}%
+Nuijten, M. B., Hartgerink, C. H. J., van Assen, M. A. L. M., Epskamp, S., \& Wicherts, J. M. (2016). The prevalence of statistical reporting errors in psychology (1985--2013). \emph{Behavior Research Methods}, \emph{48}(4), 1205--1226. \url{https://doi.org/10.3758/s13428-015-0664-2}
 
 \leavevmode\hypertarget{ref-opensciencecollaborationEstimatingReproducibilityPsychological2015}{}%
 Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. \emph{Science}, \emph{349}(6251), aac4716--aac4716. \url{https://doi.org/10.1126/science.aac4716}
@@ -249,10 +530,22 @@ Peikert, A., \& Brandmaier, A. M. (2019). \emph{A Reproducible Data Analysis Wor
 \leavevmode\hypertarget{ref-popperCommentsTruthGrowth1962}{}%
 Popper, K. R. (1962). Some comments on truth and the growth of knowledge. In E. Nagel, P. Suppes, \& A. Tarski (Eds.), \emph{Logic, Methodology and Philosophy of Science Proceedings of the 1960 International Congress} (Vol. 155). Stanford University Press.
 
+\leavevmode\hypertarget{ref-R-base}{}%
+R Core Team. (2020). \emph{R: A language and environment for statistical computing}. R Foundation for Statistical Computing. \url{https://www.R-project.org/}
+
 \leavevmode\hypertarget{ref-rodgersEpistemologyMathematicalStatistical2010}{}%
 Rodgers, J. L. (2010). The epistemology of mathematical and statistical modeling: A quiet methodological revolution. \emph{American Psychologist}, \emph{65}(1), 1--12. \url{https://doi.org/10.1037/a0018326}
 
+\leavevmode\hypertarget{ref-theturingwaycommunityTuringWayHandbook2019}{}%
+The Turing Way Community, Arnold, B., Bowler, L., Gibson, S., Herterich, P., Higman, R., Krystalli, A., Morley, A., O'Reilly, M., \& Whitaker, K. (2019). \emph{The Turing Way: A Handbook for Reproducible Data Science}. \url{https://doi.org/10.5281/zenodo.3233986}
+
 \leavevmode\hypertarget{ref-tichyVerisimilitudeRedefined1976}{}%
 Tichỳ, P. (1976). Verisimilitude redefined. \emph{The British Journal for the Philosophy of Science}, \emph{27}(1), 25--42.
+
+\leavevmode\hypertarget{ref-williamsStyleLessonsClarity2017}{}%
+Williams, J. M. (2017). \emph{Style: Lessons in clarity and grace} (Twelfth Edition). Pearson.
+
+\leavevmode\hypertarget{ref-xieMarkdownDefinitiveGuide2019}{}%
+Xie, Y., Allaire, J. J., \& Grolemund, G. (2019). \emph{R Markdown: The definitive guide}.
 
 \end{document}
