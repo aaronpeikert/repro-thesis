@@ -1,16 +1,17 @@
-# Workflow
+# Technical Solutions
 
 This section summarises the workflow proposed by @peikertReproducibleDataAnalysis2019 [see also @theturingwaycommunityTuringWayHandbook2019 for a very similar approach].
-Their workflow rests on five pillars:
+They argue that to ensure reproducibility, publically sharing code is not enough.
+Instead, reproducibility has to rest on five pillars:
 
-1. project management
+1. file management
 : a folder containing all files, referring to each other using relative paths
 
 2. literate programming
 : a central dynamic document, that relates code to thought
 
 3. version control
-: a system in place that manages revisions of all files
+: a system in place that manages revisions of all files over time
 
 4. dependency management
 : a formal description of how files relate to each other
@@ -18,27 +19,177 @@ Their workflow rests on five pillars:
 5. containerization
 : an exact specification of the computational environment
 
-They ensure that the relations, between thought, code and data along with their change over time and environment are understandable for humans and unambiguous for computers.
-The transparency for researchers, serves the metascientific, the automation through machines the practical arguments for reproducibility, as explained in the [Theorethical Considerations].
+These pillars stipulate the relations between thought, code and data with their change over time and environment and hence meet all requirements of reproducibility:
 
-> Happy families are all alike; every unhappy family is unhappy in its own way.
->
-> --- Lew Nikolajewitsch Tolstoi
+1. understandable by other researchers
+2. transferable across machines
+3. conserved through time
 
-I am convinced that an analysis is non-reproducible because it fails to fix one of the above relations (between: thought, code, data, change & environment); leading to a plethora of causes one may consider.
-But a reproducible one is always reproducible because it is understandable to other researchers, transferable across machines and conserved through time.
-The first goal, comprehensibility to the scientific community, is probably the most important, because, as I argued before, reproducibility is rendered useless without it.
-At the same time, it is the most difficult to achieve as it is a non-technical requirement, for which no set of rules may assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
-Transfer and conservation, on the other hand, are problems with technical solutions. @peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language [@R-base].
+While comprehensibility to the scientific community, is probably the most crucial goal, it is the most difficult to achieve.
+That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
+Transfer and conservation, on the other hand, are problems with technical solutions.
+@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language [@R-base].
+However, they stress that any combination of tools is suitable as long as it facilitates the above pillars.
 
 [^writing]: @williamsStyleLessonsClarity2017 provides some excellent principles for writing clearly.
 
 [^clean]: @martinCleanCoderCode2011 proposes a coding paradigm that found widespread use because of its focus on understandability.
 
-## RMarkdown
+<!--
+fixme
+change structure of the next sections to:
+1. problem description
+2. general solution
+2. concrete implementation
+3. how does repro help
+-->
 
-## Git
+## File Organisation
 
-## Make
+File organization has to meet two challenges, first, the structure needs to be understandable by others, and second, it needs to be self-contained, so it can be moved to another machine.
 
-## Docker
+Adhering to conventions help other people understand how files are organized.
+For example, the filename `R/reshape.R` follows both standard naming conventions (all lowercase, ends with .R, placed within the R directory) and is meaningful. Contrarily, `myScripts/munge_Data.r` is probably a lot harder to understand and remember for most R-users.
+
+Following two guidelines makes the file structure self-contained:
+
+1. Everything in one folder.
+2. Every path must be relative to that folder.
+
+This simple concept of a self-contained folder is facilitated by two R specific tools, [RStudio projects](https://r4ds.had.co.nz/workflow-projects.html) and the `here` package [@R-here].
+The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
+However, unlike the native R solution, it does so consistently across operating systems and scripts and RMarkdowns.
+
+The `repro` package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
+
+## Dynamic Document Generation
+
+Even with the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
+Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing a wide range of output formats[^markdown].
+The key feature is that every time such a document is rerun, the results are reproduced dynamically.
+This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common [@nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain an error that may be prevented].
+
+In an RMarkdown, three parts can be distinguished:
+
+* one specifying its output and metadata,
+* one containing code, and
+* one with descriptive text.
+
+Each part uses its own language, all of them designed with ease of use and readability in mind.
+The section containing the output format and other metadata alongside is written in YAML (see the example below).
+This specification is located at the top, separated by three dashes at the beginning and end of the section.
+(R-)Code executing an analysis can be placed in a distinct chunk or inline within the text.
+The former has three backticks on their own line signifying beginning and end.
+The later is quoted in a pair single backticks. 
+Examples of both methods can be found below.
+Text, which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language "Markdown".
+Markdown allows annotating text to signify formattings such as bold, italic, links and the inclusion of images.
+
+The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown ([adapted source code](https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd#L15-L39) from @xieMarkdownDefinitiveGuide2019/[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)):
+
+[^markdown]: The document you are viewing also results from a collection of [RMarkdowns](https://github.com/aaronpeikert/repro-thesis) availible as [website](https://aaronpeikert.github.io/repro-thesis/), [PDF](https://aaronpeikert.github.io/repro-thesis/ma.pdf) and [E-book](https://aaronpeikert.github.io/repro-thesis/ma.epub)
+
+```{r include=FALSE}
+b = '`r b[1]`'  # an ugly hack; don't look at me
+```
+```yaml
+---
+title: "Hello R Markdown"
+author: "Awesome Me"
+date: "2018-02-14"
+output: html_document
+---
+```
+````markdown
+This is a paragraph in an R Markdown document.
+
+Below is a code chunk:
+
+`r ''````{r}
+fit = lm(dist ~ speed, data = cars)
+b   = coef(fit)
+plot(cars)
+abline(fit)
+```
+
+The slope of the regression is `r b[1]`.
+````
+
+Resulting in this document:
+
+[fixme]
+
+The `repro` package extends the yaml metadata to incorporate [Dependency Management] and [Containarization] into the process of dynamic document creation.
+
+
+## Version Control
+
+Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
+As changes accumulate, different versions do too, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
+One may argue that in the typical publication process, the final product is obvious: the published paper, so only one version is important.
+However, reproducibility may be crucial even before publication as part of the peer-review process.
+Also, recent trends in the publication process like preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
+
+To organize different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
+This challenge is met by a high degree of automation that keeps track of different versions and has advanced facilities to compare and merge them.
+
+One such version control software is Git. Git tracks versions of the project folder by taking snapshots of a given state called commits.
+Each commit has a unique id, called a hash, a short description of the changes made, called commit message and a link to the previous commit.
+This linking creates a "pedigree" of versions where it is easy to see how things have evolved.
+Going back in time to a specific version only requires to know the hash of the commit. 
+To mark commits as special milestones, they can be tagged, e.g. as preregistration, preprint, submission or publication.
+
+While mastering Git requires some experience, most of the time, only four commands are needed:
+
+git init
+: use Git in the current directory
+
+git add
+: take a snapshot of the given file
+
+git commit
+: create a commit of all added files
+
+git push
+: upload recent commits to a server
+
+git pull
+: download and integrate recent commits from the server
+
+While a few other commands are necessary to set up Git in a given project directory, this work is done by the `repro`-package.
+
+## Dependency Management
+
+In an analysis, the results depend on code which in turn depends on data.
+However, seldomly the data is analyzed as is, but some code is dedicated to preparing it.
+Most likely, each analysis needs a slightly different version of the data.
+An analysis of missingness requires the missings to be retained, but some statistical models do not allow it.
+Or the modelling software requires data to be differently shaped, then the plotting library.
+It is also often the case that one analysis is based on the output of another and so forth.
+As these relations can become quite complicated, it is necessary to make them explicit to avoid confusion.
+Dependency management provides a formalism that describes how files depend on other files.
+More specifically, it provides an automated way to create files from other files, e.g. it automatically generates a cleaned version of the data, by relying on a cleaning script and the raw data.
+Such relations may be layered; hence, if a plot requires this cleaned dataset, first the cleaned dataset and then the plot is generated automatically.
+Such structure allows saving considerable computing time, as dependencies are not generated again if they already exist, but only when one of their dependencies have changed.
+In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
+Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.
+
+Make is a tool for dependency management, while originally designed for the compilation of programs, it is now increasingly recognized as a tool for reproducibility.
+It allows for all features above and more as it is an own programming language.
+
+However, the repro package provides a much-simplified interface to the essential features, eschewing the need to learn yet another language.
+
+
+## Containarization
+
+Most computer code is not self-contained but needs libraries and other software to work (e.g. the R programming language or packages).
+These external dependencies pose a risk for reproducibility because it may not be clear what besides the code and data is necessary and how to install it.
+Even when all needed software and their exact versions are recorded meticulously, it may be a challenge to install them.
+First, it is difficult to maintain different software versions on the same computer and second it may be unclear how to obtain an exact copy of some years old software version.
+Setting up a computer exactly as someone else is difficult enough, but replicating some other computer how it was years ago is at best painstaking.
+
+To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualization because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can be easily recreated on another machine.
+
+Docker allows virtualization of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualization is called containerization. Containers save storage by being based on each other enabling reuse. Hence if two containers are based, e.g. on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called `Dockerfile`, that defines on which container it should be based and what software should be installed within it.
+
+The `repro`-package automatically infers which packages are needed and creates an appropriate Dockerfiles and the container from it.
