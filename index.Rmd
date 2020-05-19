@@ -14,3 +14,50 @@ linestretch: 1.5
 geometry: "left=2.5cm, right=2cm"
 papersize: a4
 ---
+
+<!-- general structure
+
+Theorethical Considerations
+ - practical and metascientific reasons for reproducibility
+ - extend definition
+ - conclude requirements
+ - replication crisis and machine learning as recent developments
+ - Peikert & Brandmaier as possible remedy, but impractical
+ - Solution: automation
+
+Technical Solutions
+- five pillars + high level summary
+ - technical vs. non-technical
+ - list of technical solutions
+    - file organisation
+    - literate programming/dynamic document creation
+    - version control
+    - dependency management
+    - virtual environments
+    with schema
+      - problem description
+      - general solution
+      - concrete implementation
+      - how does repro help
+
+Workflow
+vignette styled: from preregistration to post publication review
+ - create file structure from template
+ - initialite git/github
+ - add preregistration.Rmd
+ - add data
+    - checksum mechanism
+ - add preprocessing.Rmd
+ - add codebook for data
+ - use docker for preprocessing.Rmd
+ - factor out data cleaning pipeline
+ - turn into make pipeline
+ - add analysis.R
+ - add manuscript.Rmd
+ - publish manuscript.pdf on github.com as preprint
+ - archive docker image
+ - show how issues may be used in peer-review
+    - to track changes in manuscript.Rmd
+ - publish manuscript.pdf
+ - show pull requests for post publication
+-->
