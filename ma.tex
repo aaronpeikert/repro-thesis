@@ -142,11 +142,11 @@
 
 This is a short summary.
 
-\hypertarget{theorethical-considerations}{%
-\section{Theorethical Considerations}\label{theorethical-considerations}}
+\hypertarget{theoretical-considerations}{%
+\section{Theoretical Considerations}\label{theoretical-considerations}}
 
 Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) define reproducibility as the ability to gain the same results, from the same dataset.
-Conversly, they call a result replicable if one draws the same conclusion from a new dataset.
+Conversely, they call a result replicable if one draws the same conclusion from a new dataset.
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.
 The scientific community agrees that their work should be ideally reproducible.
 Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many feel it is ``good scientific practice'' to ensure it is (``Reducing our irreproducibility,'' \protect\hyperlink{ref-AnnouncementReducingOur2013}{2013}; Deutsche Forschungsgemeinschaft, \protect\hyperlink{ref-dfg2019}{2019}; Epskamp, \protect\hyperlink{ref-epskamp2019rep}{2019}).
@@ -161,46 +161,47 @@ Philosophers of Science characterise Science by a shared method of determining i
 If this method is for experts to agree on the assumptions and deduce some truth, reproducibility is hardly necessary.
 On the other hand, it gains importance if one induces facts by carefully observing the world.
 The decisive difference is that the former gains credibility through the authority of the experts, while the latter is trustworthy because anyone may verify it.
-Accepting induction as a scientic method hence hinges on the verfiablitiy by others.
+Accepting induction as a scientific method hence hinges on the verifiability by others.
 Some have even argued that such democratisation of Science is what fueled the scientific revolution (Heilbron, \protect\hyperlink{ref-heilbronOxfordCompanionHistory2004}{2004}, Scientific Revolution).
 The scientific revolution had the experiment as an agreed-upon method to observe the reality and a much later revolution provides statistical modelling (Rodgers, \protect\hyperlink{ref-rodgersEpistemologyMathematicalStatistical2010}{2010}) as a means to induction.
 This consensus, about how to observe and how to induce, gives modern scientific enterprises much of its credibility.
-Two reasons justify why we must assume reproducibility as a scientific standard, if we accept induction as a scientific method:
+Two reasons justify why we must assume reproducibility as a scientific standard if we accept induction as a scientific method:
 First, it enables independent verification of the process of induction, and second, it dramatically simplifies replication as a means to verify the induced truths.
 
-However, neither the practical reasons that results may be less error-prone and more reusable nor the meta-scientific grounds that the process of induction and the induced facts are more straightforward to verify, if reproducible, follow strictly from Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992})'s definition on reproducibility given above.
+However, neither the practical reasons that results may be less error-prone and more reusable nor the meta-scientific grounds that the process of induction and the induced facts are more straightforward to verify, if reproducible, follow strictly from the definition on reproducibility provided by Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) given above.
+A simple thought experiment illustrates this shortcoming.
 Imagine a binary program that is perfectly reproducible; hence upon input of the same dataset, it fills a scientific manuscript with the same numbers at the right places. Furthermore, assume this hypothetical program may never hold if the data changes.
-Does the predicate ``reproducible'' here reduce the number of mistakes or enables reuse? Unlikely.
+Does the predicate ``reproducible'' in situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
 This admittedly constructed case of a reproducible black box shows us: we are not interested in reproducibility, we are interested in its side effects.
 
 Spoiling its elegant simplicity, I change the definition by Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) to address this issue, by further demanding that reproducibility must facilitate replication.
 Hence, I would call a result only then reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to do so.
 With such a notion, the only valid cause of reproducibility is transparency.
-Because only if it is clear how the data relates to its results, both reproducibility and replication get promoted.
+Only if it is clear how the data relates to its results, both reproducibility and replication get promoted.
 It follows that something is no longer either reproducible or not, but there are shades, because a research product may promote replication to varying degrees.
 Note, that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g.~by educating other researches about the analyses method, being openly accessible and providing reusable components.
 
 Hence reproducibility has a technical side, ensuring the same results, and a non-technical side, facilitating understanding.
-The former facilitates the practical advantages while the latter serves the metascientific purposes of reproducibility.
-An important caveat of the technical aspekt, is that generating the same results from the same data should be possible unregarding time and machine.
-Following a reproducibile analysis should be:
+The former relates to the practical advantages while the latter serves the metascientific purposes of reproducibility.
+An important caveat of the technical aspect is that generating the same results from the same data should be possible regardless of time and machine.
+Following a reproducible analysis should be:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  understandable by other researcher
+  understandable by other researchers
 \item
-  transferable across machine
+  transferable across machines
 \item
   conserved through time.
 \end{enumerate}
 
-This much more demanding standard of reproducibility may gain justification by two recent developments in the social sciences in general and psychology in particular: the emergence of a ``replication crises'' (Ioannidis, \protect\hyperlink{ref-ioannidisWhyMostPublished2005}{2005}) and the rise of ``machine learning'' (Jordan \& Mitchell, \protect\hyperlink{ref-jordanMachineLearningTrends2015}{2015}) as a scientific tool.
+This much more demanding standard of reproducibility gains justification by two recent developments in the social sciences in general and psychology in particular: the emergence of a ``replication crises'' (Ioannidis, \protect\hyperlink{ref-ioannidisWhyMostPublished2005}{2005}) and the rise of ``machine learning'' (Jordan \& Mitchell, \protect\hyperlink{ref-jordanMachineLearningTrends2015}{2015}) as a scientific tool.
 Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories (Gigerenzer et al., \protect\hyperlink{ref-gigerenzerNullRitualWhat2004}{2004}; Meehl, \protect\hyperlink{ref-meehlTheoreticalRisksTabular1978}{1978}).
 It turns out, if one fits the same statistical model as published on newly gathered data, one fails to achieve the same results as published more often than not (Open Science Collaboration, \protect\hyperlink{ref-opensciencecollaborationEstimatingReproducibilityPsychological2015}{2015}).
-Such failure to replicate findings previously believed to be robust has amounted to a level some social scientists call a crisis.
+Such failure to replicate findings previously believed to be robust has amounted to a level some social scientists term a crisis.
 They put forth various causes and remedies to this crisis.
 Most remedies share a common theme: transparency.
 Some call for Bayesian statistics (Maxwell et al., \protect\hyperlink{ref-maxwellPsychologySufferingReplication2015}{2015}), as it makes assumptions more explicit, or demand preregistration (Nosek et al., \protect\hyperlink{ref-nosekPreregistrationRevolution2018}{2018}) as a means to clarify how to analyse the data, beforehand and publicly, others require the researchers to publish their data (Boulton et al., \protect\hyperlink{ref-boultonScienceOpenEnterprise2012}{2012}).
@@ -222,18 +223,18 @@ Similar calls for transparency, as a response to the replication crises, have fo
   Open Educational Resources
 \end{itemize}
 
-I argue that a research product resting on these pillars facilitates replication the most and hence satisfies the highest standard of reproducibility.
+I argue that a research product resting on these pillars optimally facilitates replication and hence satisfies the highest standard of reproducibility.
 If everyone has access to a scientific product and its data along with the source code, leading them to understand the methodology and thus enabling them to criticise the result and educate themself, one is in the best position to replicate it.
 Hence, any one's ability to reproduce such result gives a tangible affirmation of its usefulness to the scientific community.
 
-However, reproducibility is nothing special when anyone can perform the calculations needed with a pocket calculator; however, the more and more frequent use of computer-intensive methods renders such expectation questionable.
+However, reproducibility is no hurdle when anyone can perform the calculations needed with a pocket calculator; however, the more and more frequent use of computer-intensive methods renders such expectation questionable.
 The use of machine learning techniques, once enabled by the computer taking over strenuous works, now impedes our quest for reproducibility.
-More massive amounts of more complicated computer code than ever create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis (Hutson, \protect\hyperlink{ref-hutsonArtificialIntelligenceFaces2018}{2018}).
+More massive amounts of more complicated computer code than ever create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis themselves (Hutson, \protect\hyperlink{ref-hutsonArtificialIntelligenceFaces2018}{2018}).
 Yet, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone to reproduce even the most sophisticated analysis.
 
-Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) put forth an analysis workflow which provides just this accessibility for everyone to reproduce any analysis.
+Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) put forth an analysis workflow which provides this accessibility for everyone to reproduce any analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
-Setting up the workflow eats up a considerable chunk of the researchers time, which they may better spend at advancing research.
+Setting up the workflow eats up a considerable amount of the researcher's time, which they may better spend at advancing research.
 This additional effort offsets the increase in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may be automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.
@@ -280,17 +281,17 @@ Instead, reproducibility has to rest on five pillars:
   \end{description}
 \end{enumerate}
 
-These pillars stipulate the relations between thought, code and data with their change over time and environment and hence meet all requirements of reproducibility:
+These pillars stipulate the relations between thought, code and data with their change over time and environment and hence reach all requirements of reproducibility through being:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  understandable by other researchers
+  understandable to other researchers,
 \item
-  transferable across machines
+  transferable across machines,
 \item
-  conserved through time
+  conserved through time.
 \end{enumerate}
 
 While comprehensibility to the scientific community, is probably the most crucial goal, it is the most difficult to achieve.
@@ -299,10 +300,12 @@ Transfer and conservation, on the other hand, are problems with technical soluti
 Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language (R Core Team, \protect\hyperlink{ref-R-base}{2020}).
 However, they stress that any combination of tools is suitable as long as it facilitates the above pillars.
 
+Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package \texttt{repro}. The relation of these tools with \texttt{repro} is then expanded in the next chapter.
+
 \hypertarget{file-organisation}{%
 \subsection{File Organisation}\label{file-organisation}}
 
-File organization has to meet two challenges, first, the structure needs to be understandable by others, and second, it needs to be self-contained, so it can be moved to another machine.
+File organization has to meet two challenges. First, the structure needs to be understandable by others, and second, it needs to be self-contained so that it can be moved to another machine.
 
 Adhering to conventions help other people understand how files are organized.
 For example, the filename \texttt{R/reshape.R} follows both standard naming conventions (all lowercase, ends with .R, placed within the R directory) and is meaningful. Contrarily, \texttt{myScripts/munge\_Data.r} is probably a lot harder to understand and remember for most R-users.
@@ -313,26 +316,26 @@ Following two guidelines makes the file structure self-contained:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Everything in one folder.
+  Everything is in one folder.
 \item
-  Every path must be relative to that folder.
+  Every path is relative to that folder.
 \end{enumerate}
 
 This simple concept of a self-contained folder is facilitated by two R specific tools, \href{https://r4ds.had.co.nz/workflow-projects.html}{RStudio projects} and the \texttt{here} package (Müller, \protect\hyperlink{ref-R-here}{2017}).
 The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
-However, unlike the native R solution, it does so consistently across operating systems and scripts and RMarkdowns.
+However, unlike the native R solution, this inference is consistent across operating systems and scripts and RMarkdowns.
 
 The \texttt{repro} package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
 
 \hypertarget{dynamic-document-generation}{%
 \subsection{Dynamic Document Generation}\label{dynamic-document-generation}}
 
-Even with the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
-Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing a wide range of output formats\footnote{The document you are viewing also results from a collection of \href{https://github.com/aaronpeikert/repro-thesis}{RMarkdowns} availible as \href{https://aaronpeikert.github.io/repro-thesis/}{website}, \href{https://aaronpeikert.github.io/repro-thesis/ma.pdf}{PDF} and \href{https://aaronpeikert.github.io/repro-thesis/ma.epub}{E-book}}.
+Even when following the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
+Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
-This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common (Nuijten et al., \protect\hyperlink{ref-nuijtenPrevalenceStatisticalReporting2016}{2016} reports that 50\% of papers from the psychological sciences contain an error that may be prevented).
+This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common; Nuijten et al. (\protect\hyperlink{ref-nuijtenPrevalenceStatisticalReporting2016}{2016}) reports that 50\% of papers from the psychological sciences contain an error that may be prevented.
 
-In an RMarkdown, three parts can be distinguished:
+RMarkdown does provide a convenient framework to write such dynamic documents and render them as a wide range of output formats\footnote{The document you are viewing also results from a collection of \href{https://github.com/aaronpeikert/repro-thesis}{RMarkdowns} availible as \href{https://aaronpeikert.github.io/repro-thesis/}{website}, \href{https://aaronpeikert.github.io/repro-thesis/ma.pdf}{PDF} and \href{https://aaronpeikert.github.io/repro-thesis/ma.epub}{E-book}}. In an RMarkdown, three parts can be distinguished:
 
 \begin{itemize}
 \tightlist
@@ -360,9 +363,9 @@ The following section shows examples of metadata, code and text, specified as ab
 \begin{Highlighting}[]
 \OtherTok{---}
 \FunctionTok{title:}\AttributeTok{ }\StringTok{"Hello R Markdown"}
-\FunctionTok{author:}\AttributeTok{ }\StringTok{"Awesome Me"}
-\FunctionTok{date:}\AttributeTok{ }\StringTok{"2018-02-14"}
-\FunctionTok{output:}\AttributeTok{ html_document}
+\FunctionTok{author:}\AttributeTok{ }\StringTok{"Ross Ihaka & Robert Gentleman"}
+\FunctionTok{date:}\AttributeTok{ }\StringTok{"1997-04-23"}
+\FunctionTok{output:}\AttributeTok{ pdf_document}
 \OtherTok{---}
 \end{Highlighting}
 \end{Shaded}
@@ -395,7 +398,7 @@ The \texttt{repro} package extends the yaml metadata to incorporate \protect\hyp
 
 Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
 As changes accumulate, different versions do too, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
-One may argue that in the typical publication process, the final product is obvious: the published paper, so only one version is important.
+One may argue that in the typical publication process, the final product is apparent: the published paper, so only one version is relevant.
 However, reproducibility may be crucial even before publication as part of the peer-review process.
 Also, recent trends in the publication process like preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
 
@@ -408,12 +411,10 @@ This linking creates a ``pedigree'' of versions where it is easy to see how thin
 Going back in time to a specific version only requires to know the hash of the commit.
 To mark commits as special milestones, they can be tagged, e.g.~as preregistration, preprint, submission or publication.
 
-While mastering Git requires some experience, most of the time, only four commands are needed:
+While mastering Git requires some experience, most of the time, only four commands are needed, which may be accessed through RStudio's Git interface:
 
 \begin{description}
 \tightlist
-\item[git init]
-use Git in the current directory
 \item[git add]
 take a snapshot of the given file
 \item[git commit]
@@ -432,14 +433,14 @@ While a few other commands are necessary to set up Git in a given project direct
 In an analysis, the results depend on code which in turn depends on data.
 However, seldomly the data is analyzed as is, but some code is dedicated to preparing it.
 Most likely, each analysis needs a slightly different version of the data.
-An analysis of missingness requires the missings to be retained, but some statistical models do not allow it.
+An analysis of missingness requires the missings to be retained, but some statistical models do not allow that.
 Or the modelling software requires data to be differently shaped, then the plotting library.
 It is also often the case that one analysis is based on the output of another and so forth.
 As these relations can become quite complicated, it is necessary to make them explicit to avoid confusion.
 Dependency management provides a formalism that describes how files depend on other files.
 More specifically, it provides an automated way to create files from other files, e.g.~it automatically generates a cleaned version of the data, by relying on a cleaning script and the raw data.
 Such relations may be layered; hence, if a plot requires this cleaned dataset, first the cleaned dataset and then the plot is generated automatically.
-Such structure allows saving considerable computing time, as dependencies are not generated again if they already exist, but only when one of their dependencies have changed.
+Such structure allows saving considerable computing time, as dependencies are not generated again if they already exist, but only if one of their dependencies has changed.
 In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.
 
