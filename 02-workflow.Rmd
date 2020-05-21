@@ -35,20 +35,11 @@ However, they stress that any combination of tools is suitable as long as it fac
 
 [^clean]: @martinCleanCoderCode2011 proposes a coding paradigm that found widespread use because of its focus on understandability.
 
-Each of the following sections first raises a challange for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package `repro`. The relation of these tools with `repro` is then expanded in the next chapter.
-
-<!--
-fixme
-change structure of the next sections to:
-1. problem description
-2. general solution
-2. concrete implementation
-3. how does repro help
--->
+Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package `repro`. The relation of these tools with `repro` is then expanded in the next chapter.
 
 ## File Organisation
 
-File organization has to meet two challenges, first, the structure needs to be understandable by others, and second, it needs to be self-contained, so it can be moved to another machine.
+File organization has to meet two challenges. First, the structure needs to be understandable by others, and second, it needs to be self-contained so that it can be moved to another machine.
 
 Adhering to conventions help other people understand how files are organized.
 For example, the filename `R/reshape.R` follows both standard naming conventions (all lowercase, ends with .R, placed within the R directory) and is meaningful. Contrarily, `myScripts/munge_Data.r` is probably a lot harder to understand and remember for most R-users.
@@ -60,18 +51,18 @@ Following two guidelines makes the file structure self-contained:
 
 This simple concept of a self-contained folder is facilitated by two R specific tools, [RStudio projects](https://r4ds.had.co.nz/workflow-projects.html) and the `here` package [@R-here].
 The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
-However, unlike the native R solution, this inference is consistently across operating systems and scripts and RMarkdowns.
+However, unlike the native R solution, this inference is consistent across operating systems and scripts and RMarkdowns.
 
 The `repro` package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
 
 ## Dynamic Document Generation
 
-Even when follwoing the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
-Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human readable document.
+Even when following the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
+Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
 This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common; @nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain an error that may be prevented.
 
-RMarkdown does provide a convinient framework to write such dynamic documents and render them as wide range of output formats[^markdown]. In an RMarkdown, three parts can be distinguished:
+RMarkdown does provide a convenient framework to write such dynamic documents and render them as a wide range of output formats[^markdown]. In an RMarkdown, three parts can be distinguished:
 
 * one specifying its output and metadata,
 * one containing code, and
@@ -128,7 +119,7 @@ The `repro` package extends the yaml metadata to incorporate [Dependency Managem
 
 Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
 As changes accumulate, different versions do too, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
-One may argue that in the typical publication process, the final product is obvious: the published paper, so only one version is important.
+One may argue that in the typical publication process, the final product is apparent: the published paper, so only one version is relevant.
 However, reproducibility may be crucial even before publication as part of the peer-review process.
 Also, recent trends in the publication process like preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
 
