@@ -19,11 +19,11 @@ Instead, reproducibility has to rest on five pillars:
 5. containerization
 : an exact specification of the computational environment
 
-These pillars stipulate the relations between thought, code and data with their change over time and environment and hence meet all requirements of reproducibility:
+These pillars stipulate the relations between thought, code and data with their change over time and environment and hence reach all requirements of reproducibility through being:
 
-1. understandable by other researchers
-2. transferable across machines
-3. conserved through time
+1. understandable to other researchers,
+2. transferable across machines,
+3. conserved through time.
 
 While comprehensibility to the scientific community, is probably the most crucial goal, it is the most difficult to achieve.
 That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
@@ -34,6 +34,8 @@ However, they stress that any combination of tools is suitable as long as it fac
 [^writing]: @williamsStyleLessonsClarity2017 provides some excellent principles for writing clearly.
 
 [^clean]: @martinCleanCoderCode2011 proposes a coding paradigm that found widespread use because of its focus on understandability.
+
+Each of the following sections first raises a challange for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package `repro`. The relation of these tools with `repro` is then expanded in the next chapter.
 
 <!--
 fixme
@@ -53,23 +55,23 @@ For example, the filename `R/reshape.R` follows both standard naming conventions
 
 Following two guidelines makes the file structure self-contained:
 
-1. Everything in one folder.
-2. Every path must be relative to that folder.
+1. Everything is in one folder.
+2. Every path is relative to that folder.
 
 This simple concept of a self-contained folder is facilitated by two R specific tools, [RStudio projects](https://r4ds.had.co.nz/workflow-projects.html) and the `here` package [@R-here].
 The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
-However, unlike the native R solution, it does so consistently across operating systems and scripts and RMarkdowns.
+However, unlike the native R solution, this inference is consistently across operating systems and scripts and RMarkdowns.
 
 The `repro` package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
 
 ## Dynamic Document Generation
 
-Even with the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
-Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing a wide range of output formats[^markdown].
+Even when follwoing the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
+Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
-This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common [@nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain an error that may be prevented].
+This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common; @nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain an error that may be prevented.
 
-In an RMarkdown, three parts can be distinguished:
+RMarkdown does provide a convinient framework to write such dynamic documents and render them as wide range of output formats[^markdown]. In an RMarkdown, three parts can be distinguished:
 
 * one specifying its output and metadata,
 * one containing code, and
@@ -95,9 +97,9 @@ b = '`r b[1]`'  # an ugly hack; don't look at me
 ```yaml
 ---
 title: "Hello R Markdown"
-author: "Awesome Me"
-date: "2018-02-14"
-output: html_document
+author: "Ross Ihaka & Robert Gentleman"
+date: "1997-04-23"
+output: pdf_document
 ---
 ```
 ````markdown
@@ -139,10 +141,7 @@ This linking creates a "pedigree" of versions where it is easy to see how things
 Going back in time to a specific version only requires to know the hash of the commit. 
 To mark commits as special milestones, they can be tagged, e.g. as preregistration, preprint, submission or publication.
 
-While mastering Git requires some experience, most of the time, only four commands are needed:
-
-git init
-: use Git in the current directory
+While mastering Git requires some experience, most of the time, only four commands are needed, which may be accessed through RStudio's Git interface:
 
 git add
 : take a snapshot of the given file
@@ -163,14 +162,14 @@ While a few other commands are necessary to set up Git in a given project direct
 In an analysis, the results depend on code which in turn depends on data.
 However, seldomly the data is analyzed as is, but some code is dedicated to preparing it.
 Most likely, each analysis needs a slightly different version of the data.
-An analysis of missingness requires the missings to be retained, but some statistical models do not allow it.
+An analysis of missingness requires the missings to be retained, but some statistical models do not allow that.
 Or the modelling software requires data to be differently shaped, then the plotting library.
 It is also often the case that one analysis is based on the output of another and so forth.
 As these relations can become quite complicated, it is necessary to make them explicit to avoid confusion.
 Dependency management provides a formalism that describes how files depend on other files.
 More specifically, it provides an automated way to create files from other files, e.g. it automatically generates a cleaned version of the data, by relying on a cleaning script and the raw data.
 Such relations may be layered; hence, if a plot requires this cleaned dataset, first the cleaned dataset and then the plot is generated automatically.
-Such structure allows saving considerable computing time, as dependencies are not generated again if they already exist, but only when one of their dependencies have changed.
+Such structure allows saving considerable computing time, as dependencies are not generated again if they already exist, but only if one of their dependencies has changed.
 In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.
 
