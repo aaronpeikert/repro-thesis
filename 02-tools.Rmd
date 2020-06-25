@@ -28,7 +28,13 @@ These pillars stipulate the relations between thought, code and data with their 
 While comprehensibility to the scientific community, is probably the most crucial goal, it is the most difficult to achieve.
 That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.
-@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language [@R-base].
+
+@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language [@R-base] and provide the high level overview seen in Figure \@ref(fig:nutshell) .
+
+```{r nutshell, echo=FALSE, fig.cap="Overview of the interplay of RMarkdown, Git, Make, and Docker", out.width="100%", fig.align="center"}
+knitr::include_graphics("images/nutshell.svg", auto_pdf = TRUE)
+```
+
 However, they stress that any combination of tools is suitable as long as it facilitates the above pillars.
 
 [^writing]: @williamsStyleLessonsClarity2017 provides some excellent principles for writing clearly.
@@ -120,7 +126,7 @@ The `repro` package extends the yaml metadata to incorporate [Dependency Managem
 Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
 As changes accumulate, different versions do too, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
 One may argue that in the typical publication process, the final product is apparent: the published paper, so only one version is relevant.
-However, reproducibility may be crucial even before publication as part of the peer-review process.
+However, reproducibility may be crucial even before publication as part of collaboration and the peer-review process.
 Also, recent trends in the publication process like preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
 
 To organize different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
