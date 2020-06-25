@@ -1,4 +1,2 @@
-# Abstract {-}
-
 This is a short summary.
 
