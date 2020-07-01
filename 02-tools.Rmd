@@ -29,7 +29,7 @@ While comprehensibility to the scientific community, is probably the most crucia
 That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.
 
-@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language [@R-base] and provide the high level overview seen in Figure \@ref(fig:nutshell) .
+@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language [@R-base] and provide the high level overview seen in Figure \@ref(fig:nutshell) .
 
 ```{r nutshell, echo=FALSE, fig.cap="Overview of the interplay of RMarkdown, Git, Make, and Docker", out.width="100%", fig.align="center"}
 knitr::include_graphics("images/nutshell.svg", auto_pdf = TRUE)
@@ -60,10 +60,12 @@ The former frees the user from changing the working directory manually; the latt
 However, unlike the native R solution, this inference is consistent across operating systems and scripts and RMarkdowns.
 
 The `repro` package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
+This template provides the researcher with a minimal example of an reproducible analysis.
+The researcher can adept code and files to there need, either by simply changing them by hand or through the modular structure of `repro`.
 
 ## Dynamic Document Generation
 
-Even when following the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
+A clear file structure helps a researchers to better understand how a scientific analysis relates to the code, but a strict segregation of code and document inhibit a full grasp.
 Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
 This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common; @nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain an error that may be prevented.
@@ -83,6 +85,7 @@ The later is quoted in a pair single backticks.
 Examples of both methods can be found below.
 Text, which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language "Markdown".
 Markdown allows annotating text to signify formattings such as bold, italic, links and the inclusion of images.
+Such markup is designed to be simple so the documents is well readable even as source files. 
 
 The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown ([adapted source code](https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd#L15-L39) from @xieMarkdownDefinitiveGuide2019/[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)):
 
@@ -118,8 +121,7 @@ Resulting in this document:
 
 [fixme]
 
-The `repro` package extends the yaml metadata to incorporate [Dependency Management] and [Containarization] into the process of dynamic document creation.
-
+Undeniably, RMarkdown greatly faciliates reproducibility, but it cannot ensure reproduction. To virtually garuntee reproduction, the `repro` package extends the yaml metadata to incorporate [Dependency Management] and [Containarization] into the process of dynamic document creation.
 
 ## Version Control
 
