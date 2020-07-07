@@ -1,0 +1,261 @@
+# Workflow
+
+The `repro` package is designed to streamline the researchers workflow.
+It helps researchers to setup, create, reproduce and change an analysis with little more than a simple mental model.
+To that end it stands on the shoulders of giants and is providing only a minimal layer of abstraction around the beforementioned tools.
+While there is a huge variety on how researchers approach an empierical study and its analysis, figure \@ref(fig:workflow)  provides an idealized workflow.
+
+```{r workflow, eval = TRUE, echo = FALSE, fig.cap="Schematic illustration of a reproducible workflow.  ", out.width="50%", fig.align="center"}
+knitr::include_graphics("images/idealized-workflow.svg", auto_pdf = TRUE)
+```
+
+The structure of the chapter mirrors this workflow and explains step by step how to:
+
+1. setup the required software
+2. reproduce an analysis that follows the here proposed standards
+3. apply and publish changes
+4. create a reproducible workflow from scratch
+
+`repro` supports several alternative software implementations for each step and assembles them into one coherent workflow.
+This modular structure is inspired by the [usethis-package](https://usethis.r-lib.org) [@R-usethis].
+The here described steps follow the recomandatations of @peikertReproducibleDataAnalysis2019, and hence combine RMarkdown, Git & GitHub, Make and Docker.
+
+## Setup
+
+Reproduction, change, and creations of an analysis require the user to have software installed that is specific to the workflow they choose, but independent of the analysis.
+A set of functions (following the pattern `check_*`, for a complete list see `help(check)`) help users to verify that everything they need is installed and correctly configured.
+If `repro` detects that something is not installed or configured it advises users step by step on how to resolve the issues for their specific software plattform.
+Currently, it supports all major operating systems (Windows, OS X, Linux).
+
+First users have to install `repro`; the following code snippet installs repro from [GitHub](https://github.com/aaronpeikert/repro)
+
+```{r, eval=FALSE}
+# check if remotes is installed, if not install it
+if (!requireNamespace("remotes")){
+  install.packages("remotes")
+}
+# install repro
+# "package::function" means to use a function
+# without loading the whole package
+remotes::install_github("aaronpeikert/repro")
+```
+
+If repro is installed one may load it via:
+
+```{r}
+library("repro")
+```
+
+Then users can check if the required software is installed.
+The workflow by @peikertReproducibleDataAnalysis2019 requires Git (and GitHub), Make and Docker.
+Consequently, the following commands check if the user has setup all the requirements:
+
+```{r}
+check_git()
+check_github()
+check_make()
+check_docker()
+```
+
+If everything is setup users can proceed to reproduce an analysis that conforms to this workflow.
+
+If not, e.g. because Docker is not installed, users get an informative message appropriate for their plattform (here Windows).
+
+```{r, include=FALSE}
+opts <- options()
+options(repro.os = "windows",
+        repro.git = FALSE)
+```
+
+```{r}
+check_git()
+```
+
+```{r, include=FALSE}
+options(opts)
+```
+
+## Reproduction
+
+GitHub, Make and Docker are sufficient to reproduce this document.
+So everything is setup to download the source files of this document, rerun the code within it, and verify its results.
+
+The following command uses Git and GitHub to: 
+
+1. create a copy of the project, called fork, in your GitHub account,
+2. download this copy to your computer
+3. and verify that all files are intact and opens them in a new RStudio instance.
+
+```{r, eval=FALSE}
+usethis::create_from_github("aaronpeikert/repro-thesis",
+                            tempdir(),
+                            fork = TRUE)
+```
+
+If executed, this code opens a new R session and therefore all code from here on needs to run in the *new* session.
+
+It is tempting to automate the reproduction part completely and have a `rerun()` function that figures out what to do and does it for you.
+However, I decided that the reproduction musst be easily possible without the `repro` package. 
+This decision prevents that long term reproducibility depends on the availibility of the package.
+While I am certain that Git, Make, Docker will be availible for years to come, I cannot say the same about this package.
+To compromise the needs of long term support and usability, `repro` offers advice about what to do, but stops short of actually doing it.
+
+What steps one has to take, depends on the tools choosen to implement dependency management.
+This tool basically determins the "entrypoint" for an analysis.
+To detect the entrypoint `repro` follows simple heristics, which stem from what R users tend to use.
+These conventions are amibiguie, but the clearest entrypoint is a `Makefile`.
+If no `Makefile` is availible the alternatives are either a central dynamic document (RMarkdown, Jupityer Notebook) or a main script (R, Python, Oktave, Shell).
+In these cases one can only guess from filenames like `manuscript.Rmd`, `analysis.Rmd`, `paper.Rmd`, `run.R` or `analysis.R`.
+
+To recreate this document you have to follow these steps:
+
+```{r, eval=FALSE}
+# because this is a new R project / session, reload repro
+library("repro")
+rerun(cache = FALSE)
+```
+
+The argument `cache = FALSE` ensures that everything that can be recreated is recreated even when nothing was changed.
+
+It is difficult to verify that an analysis was reproduced.
+One could accept as a minimal standard, that the analysis is rerun error free or as a maximal standard that the resulting documents are exactly the same.
+Neither solution strikes the right balance, because error free does not imply the same results, while comparing binarie files often leads to spurios differences.
+Currently, researcher need to revert to manual checking and common sense to verify a succesfull reproduction.
+An automated verification procedure would require the researcher to explizitly state which results need to be identical.
+Then a software solution could track changes for only these digital objects and flag mismatches.
+
+## Change
+
+For a researcher, reproducing an analysis and verifying its results, is often only a first step to make intentional changes.
+How researcher contribute to a project lays strictly outside the realm of reproducibility, but warrents discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
+That the main beneficiary of this advantage is the researcher collaborating with its past self is a pun in the open science community that bears some truth.
+However, the workflow of an external researcher contributing is more complex.
+It is quite a challange to collaborate under circumstances, where people do not know each other.
+The core challange is to allow the original creator full control over changes without burden them to much.
+This problem confronted the open software comunity from its very beginning and they came up with the following solution.
+A contributer first creates a public copy, makes and tracks changes to it and then asks the original owner to incopareate the changes.
+In the terminology of GitHub, the public copy is a "fork", the tracked changes are "commits" and the call for including the changes is a "pull request".
+
+Working with pull requests is easy, thanks to the `usethis` package.
+If you reproduced this document, you could make changes to it---which could be something trivial, like correcting spelling---and ask me to incorporate them.
+You can initialze a pull request with:
+
+```{r, eval=FALSE}
+usethis::pr_init()
+```
+
+Then you can change files as you like and track them with Git.
+You should make sure that the analysis is still reproducible with:
+
+```{r}
+rerun()
+```
+
+If you are satisfied with the changes you made, you can trigger the pull request with:
+
+```{r, eval=FALSE}
+usethis::pr_push()
+```
+
+If I also find the changes to my liking, I can incoperate the changes on GitHub. If not, the changes can be discussed in the pull request or I could make ammends before merging them.
+
+Such distributed workflow, allows a much more controlled way of collaboration as opposed to mail back and forth.
+This higher level of control fits well into the high standards of scientific work.
+However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally devoloped for the collaboration on the linux kernal, where as of 2017 more then 15.000 developers contributed code [@thelinuxfoundation2017LinuxKernel2017]).
+Empierical studies require a lot of work, which is usally distrubuted on many shoulders.
+As the authors carry the responsibility for the overall corectness, they ought to vet every single contribution.
+
+Affirming the correctniss of a contribution can be partly automated by affirming successfull reproduction.
+Such automatic checks of changes are part of a software developing process, called continues integration.
+Continues integration runs code in cloud computing environments that asserts the correctniss, when changes are pushed to GitHub.
+In many ways continues integration is the logical next step for reproducible workflows.
+Because much effort was allready invested to ensure reproducibility across machines it is easy to move the analysis to a continues integration tool.
+
+Hence if you created a pull request, the continues integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.
+
+## Creation
+
+Reproducing an analysis and creating a reproducible analysis are two very different things.
+The `repro` packages main strength lays in simplifiyng the creation.
+First the repro package comes with a minimal, but comprehensive template inkluding an example RMarkdown, R-script and data.
+This template can be accessed from within RStudio © via "File" -> "New Project" -> "New Directory" -> Example repro template or from any R console via:
+
+```{r eval=FALSE}
+repro_template("path/to/new/project/")
+```
+
+Repro infers the dependencies to data and external code as well as required packages from the `yaml` metadata of the RMarkdowns.
+Because data analytic projects have a certain structure this markup can be much simpler than writing `Dockerfiles` and `Makefiles` by hand.
+While Docker allows to install abitrary Software, an analysis in R likely only needs R-packages. Similarly, Make allows to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.
+
+Hence, a simple addition to the metadata, like in the following example, contains everything neccesary to infer a complete `Dockerfile` and `Makefile`:
+
+```
+repro:
+  packages:
+    - usethis
+    - fs
+    - aaronpeikert/repro@d09def75df
+  scripts:
+    - R/clean.R
+  data:
+    mycars: data/mtcars.csv
+```
+
+The function `automate()` creates a `Dockerfile` and a `Makefile`, which both comply with all recomendations in @peikertReproducibleDataAnalysis2019.
+Strictly speaking it creates four Dockerfiles and three Makefiles.
+Most of the files a created in the `.repro` directory and then assembled into the main `Dockerfile`/`Makefile` at the toplevel.
+One `Dockerfile` contains the base docker image, including the R version and the current date and another `Dockerfile` contains only the R packages.
+It also creates one where the user can manually ammend software installation or setup steps that are not covered by `repro`.
+The `Makefiles` are similiarly seperated, with one dedicated to RMardowns and another for the logic that executes the make commands in the container.
+
+The `automate()` function is designed to simplify the workflow proposed by @peikertReproducibleDataAnalysis2019 as much as possible.
+Such simplification mean inevidibly to restrict the freedome of the user.
+While they can still do everything in the realm of Make and Docker, this approach does not allow other reproducibility software to be used.
+Users, which need more control, can instead rely on the modular nature of `repro`.
+Each component can be added to the project by the `use_*` functions.
+E.g. `use_make()` adds a basic `Makefile` or `use_make_singularity()` adds a Makefile that is Singularity compatible (Singularity is an altenative to Docker for High Performance Computing).
+These functions extend the [usethis-package](https://usethis.r-lib.org) [@R-usethis], which was originally designed to faciliate package developmend with reproducibility specific tools.
+
+## Summary
+
+To summarise everthing you need to do to create a reproducible project in code:
+
+### Install `repro` package
+
+```{r, eval=FALSE}
+if (!requireNamespace("remotes")){
+  install.packages("remotes")
+}
+remotes::install_github("aaronpeikert/repro")
+library("repro")
+```
+
+### Check required reproducibility software
+
+```{r, eval=FALSE}
+check_git()
+check_github()
+check_make()
+check_docker()
+```
+
+### Configure Project
+
+From template in new folder:
+
+```{r, eval=FALSE}
+repro_template()
+automate()
+```
+
+Or semi automatic with more flexibility in existing projects:
+
+```{r, eval=FALSE}
+use_docker() # create Dockerfile
+use_make_docker() # create docker compatible Makefile
+usethis::use_git() # initialize git and add first commit
+rmarkdown::draft("pnas_article", # use PNAS template
+                 package = "rticles") # requires rticles package
+```
+
