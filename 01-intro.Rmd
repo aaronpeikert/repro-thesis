@@ -4,7 +4,7 @@
 Conversely, they call a result replicable if one draws the same conclusion from a new dataset.
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.
 The scientific community agrees that their work should be ideally reproducible.
-Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many feel it is "good scientific practice" to ensure it is [@AnnouncementReducingOur2013; @dfg2019; @epskamp2019rep].
+Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is "good scientific practice" to ensure it is [@AnnouncementReducingOur2013; @dfg2019; @epskamp2019rep].
 Several reasons, practical and meta-scientific, justify this consensus of reproducibility as a minimal standard of Science.
 
 Reproducibility makes researchers life more productive in two ways:
