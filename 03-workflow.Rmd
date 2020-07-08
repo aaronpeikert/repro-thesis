@@ -27,7 +27,7 @@ A set of functions (following the pattern `check_*`, for a complete list see `he
 If `repro` detects that something is not installed or configured it advises users step by step on how to resolve the issues for their specific software plattform.
 Currently, it supports all major operating systems (Windows, OS X, Linux).
 
-First users have to install `repro`; the following code snippet installs repro from [GitHub](https://github.com/aaronpeikert/repro)
+First users have to install `repro`; the following code snippet installs repro from [GitHub](https://github.com/aaronpeikert/repro):
 
 ```{r, eval=FALSE}
 # check if remotes is installed, if not install it
