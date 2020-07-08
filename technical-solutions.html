@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Technical Solutions | Reproducibility made simple</title>
   <meta name="description" content="Chapter 2 Technical Solutions | Reproducibility made simple" />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Technical Solutions | Reproducibility made simple" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-05-22" />
+<meta name="date" content="2020-07-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="theoretical-considerations.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="workflow.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -142,6 +142,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
 <li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containarization"><i class="fa fa-check"></i><b>2.5</b> Containarization</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Workflow</a><ul>
+<li class="chapter" data-level="3.1" data-path="workflow.html"><a href="workflow.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.2" data-path="workflow.html"><a href="workflow.html#reproduction"><i class="fa fa-check"></i><b>3.2</b> Reproduction</a></li>
+<li class="chapter" data-level="3.3" data-path="workflow.html"><a href="workflow.html#change"><i class="fa fa-check"></i><b>3.3</b> Change</a></li>
+<li class="chapter" data-level="3.4" data-path="workflow.html"><a href="workflow.html#creation"><i class="fa fa-check"></i><b>3.4</b> Creation</a></li>
+<li class="chapter" data-level="3.5" data-path="workflow.html"><a href="workflow.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="workflow.html"><a href="workflow.html#install-repro-package"><i class="fa fa-check"></i><b>3.5.1</b> Install <code>repro</code> package</a></li>
+<li class="chapter" data-level="3.5.2" data-path="workflow.html"><a href="workflow.html#check-required-reproducibility-software"><i class="fa fa-check"></i><b>3.5.2</b> Check required reproducibility software</a></li>
+<li class="chapter" data-level="3.5.3" data-path="workflow.html"><a href="workflow.html#configure-project"><i class="fa fa-check"></i><b>3.5.3</b> Configure Project</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -200,9 +211,15 @@ Instead, reproducibility has to rest on five pillars:</p>
 </ol>
 <p>While comprehensibility to the scientific community, is probably the most crucial goal, it is the most difficult to achieve.
 That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and clean code<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> certainly help).
-Transfer and conservation, on the other hand, are problems with technical solutions.
-<span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular solutions for users of the R programming language <span class="citation">(R Core Team, <a href="#ref-R-base">2020</a>)</span>.
-However, they stress that any combination of tools is suitable as long as it facilitates the above pillars.</p>
+Transfer and conservation, on the other hand, are problems with technical solutions.</p>
+<p><span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language <span class="citation">(R Core Team, <a href="#ref-R-base">2020</a>)</span> and provide the high level overview seen in Figure <a href="technical-solutions.html#fig:nutshell">2.1</a> .</p>
+<div class="figure" style="text-align: center"><span id="fig:nutshell"></span>
+<img src="images/nutshell.svg" alt="Overview of the interplay of RMarkdown, Git, Make, and Docker" width="100%" />
+<p class="caption">
+Figure 2.1: Overview of the interplay of RMarkdown, Git, Make, and Docker
+</p>
+</div>
+<p>However, they stress that any combination of tools is suitable as long as it facilitates the above pillars.</p>
 <p>Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package <code>repro</code>. The relation of these tools with <code>repro</code> is then expanded in the next chapter.</p>
 <div id="file-organisation" class="section level2">
 <h2><span class="header-section-number">2.1</span> File Organisation</h2>
@@ -217,11 +234,13 @@ For example, the filename <code>R/reshape.R</code> follows both standard naming 
 <p>This simple concept of a self-contained folder is facilitated by two R specific tools, <a href="https://r4ds.had.co.nz/workflow-projects.html">RStudio projects</a> and the <code>here</code> package <span class="citation">(Müller, <a href="#ref-R-here">2017</a>)</span>.
 The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
 However, unlike the native R solution, this inference is consistent across operating systems and scripts and RMarkdowns.</p>
-<p>The <code>repro</code> package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.</p>
+<p>The <code>repro</code> package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
+This template provides the researcher with a minimal example of an reproducible analysis.
+The researcher can adept code and files to there need, either by simply changing them by hand or through the modular structure of <code>repro</code>.</p>
 </div>
 <div id="dynamic-document-generation" class="section level2">
 <h2><span class="header-section-number">2.2</span> Dynamic Document Generation</h2>
-<p>Even when following the most logical structure, it may be difficult for a reader of a scientific document to understand how the content of the document relates to the alongside published code.
+<p>A clear file structure helps a researchers to better understand how a scientific analysis relates to the code, but a strict segregation of code and document inhibit a full grasp.
 Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
 This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common; <span class="citation">Nuijten et al. (<a href="#ref-nuijtenPrevalenceStatisticalReporting2016">2016</a>)</span> reports that 50% of papers from the psychological sciences contain an error that may be prevented.</p>
@@ -239,7 +258,8 @@ The former has three backticks on their own line signifying beginning and end.
 The later is quoted in a pair single backticks.
 Examples of both methods can be found below.
 Text, which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language “Markdown”.
-Markdown allows annotating text to signify formattings such as bold, italic, links and the inclusion of images.</p>
+Markdown allows annotating text to signify formattings such as bold, italic, links and the inclusion of images.
+Such markup is designed to be simple so the documents is well readable even as source files.</p>
 <p>The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown (<a href="https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd#L15-L39">adapted source code</a> from <span class="citation">Xie et al. (<a href="#ref-xieMarkdownDefinitiveGuide2019">2019</a>)</span>/<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ot">---</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">title:</span><span class="at"> </span><span class="st">&quot;Hello R Markdown&quot;</span></a>
@@ -261,14 +281,14 @@ Markdown allows annotating text to signify formattings such as bold, italic, lin
 <a class="sourceLine" id="cb2-12" data-line-number="12">The slope of the regression is <span class="bn">`r b[1]`</span>.</a></code></pre></div>
 <p>Resulting in this document:</p>
 <p>[fixme]</p>
-<p>The <code>repro</code> package extends the yaml metadata to incorporate <a href="technical-solutions.html#dependency-management">Dependency Management</a> and <a href="technical-solutions.html#containarization">Containarization</a> into the process of dynamic document creation.</p>
+<p>Undeniably, RMarkdown greatly faciliates reproducibility, but it cannot ensure reproduction. To virtually garuntee reproduction, the <code>repro</code> package extends the yaml metadata to incorporate <a href="technical-solutions.html#dependency-management">Dependency Management</a> and <a href="technical-solutions.html#containarization">Containarization</a> into the process of dynamic document creation.</p>
 </div>
 <div id="version-control" class="section level2">
 <h2><span class="header-section-number">2.3</span> Version Control</h2>
 <p>Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
 As changes accumulate, different versions do too, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
 One may argue that in the typical publication process, the final product is apparent: the published paper, so only one version is relevant.
-However, reproducibility may be crucial even before publication as part of the peer-review process.
+However, reproducibility may be crucial even before publication as part of collaboration and the peer-review process.
 Also, recent trends in the publication process like preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.</p>
 <p>To organize different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
 This challenge is met by a high degree of automation that keeps track of different versions and has advanced facilities to compare and merge them.</p>
@@ -361,7 +381,7 @@ Setting up a computer exactly as someone else is difficult enough, but replicati
         </div>
       </div>
 <a href="theoretical-considerations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
