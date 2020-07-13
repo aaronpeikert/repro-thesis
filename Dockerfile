@@ -3,6 +3,7 @@
 FROM rocker/verse:3.6.3
 ARG BUILD_DATE=2020-07-13
 WORKDIR /home/rstudio
+RUN Rscript -e 'tinytex::tlmgr_install(pkgs = c("emptypage", "sourcecodepro", "libertinust1math", "libertine", "graphics-def", "graphics-cfg", "graphics", "oberdiek", "ifluatex", "ifxetex", "setspace"))'
 RUN install2.r --error --skipinstalled \ 
   bookdown \ 
   devtools \ 

@@ -1,0 +1,1 @@
+RUN Rscript -e 'tinytex::tlmgr_install(pkgs = c("emptypage", "sourcecodepro", "libertinust1math", "libertine", "graphics-def", "graphics-cfg", "graphics", "oberdiek", "ifluatex", "ifxetex", "setspace"))'
