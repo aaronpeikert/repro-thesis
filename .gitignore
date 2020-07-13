@@ -6,3 +6,4 @@ _bookdown_files/
 _book/
 book-output/
 images/
+.cache/

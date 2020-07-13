@@ -13,6 +13,13 @@ fontsize: 12pt
 linestretch: 1.2
 geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
 papersize: a4
+repro:
+  packages:
+    - devtools
+    - here
+    - aaronpeikert/repro@1bb2e72d
+    - bookdown
+    - usethis
 ---
 
 <!-- general structure
