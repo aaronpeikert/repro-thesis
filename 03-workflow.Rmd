@@ -48,14 +48,15 @@ library("repro")
 
 Then users can check if the required software is installed.
 The workflow by @peikertReproducibleDataAnalysis2019 requires Git (and GitHub), Make and Docker.
-Consequently, the following commands check if the user has setup all the requirements:
+Consequently, the following commands[^github] check if the user has setup all the requirements:
 
 ```{r}
 check_git()
-check_github()
 check_make()
 check_docker()
 ```
+
+[^github]: There is also `check_github()`, but its inclusion would render this document irreproducible, because `check_github()` checks user specific configurations.
 
 If everything is setup users can proceed to reproduce an analysis that conforms to this workflow.
 
@@ -147,7 +148,7 @@ usethis::pr_init()
 Then you can change files as you like and track them with Git.
 You should make sure that the analysis is still reproducible with:
 
-```{r}
+```{r, eval=FALSE}
 rerun()
 ```
 
