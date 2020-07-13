@@ -129,7 +129,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Automating reproducible research workflows}
 \author{Aaron Peikert}
-\date{2020-07-08}
+\date{2020-07-13}
 
 \begin{document}
 \maketitle
@@ -152,7 +152,7 @@ Conversely, they call a result replicable if one draws the same conclusion from 
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.
 
 The scientific community agrees that their work should be ideally reproducible.
-Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is ``good scientific practice'' to ensure what they consider reproducible (``Reducing our irreproducibility,'' \protect\hyperlink{ref-AnnouncementReducingOur2013}{2013}; Deutsche Forschungsgemeinschaft, \protect\hyperlink{ref-dfg2019}{2019}; Epskamp, \protect\hyperlink{ref-epskamp2019rep}{2019}).
+Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is ``good scientific practice'' to ensure what they consider reproducibility (``Reducing our irreproducibility,'' \protect\hyperlink{ref-AnnouncementReducingOur2013}{2013}; Deutsche Forschungsgemeinschaft, \protect\hyperlink{ref-dfg2019}{2019}; Epskamp, \protect\hyperlink{ref-epskamp2019rep}{2019}).
 Several reasons, practical and meta-scientific, justify this consensus of reproducibility as a minimal standard of Science.
 
 Reproducibility makes researchers life more productive in two ways:
@@ -249,7 +249,7 @@ Providing a version of the analysis workflow by Peikert \& Brandmaier (\protect\
 \section{Technical Solutions}\label{technical-solutions}}
 
 This section summarises the workflow proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}; see also The Turing Way Community et al., \protect\hyperlink{ref-theturingwaycommunityTuringWayHandbook2019}{2019} for a very similar approach).
-They argue that to ensure reproducibility, publically sharing code is not enough.
+They argue that publicly sharing code is not sufficient to ensure reproducibility:
 Instead, reproducibility has to rest on five pillars:
 
 \begin{enumerate}
@@ -286,7 +286,7 @@ Instead, reproducibility has to rest on five pillars:
   \end{description}
 \end{enumerate}
 
-These pillars stipulate the relations between thought, code and data with their change over time and environment and hence reach all requirements of reproducibility through being:
+These pillars stipulate the relations between thought, code and data with their change over time and environment and hence, they reach all requirements of reproducibility through being:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -299,11 +299,11 @@ These pillars stipulate the relations between thought, code and data with their 
   conserved through time.
 \end{enumerate}
 
-While comprehensibility to the scientific community, is probably the most crucial goal, it is the most difficult to achieve.
-That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing\footnote{Williams (\protect\hyperlink{ref-williamsStyleLessonsClarity2017}{2017}) provides some excellent principles for writing clearly.} and clean code\footnote{Martin (\protect\hyperlink{ref-martinCleanCoderCode2011}{2011}) proposes a coding paradigm that found widespread use because of its focus on understandability.} certainly help).
+While comprehensibility to the scientific community is probably the most crucial objective, it is also the most difficult to achieve.
+That is because as a non-technical requirement, no set of rules can assure its fulfilment (though clear writing\footnote{Williams (\protect\hyperlink{ref-williamsStyleLessonsClarity2017}{2017}) provides some excellent principles for writing clearly.} and clean code\footnote{Martin (\protect\hyperlink{ref-martinCleanCoderCode2011}{2011}) proposes a coding paradigm that found widespread use because of its focus on understandability.} certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.
 
-Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language (R Core Team, \protect\hyperlink{ref-R-base}{2020}) and provide the high level overview seen in Figure \ref{fig:nutshell} .
+Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language (R Core Team, \protect\hyperlink{ref-R-base}{2020}) and provide the high level overview wich can be seen in Figure \ref{fig:nutshell} .
 
 \begin{figure}
 
@@ -321,10 +321,10 @@ Each of the following sections first raises a challenge for reproducibility, the
 \hypertarget{file-organisation}{%
 \subsection{File Organisation}\label{file-organisation}}
 
-File organization has to meet two challenges. First, the structure needs to be understandable by others, and second, it needs to be self-contained so that it can be moved to another machine.
+File organization has to meet two challenges: First, the structure needs to be understandable for others, and second, it needs to be self-contained so that it can be moved to another machine.
 
-Adhering to conventions help other people understand how files are organized.
-For example, the filename \texttt{R/reshape.R} follows both standard naming conventions (all lowercase, ends with .R, placed within the R directory) and is meaningful. Contrarily, \texttt{myScripts/munge\_Data.r} is probably a lot harder to understand and remember for most R-users.
+Adhering to conventions can help other people understand how files are organized.
+For example, the filename \texttt{R/reshape.R} both follows standard naming conventions (i.e.~all lowercase; ends with .R; placed within the R directory) and is meaningful. Contrarily, \texttt{myScripts/munge\_Data.r} is probably a lot harder both to understand and to remember for most R-users.
 
 Following two guidelines makes the file structure self-contained:
 
@@ -337,23 +337,23 @@ Following two guidelines makes the file structure self-contained:
   Every path is relative to that folder.
 \end{enumerate}
 
-This simple concept of a self-contained folder is facilitated by two R specific tools, \href{https://r4ds.had.co.nz/workflow-projects.html}{RStudio projects} and the \texttt{here} package (Müller, \protect\hyperlink{ref-R-here}{2017}).
-The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
-However, unlike the native R solution, this inference is consistent across operating systems and scripts and RMarkdowns.
+This simple concept of a self-contained folder is facilitated by two R specific tools: \href{https://r4ds.had.co.nz/workflow-projects.html}{RStudio projects} and the \texttt{here} package (Müller, \protect\hyperlink{ref-R-here}{2017}).
+The former exempts the user from changing the working directory manually; the latter infers absolute paths from relative ones.
+However, unlike the native R solution, this inference is consistent across operating systems, scripts and RMarkdowns.
 
-The \texttt{repro} package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
-This template provides the researcher with a minimal example of an reproducible analysis.
-The researcher can adept code and files to there need, either by simply changing them by hand or through the modular structure of \texttt{repro}.
+The \texttt{repro} package offers a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
+This template provides the researcher with a minimal example of a reproducible analysis.
+The researcher can thus adept code and files to their need, either by simply changing them manually or by the modular structure of \texttt{repro}.
 
 \hypertarget{dynamic-document-generation}{%
 \subsection{Dynamic Document Generation}\label{dynamic-document-generation}}
 
-A clear file structure helps a researchers to better understand how a scientific analysis relates to the code, but a strict segregation of code and document inhibit a full grasp.
-Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human-readable document.
+A clear file structure helps researchers to better understand how a scientific analysis relates to the code but a otherwise strict segregation of code and document inhibits a full grasp.
+Providing a direct link, dynamic document generation allows interspersing text with code and its results, in order to produce a human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
-This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common; Nuijten et al. (\protect\hyperlink{ref-nuijtenPrevalenceStatisticalReporting2016}{2016}) reports that 50\% of papers from the psychological sciences contain an error that may be prevented.
+This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; Nuijten et al. (\protect\hyperlink{ref-nuijtenPrevalenceStatisticalReporting2016}{2016}) reports that 50\% of papers from the psychological sciences contain an error that could have been prevented.
 
-RMarkdown does provide a convenient framework to write such dynamic documents and render them as a wide range of output formats\footnote{The document you are viewing also results from a collection of \href{https://github.com/aaronpeikert/repro-thesis}{RMarkdowns} availible as \href{https://aaronpeikert.github.io/repro-thesis/}{website}, \href{https://aaronpeikert.github.io/repro-thesis/ma.pdf}{PDF} and \href{https://aaronpeikert.github.io/repro-thesis/ma.epub}{E-book}}. In an RMarkdown, three parts can be distinguished:
+RMarkdown provides a convenient framework to write such dynamic documents and render them as a wide range of output formats\footnote{The document you are viewing also results from a collection of \href{https://github.com/aaronpeikert/repro-thesis}{RMarkdowns} availible as \href{https://aaronpeikert.github.io/repro-thesis/}{website}, \href{https://aaronpeikert.github.io/repro-thesis/ma.pdf}{PDF} and \href{https://aaronpeikert.github.io/repro-thesis/ma.epub}{E-book}}. In an RMarkdown, three parts can be distinguished:
 
 \begin{itemize}
 \tightlist
@@ -366,15 +366,15 @@ RMarkdown does provide a convenient framework to write such dynamic documents an
 \end{itemize}
 
 Each part uses its own language, all of them designed with ease of use and readability in mind.
-The section containing the output format and other metadata alongside is written in YAML (see the example below).
-This specification is located at the top, separated by three dashes at the beginning and end of the section.
+The one section containing the output format and other metadata alongside is written in YAML (see the example below).
+This specification is located on the top, separated by three dashes at the beginning and at the end of the section.
 (R-)Code executing an analysis can be placed in a distinct chunk or inline within the text.
 The former has three backticks on their own line signifying beginning and end.
-The later is quoted in a pair single backticks.
+The latter is quoted in a pair single backticks.
 Examples of both methods can be found below.
-Text, which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language ``Markdown''.
-Markdown allows annotating text to signify formattings such as bold, italic, links and the inclusion of images.
-Such markup is designed to be simple so the documents is well readable even as source files.
+Text which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language ``Markdown''.
+Markdown allows annotating text to signify formatting as bold, italic, links and the inclusion of images.
+Such markup is designed to be simple for the documents to be well readable even as source files.
 
 The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown (\href{https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd\#L15-L39}{adapted source code} from Xie et al. (\protect\hyperlink{ref-xieMarkdownDefinitiveGuide2019}{2019})/\href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0}):
 
@@ -395,12 +395,12 @@ The following section shows examples of metadata, code and text, specified as ab
 
 \NormalTok{Below is a code chunk:}
 
-\NormalTok{```\{r\}}
-\NormalTok{fit = lm(dist ~ speed, data = cars)}
-\NormalTok{b   = coef(fit)}
-\NormalTok{plot(cars)}
-\NormalTok{abline(fit)}
-\NormalTok{```}
+\BaseNTok{```\{r\}}
+\BaseNTok{fit = lm(dist ~ speed, data = cars)}
+\BaseNTok{b   = coef(fit)}
+\BaseNTok{plot(cars)}
+\BaseNTok{abline(fit)}
+\BaseNTok{```}
 
 \NormalTok{The slope of the regression is }\BaseNTok{`r b[1]`}\NormalTok{.}
 \end{Highlighting}
@@ -410,24 +410,24 @@ Resulting in this document:
 
 {[}fixme{]}
 
-Undeniably, RMarkdown greatly faciliates reproducibility, but it cannot ensure reproduction. To virtually garuntee reproduction, the \texttt{repro} package extends the yaml metadata to incorporate \protect\hyperlink{dependency-management}{Dependency Management} and \protect\hyperlink{containarization}{Containarization} into the process of dynamic document creation.
+Undeniably, RMarkdown faciliates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the \texttt{repro} package extends the YAML metadata to incorporate \protect\hyperlink{dependency-management}{Dependency Management} and \protect\hyperlink{containarization}{Containarization} into the process of dynamic document creation.
 
 \hypertarget{version-control}{%
 \subsection{Version Control}\label{version-control}}
 
 Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
-As changes accumulate, different versions do too, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
-One may argue that in the typical publication process, the final product is apparent: the published paper, so only one version is relevant.
-However, reproducibility may be crucial even before publication as part of collaboration and the peer-review process.
-Also, recent trends in the publication process like preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
+As changes accumulate, different versions do so as well, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
+One may argue that in the typical publication process, the final product is apparent: the published paper.
+However, reproducibility may be crucial even before publication as part of collaboration and within the peer-review process.
+Also, recent trends in the publication process as preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
 
 To organize different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
 This challenge is met by a high degree of automation that keeps track of different versions and has advanced facilities to compare and merge them.
 
-One such version control software is Git. Git tracks versions of the project folder by taking snapshots of a given state called commits.
-Each commit has a unique id, called a hash, a short description of the changes made, called commit message and a link to the previous commit.
-This linking creates a ``pedigree'' of versions where it is easy to see how things have evolved.
-Going back in time to a specific version only requires to know the hash of the commit.
+One such version control software is Git. Git tracks versions of a project folder by taking snapshots of a given state called commits.
+Each commit has a unique ID, called a hash, as well as a short description of the changes made, called commit message and a link to the previous commit.
+This linking procedure creates a ``pedigree'' of versions that makes it easy to see how things have evolved.
+Going back in time to a specific version only requires knowing the hash of the commit.
 To mark commits as special milestones, they can be tagged, e.g.~as preregistration, preprint, submission or publication.
 
 While mastering Git requires some experience, most of the time, only four commands are needed, which may be accessed through RStudio's Git interface:
@@ -450,21 +450,22 @@ While a few other commands are necessary to set up Git in a given project direct
 \subsection{Dependency Management}\label{dependency-management}}
 
 In an analysis, the results depend on code which in turn depends on data.
-However, seldomly the data is analyzed as is, but some code is dedicated to preparing it.
+However, seldomly the data is analysed as it is, but some code is dedicated to preparing it.
 Most likely, each analysis needs a slightly different version of the data.
 An analysis of missingness requires the missings to be retained, but some statistical models do not allow that.
 Or the modelling software requires data to be differently shaped, then the plotting library.
-It is also often the case that one analysis is based on the output of another and so forth.
+Often it is the case that one analysis is based on the output of another and so forth.
 As these relations can become quite complicated, it is necessary to make them explicit to avoid confusion.
 Dependency management provides a formalism that describes how files depend on other files.
 More specifically, it provides an automated way to create files from other files, e.g.~it automatically generates a cleaned version of the data, by relying on a cleaning script and the raw data.
+
 Such relations may be layered; hence, if a plot requires this cleaned dataset, first the cleaned dataset and then the plot is generated automatically.
-Such structure allows saving considerable computing time, as dependencies are not generated again if they already exist, but only if one of their dependencies has changed.
+Such structure allows to save considerable computing time, as dependencies are not generated again if they already exist, but only if one of their dependencies has changed.
 In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.
 
-Make is a tool for dependency management, while originally designed for the compilation of programs, it is now increasingly recognized as a tool for reproducibility.
-It allows for all features above and more as it is an own programming language.
+Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognized as a tool for reproducibility.
+It allows for all features above and even more as it is an own programming language.
 
 However, the repro package provides a much-simplified interface to the essential features, eschewing the need to learn yet another language.
 
@@ -472,16 +473,16 @@ However, the repro package provides a much-simplified interface to the essential
 \subsection{Containarization}\label{containarization}}
 
 Most computer code is not self-contained but needs libraries and other software to work (e.g.~the R programming language or packages).
-These external dependencies pose a risk for reproducibility because it may not be clear what besides the code and data is necessary and how to install it.
+These external dependencies pose a risk for reproducibility because it may not be clear what is necessary---besides the code and data---and how to install it.
 Even when all needed software and their exact versions are recorded meticulously, it may be a challenge to install them.
-First, it is difficult to maintain different software versions on the same computer and second it may be unclear how to obtain an exact copy of some years old software version.
-Setting up a computer exactly as someone else is difficult enough, but replicating some other computer how it was years ago is at best painstaking.
+First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy of some years old software version.
+Setting up a computer exactly as someone else's is difficult enough, but replicating another computer how it was several years ago is at best painstaking.
 
-To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualization because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can be easily recreated on another machine.
+To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualization because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.
 
-Docker allows virtualization of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualization is called containerization. Containers save storage by being based on each other enabling reuse. Hence if two containers are based, e.g.~on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called \texttt{Dockerfile}, that defines on which container it should be based and what software should be installed within it.
+Docker allows virtualization of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualization is called containerization. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g.~on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called \texttt{Dockerfile}. This file defines on which container the result should be based upon and what software should be installed within it.
 
-The \texttt{repro}-package automatically infers which packages are needed and creates an appropriate Dockerfiles and the container from it.
+The \texttt{repro}-package infers automatically which packages are needed and creates an appropriate Dockerfiles and the container from it.
 
 \hypertarget{workflow}{%
 \section{Workflow}\label{workflow}}
@@ -527,7 +528,7 @@ A set of functions (following the pattern \texttt{check\_*}, for a complete list
 If \texttt{repro} detects that something is not installed or configured it advises users step by step on how to resolve the issues for their specific software plattform.
 Currently, it supports all major operating systems (Windows, OS X, Linux).
 
-First users have to install \texttt{repro}; the following code snippet installs repro from \href{https://github.com/aaronpeikert/repro}{GitHub}
+First users have to install \texttt{repro}; the following code snippet installs repro from \href{https://github.com/aaronpeikert/repro}{GitHub}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -552,7 +553,7 @@ If repro is installed one may load it via:
 
 Then users can check if the required software is installed.
 The workflow by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) requires Git (and GitHub), Make and Docker.
-Consequently, the following commands check if the user has setup all the requirements:
+Consequently, the following commands\footnote{There is also \texttt{check\_github()}, but its inclusion would render this document irreproducible, because \texttt{check\_github()} checks user specific configurations.} check if the user has setup all the requirements:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -562,16 +563,6 @@ Consequently, the following commands check if the user has setup all the require
 
 \begin{verbatim}
 ## v Git is installed, don't worry.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{check_github}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## v You and GitHub are on good terms, don't worry.
 \end{verbatim}
 
 \begin{Shaded}
@@ -591,7 +582,33 @@ Consequently, the following commands check if the user has setup all the require
 \end{Shaded}
 
 \begin{verbatim}
-## v Docker is installed, don't worry.
+## x Docker is not installed.
+\end{verbatim}
+
+\begin{verbatim}
+## i Adapt to your native package manager (deb, rpm, brew, csw, eopkg).
+\end{verbatim}
+
+\begin{verbatim}
+## i You may need admin-rights, use `sudo` in this case.
+\end{verbatim}
+
+\begin{verbatim}
+## * Run `apt install docker` in a terminal to install Docker.
+\end{verbatim}
+
+\begin{verbatim}
+## * Add your user to the docker user group. Follow instructions on:
+##   'https://docs.docker.com/install/linux/linux-postinstall/'
+\end{verbatim}
+
+\begin{verbatim}
+## * Consider restarting your computer.
+\end{verbatim}
+
+\begin{verbatim}
+## i For more infos visit:
+##   'https://docs.docker.com/install/'
 \end{verbatim}
 
 If everything is setup users can proceed to reproduce an analysis that conforms to this workflow.
@@ -617,8 +634,7 @@ If not, e.g.~because Docker is not installed, users get an informative message a
 \end{verbatim}
 
 \begin{verbatim}
-## * To install it, follow directions on:
-##   'https://chocolatey.org/docs/installation'
+## * To install it, follow directions on: 'https://chocolatey.org/docs/installation'
 \end{verbatim}
 
 \begin{verbatim}
@@ -725,14 +741,6 @@ You should make sure that the analysis is still reproducible with:
 \KeywordTok{rerun}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## x This function is not implemented yet.
-\end{verbatim}
-
-\begin{verbatim}
-## NULL
-\end{verbatim}
 
 If you are satisfied with the changes you made, you can trigger the pull request with:
 

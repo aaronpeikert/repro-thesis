@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Technical Solutions | Reproducibility made simple</title>
   <meta name="description" content="Chapter 2 Technical Solutions | Reproducibility made simple" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Technical Solutions | Reproducibility made simple" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-07-08" />
+<meta name="date" content="2020-07-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -67,13 +67,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -174,7 +172,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="technical-solutions" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Technical Solutions</h1>
 <p>This section summarises the workflow proposed by <span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>; see also The Turing Way Community et al., <a href="#ref-theturingwaycommunityTuringWayHandbook2019">2019</a> for a very similar approach)</span>.
-They argue that to ensure reproducibility, publically sharing code is not enough.
+They argue that publicly sharing code is not sufficient to ensure reproducibility:
 Instead, reproducibility has to rest on five pillars:</p>
 <ol style="list-style-type: decimal">
 <li><dl>
@@ -203,16 +201,16 @@ Instead, reproducibility has to rest on five pillars:</p>
 </dd>
 </dl></li>
 </ol>
-<p>These pillars stipulate the relations between thought, code and data with their change over time and environment and hence reach all requirements of reproducibility through being:</p>
+<p>These pillars stipulate the relations between thought, code and data with their change over time and environment and hence, they reach all requirements of reproducibility through being:</p>
 <ol style="list-style-type: decimal">
 <li>understandable to other researchers,</li>
 <li>transferable across machines,</li>
 <li>conserved through time.</li>
 </ol>
-<p>While comprehensibility to the scientific community, is probably the most crucial goal, it is the most difficult to achieve.
-That is because as a non-technical requirement, no set of rules may assure its fulfilment (though clear writing<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and clean code<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> certainly help).
+<p>While comprehensibility to the scientific community is probably the most crucial objective, it is also the most difficult to achieve.
+That is because as a non-technical requirement, no set of rules can assure its fulfilment (though clear writing<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and clean code<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.</p>
-<p><span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language <span class="citation">(R Core Team, <a href="#ref-R-base">2020</a>)</span> and provide the high level overview seen in Figure <a href="technical-solutions.html#fig:nutshell">2.1</a> .</p>
+<p><span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language <span class="citation">(R Core Team, <a href="#ref-R-base">2020</a>)</span> and provide the high level overview wich can be seen in Figure <a href="technical-solutions.html#fig:nutshell">2.1</a> .</p>
 <div class="figure" style="text-align: center"><span id="fig:nutshell"></span>
 <img src="images/nutshell.svg" alt="Overview of the interplay of RMarkdown, Git, Make, and Docker" width="100%" />
 <p class="caption">
@@ -223,43 +221,43 @@ Figure 2.1: Overview of the interplay of RMarkdown, Git, Make, and Docker
 <p>Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package <code>repro</code>. The relation of these tools with <code>repro</code> is then expanded in the next chapter.</p>
 <div id="file-organisation" class="section level2">
 <h2><span class="header-section-number">2.1</span> File Organisation</h2>
-<p>File organization has to meet two challenges. First, the structure needs to be understandable by others, and second, it needs to be self-contained so that it can be moved to another machine.</p>
-<p>Adhering to conventions help other people understand how files are organized.
-For example, the filename <code>R/reshape.R</code> follows both standard naming conventions (all lowercase, ends with .R, placed within the R directory) and is meaningful. Contrarily, <code>myScripts/munge_Data.r</code> is probably a lot harder to understand and remember for most R-users.</p>
+<p>File organization has to meet two challenges: First, the structure needs to be understandable for others, and second, it needs to be self-contained so that it can be moved to another machine.</p>
+<p>Adhering to conventions can help other people understand how files are organized.
+For example, the filename <code>R/reshape.R</code> both follows standard naming conventions (i.e. all lowercase; ends with .R; placed within the R directory) and is meaningful. Contrarily, <code>myScripts/munge_Data.r</code> is probably a lot harder both to understand and to remember for most R-users.</p>
 <p>Following two guidelines makes the file structure self-contained:</p>
 <ol style="list-style-type: decimal">
 <li>Everything is in one folder.</li>
 <li>Every path is relative to that folder.</li>
 </ol>
-<p>This simple concept of a self-contained folder is facilitated by two R specific tools, <a href="https://r4ds.had.co.nz/workflow-projects.html">RStudio projects</a> and the <code>here</code> package <span class="citation">(Müller, <a href="#ref-R-here">2017</a>)</span>.
-The former frees the user from changing the working directory manually; the latter infers absolute paths from relative ones.
-However, unlike the native R solution, this inference is consistent across operating systems and scripts and RMarkdowns.</p>
-<p>The <code>repro</code> package comes with a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
-This template provides the researcher with a minimal example of an reproducible analysis.
-The researcher can adept code and files to there need, either by simply changing them by hand or through the modular structure of <code>repro</code>.</p>
+<p>This simple concept of a self-contained folder is facilitated by two R specific tools: <a href="https://r4ds.had.co.nz/workflow-projects.html">RStudio projects</a> and the <code>here</code> package <span class="citation">(Müller, <a href="#ref-R-here">2017</a>)</span>.
+The former exempts the user from changing the working directory manually; the latter infers absolute paths from relative ones.
+However, unlike the native R solution, this inference is consistent across operating systems, scripts and RMarkdowns.</p>
+<p>The <code>repro</code> package offers a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
+This template provides the researcher with a minimal example of a reproducible analysis.
+The researcher can thus adept code and files to their need, either by simply changing them manually or by the modular structure of <code>repro</code>.</p>
 </div>
 <div id="dynamic-document-generation" class="section level2">
 <h2><span class="header-section-number">2.2</span> Dynamic Document Generation</h2>
-<p>A clear file structure helps a researchers to better understand how a scientific analysis relates to the code, but a strict segregation of code and document inhibit a full grasp.
-Providing a direct link, dynamic document generation allows interspersing text with code and its results, producing one human-readable document.
+<p>A clear file structure helps researchers to better understand how a scientific analysis relates to the code but a otherwise strict segregation of code and document inhibits a full grasp.
+Providing a direct link, dynamic document generation allows interspersing text with code and its results, in order to produce a human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
-This functionality eliminates errors due to copying and pasting results from statistical software to a text processor. This mistake may be all too common; <span class="citation">Nuijten et al. (<a href="#ref-nuijtenPrevalenceStatisticalReporting2016">2016</a>)</span> reports that 50% of papers from the psychological sciences contain an error that may be prevented.</p>
-<p>RMarkdown does provide a convenient framework to write such dynamic documents and render them as a wide range of output formats<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. In an RMarkdown, three parts can be distinguished:</p>
+This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; <span class="citation">Nuijten et al. (<a href="#ref-nuijtenPrevalenceStatisticalReporting2016">2016</a>)</span> reports that 50% of papers from the psychological sciences contain an error that could have been prevented.</p>
+<p>RMarkdown provides a convenient framework to write such dynamic documents and render them as a wide range of output formats<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. In an RMarkdown, three parts can be distinguished:</p>
 <ul>
 <li>one specifying its output and metadata,</li>
 <li>one containing code, and</li>
 <li>one with descriptive text.</li>
 </ul>
 <p>Each part uses its own language, all of them designed with ease of use and readability in mind.
-The section containing the output format and other metadata alongside is written in YAML (see the example below).
-This specification is located at the top, separated by three dashes at the beginning and end of the section.
+The one section containing the output format and other metadata alongside is written in YAML (see the example below).
+This specification is located on the top, separated by three dashes at the beginning and at the end of the section.
 (R-)Code executing an analysis can be placed in a distinct chunk or inline within the text.
 The former has three backticks on their own line signifying beginning and end.
-The later is quoted in a pair single backticks.
+The latter is quoted in a pair single backticks.
 Examples of both methods can be found below.
-Text, which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language “Markdown”.
-Markdown allows annotating text to signify formattings such as bold, italic, links and the inclusion of images.
-Such markup is designed to be simple so the documents is well readable even as source files.</p>
+Text which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language “Markdown”.
+Markdown allows annotating text to signify formatting as bold, italic, links and the inclusion of images.
+Such markup is designed to be simple for the documents to be well readable even as source files.</p>
 <p>The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown (<a href="https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd#L15-L39">adapted source code</a> from <span class="citation">Xie et al. (<a href="#ref-xieMarkdownDefinitiveGuide2019">2019</a>)</span>/<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ot">---</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">title:</span><span class="at"> </span><span class="st">&quot;Hello R Markdown&quot;</span></a>
@@ -271,31 +269,31 @@ Such markup is designed to be simple so the documents is well readable even as s
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">Below is a code chunk:</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">```{r}</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">fit = lm(dist ~ speed, data = cars)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">b   = coef(fit)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">plot(cars)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">abline(fit)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">```</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="bn">```{r}</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="bn">fit = lm(dist ~ speed, data = cars)</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="bn">b   = coef(fit)</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="bn">plot(cars)</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="bn">abline(fit)</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="bn">```</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12">The slope of the regression is <span class="bn">`r b[1]`</span>.</a></code></pre></div>
 <p>Resulting in this document:</p>
 <p>[fixme]</p>
-<p>Undeniably, RMarkdown greatly faciliates reproducibility, but it cannot ensure reproduction. To virtually garuntee reproduction, the <code>repro</code> package extends the yaml metadata to incorporate <a href="technical-solutions.html#dependency-management">Dependency Management</a> and <a href="technical-solutions.html#containarization">Containarization</a> into the process of dynamic document creation.</p>
+<p>Undeniably, RMarkdown faciliates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the <code>repro</code> package extends the YAML metadata to incorporate <a href="technical-solutions.html#dependency-management">Dependency Management</a> and <a href="technical-solutions.html#containarization">Containarization</a> into the process of dynamic document creation.</p>
 </div>
 <div id="version-control" class="section level2">
 <h2><span class="header-section-number">2.3</span> Version Control</h2>
 <p>Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
-As changes accumulate, different versions do too, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
-One may argue that in the typical publication process, the final product is apparent: the published paper, so only one version is relevant.
-However, reproducibility may be crucial even before publication as part of collaboration and the peer-review process.
-Also, recent trends in the publication process like preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.</p>
+As changes accumulate, different versions do so as well, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
+One may argue that in the typical publication process, the final product is apparent: the published paper.
+However, reproducibility may be crucial even before publication as part of collaboration and within the peer-review process.
+Also, recent trends in the publication process as preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.</p>
 <p>To organize different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
 This challenge is met by a high degree of automation that keeps track of different versions and has advanced facilities to compare and merge them.</p>
-<p>One such version control software is Git. Git tracks versions of the project folder by taking snapshots of a given state called commits.
-Each commit has a unique id, called a hash, a short description of the changes made, called commit message and a link to the previous commit.
-This linking creates a “pedigree” of versions where it is easy to see how things have evolved.
-Going back in time to a specific version only requires to know the hash of the commit.
+<p>One such version control software is Git. Git tracks versions of a project folder by taking snapshots of a given state called commits.
+Each commit has a unique ID, called a hash, as well as a short description of the changes made, called commit message and a link to the previous commit.
+This linking procedure creates a “pedigree” of versions that makes it easy to see how things have evolved.
+Going back in time to a specific version only requires knowing the hash of the commit.
 To mark commits as special milestones, they can be tagged, e.g. as preregistration, preprint, submission or publication.</p>
 <p>While mastering Git requires some experience, most of the time, only four commands are needed, which may be accessed through RStudio’s Git interface:</p>
 <dl>
@@ -317,51 +315,51 @@ To mark commits as special milestones, they can be tagged, e.g. as preregistrat
 <div id="dependency-management" class="section level2">
 <h2><span class="header-section-number">2.4</span> Dependency Management</h2>
 <p>In an analysis, the results depend on code which in turn depends on data.
-However, seldomly the data is analyzed as is, but some code is dedicated to preparing it.
+However, seldomly the data is analysed as it is, but some code is dedicated to preparing it.
 Most likely, each analysis needs a slightly different version of the data.
 An analysis of missingness requires the missings to be retained, but some statistical models do not allow that.
 Or the modelling software requires data to be differently shaped, then the plotting library.
-It is also often the case that one analysis is based on the output of another and so forth.
+Often it is the case that one analysis is based on the output of another and so forth.
 As these relations can become quite complicated, it is necessary to make them explicit to avoid confusion.
 Dependency management provides a formalism that describes how files depend on other files.
-More specifically, it provides an automated way to create files from other files, e.g. it automatically generates a cleaned version of the data, by relying on a cleaning script and the raw data.
-Such relations may be layered; hence, if a plot requires this cleaned dataset, first the cleaned dataset and then the plot is generated automatically.
-Such structure allows saving considerable computing time, as dependencies are not generated again if they already exist, but only if one of their dependencies has changed.
+More specifically, it provides an automated way to create files from other files, e.g. it automatically generates a cleaned version of the data, by relying on a cleaning script and the raw data.</p>
+<p>Such relations may be layered; hence, if a plot requires this cleaned dataset, first the cleaned dataset and then the plot is generated automatically.
+Such structure allows to save considerable computing time, as dependencies are not generated again if they already exist, but only if one of their dependencies has changed.
 In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.</p>
-<p>Make is a tool for dependency management, while originally designed for the compilation of programs, it is now increasingly recognized as a tool for reproducibility.
-It allows for all features above and more as it is an own programming language.</p>
+<p>Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognized as a tool for reproducibility.
+It allows for all features above and even more as it is an own programming language.</p>
 <p>However, the repro package provides a much-simplified interface to the essential features, eschewing the need to learn yet another language.</p>
 </div>
 <div id="containarization" class="section level2">
 <h2><span class="header-section-number">2.5</span> Containarization</h2>
 <p>Most computer code is not self-contained but needs libraries and other software to work (e.g. the R programming language or packages).
-These external dependencies pose a risk for reproducibility because it may not be clear what besides the code and data is necessary and how to install it.
+These external dependencies pose a risk for reproducibility because it may not be clear what is necessary—besides the code and data—and how to install it.
 Even when all needed software and their exact versions are recorded meticulously, it may be a challenge to install them.
-First, it is difficult to maintain different software versions on the same computer and second it may be unclear how to obtain an exact copy of some years old software version.
-Setting up a computer exactly as someone else is difficult enough, but replicating some other computer how it was years ago is at best painstaking.</p>
-<p>To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualization because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can be easily recreated on another machine.</p>
-<p>Docker allows virtualization of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualization is called containerization. Containers save storage by being based on each other enabling reuse. Hence if two containers are based, e.g. on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called <code>Dockerfile</code>, that defines on which container it should be based and what software should be installed within it.</p>
-<p>The <code>repro</code>-package automatically infers which packages are needed and creates an appropriate Dockerfiles and the container from it.</p>
+First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy of some years old software version.
+Setting up a computer exactly as someone else’s is difficult enough, but replicating another computer how it was several years ago is at best painstaking.</p>
+<p>To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualization because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.</p>
+<p>Docker allows virtualization of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualization is called containerization. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g. on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called <code>Dockerfile</code>. This file defines on which container the result should be based upon and what software should be installed within it.</p>
+<p>The <code>repro</code>-package infers automatically which packages are needed and creates an appropriate Dockerfiles and the container from it.</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-R-here">
-<p>Müller, K. (2017). <em>Here: A simpler way to find your files</em>. <a href="https://CRAN.R-project.org/package=here" class="uri">https://CRAN.R-project.org/package=here</a></p>
+<p>Müller, K. (2017). <em>Here: A simpler way to find your files</em>. <a href="https://CRAN.R-project.org/package=here">https://CRAN.R-project.org/package=here</a></p>
 </div>
 <div id="ref-nuijtenPrevalenceStatisticalReporting2016">
-<p>Nuijten, M. B., Hartgerink, C. H. J., van Assen, M. A. L. M., Epskamp, S., &amp; Wicherts, J. M. (2016). The prevalence of statistical reporting errors in psychology (1985–2013). <em>Behavior Research Methods</em>, <em>48</em>(4), 1205–1226. <a href="https://doi.org/10.3758/s13428-015-0664-2" class="uri">https://doi.org/10.3758/s13428-015-0664-2</a></p>
+<p>Nuijten, M. B., Hartgerink, C. H. J., van Assen, M. A. L. M., Epskamp, S., &amp; Wicherts, J. M. (2016). The prevalence of statistical reporting errors in psychology (1985–2013). <em>Behavior Research Methods</em>, <em>48</em>(4), 1205–1226. <a href="https://doi.org/10.3758/s13428-015-0664-2">https://doi.org/10.3758/s13428-015-0664-2</a></p>
 </div>
 <div id="ref-peikertReproducibleDataAnalysis2019">
-<p>Peikert, A., &amp; Brandmaier, A. M. (2019). <em>A Reproducible Data Analysis Workflow with R Markdown, Git, Make, and Docker</em> [Preprint]. PsyArXiv. <a href="https://doi.org/10.31234/osf.io/8xzqy" class="uri">https://doi.org/10.31234/osf.io/8xzqy</a></p>
+<p>Peikert, A., &amp; Brandmaier, A. M. (2019). <em>A Reproducible Data Analysis Workflow with R Markdown, Git, Make, and Docker</em> [Preprint]. PsyArXiv. <a href="https://doi.org/10.31234/osf.io/8xzqy">https://doi.org/10.31234/osf.io/8xzqy</a></p>
 </div>
 <div id="ref-R-base">
-<p>R Core Team. (2020). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a></p>
+<p>R Core Team. (2020). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a></p>
 </div>
 <div id="ref-theturingwaycommunityTuringWayHandbook2019">
-<p>The Turing Way Community, Arnold, B., Bowler, L., Gibson, S., Herterich, P., Higman, R., Krystalli, A., Morley, A., O’Reilly, M., &amp; Whitaker, K. (2019). <em>The Turing Way: A Handbook for Reproducible Data Science</em>. <a href="https://doi.org/10.5281/zenodo.3233986" class="uri">https://doi.org/10.5281/zenodo.3233986</a></p>
+<p>The Turing Way Community, Arnold, B., Bowler, L., Gibson, S., Herterich, P., Higman, R., Krystalli, A., Morley, A., O’Reilly, M., &amp; Whitaker, K. (2019). <em>The Turing Way: A Handbook for Reproducible Data Science</em>. <a href="https://doi.org/10.5281/zenodo.3233986">https://doi.org/10.5281/zenodo.3233986</a></p>
 </div>
 <div id="ref-xieMarkdownDefinitiveGuide2019">
 <p>Xie, Y., Allaire, J. J., &amp; Grolemund, G. (2019). <em>R Markdown: The definitive guide</em>.</p>
