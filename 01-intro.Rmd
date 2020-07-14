@@ -5,7 +5,7 @@ Conversely, they call a result replicable if one draws the same conclusion from 
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.
 
 The scientific community agrees that their work should be ideally reproducible.
-Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is "good scientific practice" to ensure what they consider reproducibility [@AnnouncementReducingOur2013; @dfg2019; @epskamp2019rep].
+Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is "good scientific practice" to ensure what they consider reproducible [@AnnouncementReducingOur2013; @dfg2019; @epskamp2019rep].
 Several reasons, practical and meta-scientific, justify this consensus of reproducibility as a minimal standard of Science.
 
 Reproducibility makes researchers life more productive in two ways:
@@ -16,6 +16,7 @@ Philosophers of Science characterise Science mainly as a shared method of determ
 If this method is for experts to agree on the assumptions and deduce "truth", reproducibility is hardly necessary.
 On the other hand, it does gain importance if one induces facts by carefully observing the world.
 The decisive difference is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may verify it.
+
 Accepting induction as a scientific method hence hinges on the verifiability by others.
 Some have even argued that such democratisation of Science is what fueled the so-called scientific revolution [@heilbronOxfordCompanionHistory2004, Scientific Revolution].
 The scientific revolution had the experiment as an agreed-upon method to observe reality, and a much later revolution provides statistical modelling [@rodgersEpistemologyMathematicalStatistical2010] as a means to induction.
@@ -30,6 +31,8 @@ Furthermore, let us assume this hypothetical program may never hold if the datas
 Does the predicate "reproducible" in this situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
 This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility but rather in its side effects.
+Because it is a binary programm, it does not enhance understanding and because it not applicable to other datasets, it does not facilitate productivity.
+In fact such program does not grant the researcher any practical nor metascientific advantages over non-reproducible research products.
 
 Spoiling its elegant simplicity, I extend the definition by @claerboutElectronicDocumentsGive1992 to address this issue, by further demanding that reproducibility must facilitate replication.
 Hence, I would only call a result reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to.
@@ -43,8 +46,8 @@ The former relates to the practical advantages while the latter serves the metas
 An important caveat of the technical aspect is that generating the same results from the same data should always be possible regardless of time and machine.
 Following a reproducible analysis should be:
 
-1. understandable by other researchers
-2. transferable across machines
+1. understandable by other researchers,
+2. transferable across machines,
 3. conserved through time.
 
 This much more demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a "replication crises" [@ioannidisWhyMostPublished2005] and the rise of "machine learning" [@jordanMachineLearningTrends2015] as a scientific tool.
