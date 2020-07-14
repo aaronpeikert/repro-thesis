@@ -16,7 +16,7 @@ Instead, reproducibility has to rest on five pillars:
 4. dependency management
 : a formal description of how files relate to each other
 
-5. containerization
+5. containerisation
 : an exact specification of the computational environment
 
 These pillars stipulate the relations between thought, code and data with their change over time and environment and hence, they reach all requirements of reproducibility through being:
@@ -29,7 +29,7 @@ While comprehensibility to the scientific community is probably the most crucial
 That is because as a non-technical requirement, no set of rules can assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.
 
-@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language [@R-base] and provide the high level overview wich can be seen in Figure \@ref(fig:nutshell) .
+@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language [@R-base] and provide the high-level overview which can be seen in Figure \@ref(fig:nutshell) .
 
 ```{r nutshell, echo=FALSE, fig.cap="Overview of the interplay of RMarkdown, Git, Make, and Docker", out.width="100%", fig.align="center"}
 knitr::include_graphics("images/nutshell.svg", auto_pdf = TRUE)
@@ -45,9 +45,9 @@ Each of the following sections first raises a challenge for reproducibility, the
 
 ## File Organisation
 
-File organization has to meet two challenges: First, the structure needs to be understandable for others, and second, it needs to be self-contained so that it can be moved to another machine.
+File organisation has to meet two challenges: First, the structure needs to be understandable for others, and second, it needs to be self-contained so that it can be moved to another machine.
 
-Adhering to conventions can help other people understand how files are organized.
+Adhering to conventions can help other people understand how files are organised.
 For example, the filename `R/reshape.R` both follows standard naming conventions (i.e. all lowercase; ends with .R; placed within the R directory) and is meaningful. Contrarily, `myScripts/munge_Data.r` is probably a lot harder both to understand and to remember for most R-users.
 
 Following two guidelines makes the file structure self-contained:
@@ -61,11 +61,11 @@ However, unlike the native R solution, this inference is consistent across opera
 
 The `repro` package offers a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
 This template provides the researcher with a minimal example of a reproducible analysis.
-The researcher can thus adept code and files to their need, either by simply changing them manually or by the modular structure of `repro`.
+The researcher can thus adept code and files to their need, either by merely changing them manually or by the modular structure of `repro`.
 
 ## Dynamic Document Generation
 
-A clear file structure helps researchers to better understand how a scientific analysis relates to the code but a otherwise strict segregation of code and document inhibits a full grasp.
+A clear file structure helps researchers to better understand how a scientific analysis relates to the code but an otherwise strict segregation of code and document inhibits a full grasp.
 Providing a direct link, dynamic document generation allows interspersing text with code and its results, in order to produce a human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
 This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; @nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain an error that could have been prevented.
@@ -83,8 +83,8 @@ This specification is located on the top, separated by three dashes at the begin
 The former has three backticks on their own line signifying beginning and end.
 The latter is quoted in a pair single backticks. 
 Examples of both methods can be found below.
-Text which is not fenced by either three dashes or backticks, is interpreted as literal text written in the Markup language "Markdown".
-Markdown allows annotating text to signify formatting as bold, italic, links and the inclusion of images.
+Text which is not fenced by either three dashes or backticks is interpreted as literal text written in the Markup language "Markdown".
+Markdown allows annotating text to signify formatting like bold, italic, links and the inclusion of images.
 This markup is designed to be well readable even as source files. 
 
 The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown ([adapted source code](https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd#L15-L39) from @xieMarkdownDefinitiveGuide2019/[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)):
@@ -121,7 +121,7 @@ Resulting in this document:
 
 [fixme]
 
-Undeniably, RMarkdown faciliates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the `repro` package extends the YAML metadata to incorporate [Dependency Management] and [Containarization] into the process of dynamic document creation.
+Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the `repro` package extends the YAML metadata to incorporate [Dependency Management] and [Containarization] into the process of dynamic document creation.
 
 ## Version Control
 
@@ -131,7 +131,7 @@ One may argue that in the typical publication process, the final product is appa
 However, reproducibility may be crucial even before publication as part of collaboration and within the peer-review process.
 Also, recent trends in the publication process as preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
 
-To organize different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
+To organise different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
 This challenge is met by a high degree of automation that keeps track of different versions and has advanced facilities to compare and merge them.
 
 One such version control software is Git. Git tracks versions of a project folder by taking snapshots of a given state called commits.
@@ -173,7 +173,7 @@ Such structure allows to save considerable computing time, as dependencies are n
 In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.
 
-Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognized as a tool for reproducibility.
+Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognised as a tool for reproducibility.
 It allows for all features above and even more as it is an own programming language.
 
 However, the repro package provides a much-simplified interface to the essential features, eschewing the need to learn yet another language.
@@ -187,8 +187,8 @@ Even when all needed software and their exact versions are recorded meticulously
 First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy of some years old software version.
 Setting up a computer exactly as someone else's is difficult enough, but replicating another computer how it was several years ago is at best painstaking.
 
-To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualization because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.
+To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualisation because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.
 
-Docker allows virtualization of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualization is called containerization. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g. on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called `Dockerfile`. This file defines on which container the result should be based upon and what software should be installed within it.
+Docker allows virtualisation of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualisation is called containerisation. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g. on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called `Dockerfile`. This file defines on which container the result should be based upon and what software should be installed within it.
 
 The `repro`-package infers automatically which packages are needed and creates an appropriate Dockerfiles and the container from it.
