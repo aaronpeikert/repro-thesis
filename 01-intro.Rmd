@@ -24,7 +24,7 @@ This consensus about how to observe and how to induce gives modern scientific en
 Two reasons justify why we must assume reproducibility as a scientific standard if we accept induction as a scientific method:
 First, it enables independent verification of the process of induction, and second, it dramatically simplifies replication as a means to verify the induced truths.
 
-However, neither the practical reasons that results might be less error-prone and more reusable nor the meta-scientific grounds that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by @claerboutElectronicDocumentsGive1992 given above.
+However, neither the practical reasons that results might be less error-prone and more reusable nor that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by @claerboutElectronicDocumentsGive1992 given above.
 A simple thought experiment illustrates this shortcoming:
 Imagine a binary program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
 Furthermore, let us assume this hypothetical program may never hold if the dataset changes.

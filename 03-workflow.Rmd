@@ -243,10 +243,10 @@ check_docker()
 
 ### Configure Project
 
-From template in new folder:
+Either rom template in new folder:
 
 ```{r, eval=FALSE}
-repro_template()
+repro_template("path/to/new/folder")
 automate()
 ```
 
