@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-07-13" />
+<meta name="date" content="2020-07-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Conversely, they call a result replicable if one draws the same conclusion from a new dataset.
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.</p>
 <p>The scientific community agrees that their work should be ideally reproducible.
-Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is “good scientific practice” to ensure what they consider reproducibility <span class="citation">(“Reducing our irreproducibility,” <a href="#ref-AnnouncementReducingOur2013">2013</a>; Deutsche Forschungsgemeinschaft, <a href="#ref-dfg2019">2019</a>; Epskamp, <a href="#ref-epskamp2019rep">2019</a>)</span>.
+Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is “good scientific practice” to ensure what they consider reproducible <span class="citation">(“Reducing Our Irreproducibility,” <a href="#ref-AnnouncementReducingOur2013">2013</a>; Deutsche Forschungsgemeinschaft, <a href="#ref-dfg2019">2019</a>; Epskamp, <a href="#ref-epskamp2019rep">2019</a>)</span>.
 Several reasons, practical and meta-scientific, justify this consensus of reproducibility as a minimal standard of Science.</p>
 <p>Reproducibility makes researchers life more productive in two ways:
 The act of reproduction provides, at the most basic level, an opportunity for the researcher to spot errors. At the same time, other researchers may also benefit from reusing materials from an analysis they reproduced.</p>
@@ -183,20 +183,22 @@ The act of reproduction provides, at the most basic level, an opportunity for th
 Philosophers of Science characterise Science mainly as a shared method of determining whether or not a statement about the world is “true” <span class="citation">(Andersen &amp; Hepburn, <a href="#ref-andersonScientificMethod2016">2016</a>)</span> or more broadly evaluating the statements verisimilitude <span class="citation">(Gilbert, <a href="#ref-gilbertModelBuildingDefinition1991">1991</a>; Meehl, <a href="#ref-meehlAppraisingAmendingTheories1990">1990</a>; Popper, <a href="#ref-popperCommentsTruthGrowth1962">1962</a>; Tichỳ, <a href="#ref-tichyVerisimilitudeRedefined1976">1976</a>)</span>.
 If this method is for experts to agree on the assumptions and deduce “truth”, reproducibility is hardly necessary.
 On the other hand, it does gain importance if one induces facts by carefully observing the world.
-The decisive difference is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may verify it.
-Accepting induction as a scientific method hence hinges on the verifiability by others.
+The decisive difference is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may verify it.</p>
+<p>Accepting induction as a scientific method hence hinges on the verifiability by others.
 Some have even argued that such democratisation of Science is what fueled the so-called scientific revolution <span class="citation">(Heilbron, <a href="#ref-heilbronOxfordCompanionHistory2004">2004</a>, Scientific Revolution)</span>.
 The scientific revolution had the experiment as an agreed-upon method to observe reality, and a much later revolution provides statistical modelling <span class="citation">(Rodgers, <a href="#ref-rodgersEpistemologyMathematicalStatistical2010">2010</a>)</span> as a means to induction.
 This consensus about how to observe and how to induce gives modern scientific enterprises much of its credibility.
 Two reasons justify why we must assume reproducibility as a scientific standard if we accept induction as a scientific method:
 First, it enables independent verification of the process of induction, and second, it dramatically simplifies replication as a means to verify the induced truths.</p>
-<p>However, neither the practical reasons that results might be less error-prone and more reusable nor the meta-scientific grounds that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> given above.
+<p>However, neither the practical reasons that results might be less error-prone and more reusable nor that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> given above.
 A simple thought experiment illustrates this shortcoming:
 Imagine a binary program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
 Furthermore, let us assume this hypothetical program may never hold if the dataset changes.
 Does the predicate “reproducible” in this situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
-This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility but rather in its side effects.</p>
+This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility but rather in its side effects.
+Because it is a binary programm, it does not enhance understanding and because it not applicable to other datasets, it does not facilitate productivity.
+In fact such program does not grant the researcher any practical nor metascientific advantages over non-reproducible research products.</p>
 <p>Spoiling its elegant simplicity, I extend the definition by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> to address this issue, by further demanding that reproducibility must facilitate replication.
 Hence, I would only call a result reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to.
 With such a notion, the only valid cause of reproducibility is transparency.
@@ -208,8 +210,8 @@ The former relates to the practical advantages while the latter serves the metas
 An important caveat of the technical aspect is that generating the same results from the same data should always be possible regardless of time and machine.
 Following a reproducible analysis should be:</p>
 <ol style="list-style-type: decimal">
-<li>understandable by other researchers</li>
-<li>transferable across machines</li>
+<li>understandable by other researchers,</li>
+<li>transferable across machines,</li>
 <li>conserved through time.</li>
 </ol>
 <p>This much more demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a “replication crises” <span class="citation">(Ioannidis, <a href="#ref-ioannidisWhyMostPublished2005">2005</a>)</span> and the rise of “machine learning” <span class="citation">(Jordan &amp; Mitchell, <a href="#ref-jordanMachineLearningTrends2015">2015</a>)</span> as a scientific tool.
