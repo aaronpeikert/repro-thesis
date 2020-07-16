@@ -1,0 +1,3 @@
+# Outlook
+
+While the `repro` package exports `r length(ls("package:repro"))` well documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
