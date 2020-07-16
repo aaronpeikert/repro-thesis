@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-07-15" />
+<meta name="date" content="2020-07-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="technical-solutions.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="outlook.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -151,6 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.3" data-path="workflow.html"><a href="workflow.html#configure-project"><i class="fa fa-check"></i><b>3.5.3</b> Configure Project</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="outlook.html"><a href="outlook.html"><i class="fa fa-check"></i><b>4</b> Outlook</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -221,7 +222,7 @@ Consequently, the following commands<a href="#fn4" class="footnote-ref" id="fnre
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">check_docker</span>()</a></code></pre></div>
 <pre><code>## ✔ You are inside a Docker containter!</code></pre>
 <p>If everything is set up, users can proceed to reproduce an analysis that conforms to this workflow.</p>
-<p>If not, e.g. because Docker is not installed, users get an informative message appropriate for suitable to their platform (here Windows as an example).</p>
+<p>If not, e.g. because Docker is not installed, users get an informative message appropriate for their platform (here Windows as an example).</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">check_git</span>()</a></code></pre></div>
 <pre><code>## ✖ Git is not installed.</code></pre>
 <pre><code>## ℹ We recommend Chocolately for Windows users.</code></pre>
@@ -233,7 +234,9 @@ Consequently, the following commands<a href="#fn4" class="footnote-ref" id="fnre
 </div>
 <div id="reproduction" class="section level2">
 <h2><span class="header-section-number">3.2</span> Reproduction</h2>
-<p>GitHub, Make, and Docker are enough to reproduce this document.
+<p>Because this document complies with all requieremnts described therin, it will serve as an example to reproduce.
+However, another example will be provided in the <a href="workflow.html#creation">Creation</a> section below.
+GitHub, Make, and Docker are enough to reproduce this very document.
 So everything is set up to download the source files of this document, rerun the code within it, and verify its results.</p>
 <p>The following command uses Git and GitHub to:</p>
 <ol style="list-style-type: decimal">
@@ -249,7 +252,7 @@ So everything is set up to download the source files of this document, rerun the
 However, I decided the reproduction must be feasible without the <code>repro</code> package.
 This decision is supposed to prevent that long term reproducibility depends on the availability of the package.
 I am confident that Git, Make, Docker will be available for years to come, whereas I cannot say the same about this package.
-To compromise the needs of long term support and usability, <code>repro</code> offers advice about what to do, but right before doing it.</p>
+To compromise the needs of long term support and usability, <code>repro</code> offers advice about what to do, but stops right before doing it.</p>
 <p>Which steps one has to take, depends on the tools chosen to implement dependency management.
 This tool determines the “entry point” for an analysis.
 To detect the entry point, <code>repro</code> follows simple heuristics, which stem from what R users tend to use.
@@ -283,13 +286,14 @@ In the terminology of GitHub, the public copy is a “fork”, the tracked chang
 If you reproduced this document, you could make changes to it—which could be something trivial, like correcting spelling—and ask me to incorporate them.
 You can initialze a pull request with:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">pr_init</span>()</a></code></pre></div>
-<p>Then you can change files as you like and track them with Git.
+<p>Then you can change the files of this thesis as you like and track them with Git.
 You should make sure that the analysis is still reproducible with:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">rerun</span>()</a></code></pre></div>
 <p>If you are satisfied with the changes you made, you can trigger the pull request with:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">pr_push</span>()</a></code></pre></div>
-<p>If I also find the changes to my liking, I can incorporate the changes on GitHub. If not, the changes can be discussed in the pull request or I could make amends before merging them.</p>
-<p>Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth.
+<p>If I also find the changes to my liking, I can incorporate the changes on GitHub.
+If not, the changes can be discussed in the pull request or I could make amends before merging them.</p>
+<p>Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth or use cloud storage systems.
 This higher level of control fits well into the high standards of scientific work.
 However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, whereas of 2017 more than 15.000 developers contributed code <span class="citation">(The Linux Foundation, <a href="#ref-thelinuxfoundation2017LinuxKernel2017">2017</a>)</span>).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
@@ -355,14 +359,14 @@ These functions extend the <a href="https://usethis.r-lib.org">usethis-package</
 </div>
 <div id="configure-project" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Configure Project</h3>
-<p>Either rom template in new folder:</p>
+<p>Either from template in new folder:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">repro_template</span>(<span class="st">&quot;path/to/new/folder&quot;</span>)</a>
 <a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">automate</span>()</a></code></pre></div>
 <p>Or semi automatic with more flexibility in already existing projects:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">use_docker</span>() <span class="co"># create Dockerfile</span></a>
 <a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">use_make_docker</span>() <span class="co"># create docker compatible Makefile</span></a>
 <a class="sourceLine" id="cb31-3" data-line-number="3">usethis<span class="op">::</span><span class="kw">use_git</span>() <span class="co"># initialize git and add first commit</span></a>
-<a class="sourceLine" id="cb31-4" data-line-number="4">rmarkdown<span class="op">::</span><span class="kw">draft</span>(<span class="st">&quot;pnas_article&quot;</span>, <span class="co"># use PNAS template</span></a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">rmarkdown<span class="op">::</span><span class="kw">draft</span>(<span class="st">&quot;pnas_article&quot;</span>, <span class="co"># use PNAS article template</span></a>
 <a class="sourceLine" id="cb31-5" data-line-number="5">                 <span class="dt">package =</span> <span class="st">&quot;rticles&quot;</span>) <span class="co"># requires rticles package</span></a></code></pre></div>
 
 </div>
@@ -392,7 +396,7 @@ These functions extend the <a href="https://usethis.r-lib.org">usethis-package</
         </div>
       </div>
 <a href="technical-solutions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="outlook.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

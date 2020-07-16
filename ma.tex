@@ -129,7 +129,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Automating reproducible research workflows}
 \author{Aaron Peikert}
-\date{2020-07-15}
+\date{2020-07-16}
 
 \begin{document}
 \maketitle
@@ -388,6 +388,7 @@ The following section shows examples of metadata, code and text, specified as ab
 \FunctionTok{author:}\AttributeTok{ }\StringTok{"Ross Ihaka & Robert Gentleman"}
 \FunctionTok{date:}\AttributeTok{ }\StringTok{"1997-04-23"}
 \FunctionTok{output:}\AttributeTok{ pdf_document}
+\FunctionTok{papersize:}\AttributeTok{ }\StringTok{"a6"}
 \OtherTok{---}
 \end{Highlighting}
 \end{Shaded}
@@ -411,7 +412,14 @@ The following section shows examples of metadata, code and text, specified as ab
 
 Resulting in this document:
 
-{[}fixme{]}
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/rmarkdown} 
+
+}
+
+\caption{Result of minimal rmarkdown example.}\label{fig:rmarkdown}
+\end{figure}
 
 Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the \texttt{repro} package extends the YAML metadata to incorporate \protect\hyperlink{dependency-management}{Dependency Management} and \protect\hyperlink{containarization}{Containarization} into the process of dynamic document creation.
 
@@ -590,7 +598,7 @@ Consequently, the following commands\footnote{There is also \texttt{check\_githu
 
 If everything is set up, users can proceed to reproduce an analysis that conforms to this workflow.
 
-If not, e.g.~because Docker is not installed, users get an informative message appropriate for suitable to their platform (here Windows as an example).
+If not, e.g.~because Docker is not installed, users get an informative message appropriate for their platform (here Windows as an example).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -629,7 +637,9 @@ If not, e.g.~because Docker is not installed, users get an informative message a
 \hypertarget{reproduction}{%
 \subsection{Reproduction}\label{reproduction}}
 
-GitHub, Make, and Docker are enough to reproduce this document.
+Because this document complies with all requieremnts described therin, it will serve as an example to reproduce.
+However, another example will be provided in the \protect\hyperlink{creation}{Creation} section below.
+GitHub, Make, and Docker are enough to reproduce this very document.
 So everything is set up to download the source files of this document, rerun the code within it, and verify its results.
 
 The following command uses Git and GitHub to:
@@ -659,7 +669,7 @@ It is tempting to automate the reproduction part entirely and use a \texttt{reru
 However, I decided the reproduction must be feasible without the \texttt{repro} package.
 This decision is supposed to prevent that long term reproducibility depends on the availability of the package.
 I am confident that Git, Make, Docker will be available for years to come, whereas I cannot say the same about this package.
-To compromise the needs of long term support and usability, \texttt{repro} offers advice about what to do, but right before doing it.
+To compromise the needs of long term support and usability, \texttt{repro} offers advice about what to do, but stops right before doing it.
 
 Which steps one has to take, depends on the tools chosen to implement dependency management.
 This tool determines the ``entry point'' for an analysis.
@@ -710,7 +720,7 @@ You can initialze a pull request with:
 \end{Highlighting}
 \end{Shaded}
 
-Then you can change files as you like and track them with Git.
+Then you can change the files of this thesis as you like and track them with Git.
 You should make sure that the analysis is still reproducible with:
 
 \begin{Shaded}
@@ -727,9 +737,10 @@ If you are satisfied with the changes you made, you can trigger the pull request
 \end{Highlighting}
 \end{Shaded}
 
-If I also find the changes to my liking, I can incorporate the changes on GitHub. If not, the changes can be discussed in the pull request or I could make amends before merging them.
+If I also find the changes to my liking, I can incorporate the changes on GitHub.
+If not, the changes can be discussed in the pull request or I could make amends before merging them.
 
-Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth.
+Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth or use cloud storage systems.
 This higher level of control fits well into the high standards of scientific work.
 However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, whereas of 2017 more than 15.000 developers contributed code (The Linux Foundation, \protect\hyperlink{ref-thelinuxfoundation2017LinuxKernel2017}{2017})).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
@@ -823,7 +834,7 @@ To summarise, if you want to create a reproducible project, you can do so with t
 \hypertarget{configure-project}{%
 \subsubsection{Configure Project}\label{configure-project}}
 
-Either rom template in new folder:
+Either from template in new folder:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -839,10 +850,15 @@ Or semi automatic with more flexibility in already existing projects:
 \KeywordTok{use_docker}\NormalTok{() }\CommentTok{# create Dockerfile}
 \KeywordTok{use_make_docker}\NormalTok{() }\CommentTok{# create docker compatible Makefile}
 \NormalTok{usethis}\OperatorTok{::}\KeywordTok{use_git}\NormalTok{() }\CommentTok{# initialize git and add first commit}
-\NormalTok{rmarkdown}\OperatorTok{::}\KeywordTok{draft}\NormalTok{(}\StringTok{"pnas_article"}\NormalTok{, }\CommentTok{# use PNAS template}
+\NormalTok{rmarkdown}\OperatorTok{::}\KeywordTok{draft}\NormalTok{(}\StringTok{"pnas_article"}\NormalTok{, }\CommentTok{# use PNAS article template}
                  \DataTypeTok{package =} \StringTok{"rticles"}\NormalTok{) }\CommentTok{# requires rticles package}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{outlook}{%
+\section{Outlook}\label{outlook}}
+
+While the \texttt{repro} package exports 31 well documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
