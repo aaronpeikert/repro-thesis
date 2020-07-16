@@ -1,1 +1,2 @@
-RUN Rscript -e 'tinytex::tlmgr_install(pkgs = c("emptypage", "sourcecodepro", "libertinust1math", "libertine", "graphics-def", "graphics-cfg", "graphics", "oberdiek", "ifluatex", "ifxetex", "setspace"))'
+RUN Rscript -e 'tinytex::tlmgr_install(pkgs = c("emptypage", "sourcecodepro", "libertinust1math", "libertine", "graphics-def", "graphics-cfg", "graphics", "oberdiek", "ifluatex", "ifxetex", "setspace", "crop"))'
+RUN apt-get update -y && apt-get install -y inkscape

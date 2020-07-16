@@ -7,3 +7,4 @@ _book/
 book-output/
 images/
 .cache/
+.config/

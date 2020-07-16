@@ -100,6 +100,7 @@ title: "Hello R Markdown"
 author: "Ross Ihaka & Robert Gentleman"
 date: "1997-04-23"
 output: pdf_document
+papersize: "a6"
 ---
 ```
 ````markdown
@@ -119,7 +120,9 @@ The slope of the regression is `r b[1]`.
 
 Resulting in this document:
 
-[fixme]
+```{r rmarkdown, echo=FALSE, fig.cap="Result of minimal rmarkdown example.", out.width="100%", fig.align="center"}
+knitr::include_graphics("images/rmarkdown.svg", auto_pdf = TRUE)
+```
 
 Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the `repro` package extends the YAML metadata to incorporate [Dependency Management] and [Containarization] into the process of dynamic document creation.
 
