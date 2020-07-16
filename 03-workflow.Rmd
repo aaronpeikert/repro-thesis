@@ -60,7 +60,7 @@ check_docker()
 
 If everything is set up, users can proceed to reproduce an analysis that conforms to this workflow.
 
-If not, e.g. because Docker is not installed, users get an informative message appropriate for suitable to their platform (here Windows as an example).
+If not, e.g. because Docker is not installed, users get an informative message appropriate for their platform (here Windows as an example).
 
 ```{r, include=FALSE}
 opts <- options()
@@ -78,7 +78,9 @@ options(opts)
 
 ## Reproduction
 
-GitHub, Make, and Docker are enough to reproduce this document.
+Because this document complies with all requieremnts described therin, it will serve as an example to reproduce.
+However, another example will be provided in the [Creation] section below.
+GitHub, Make, and Docker are enough to reproduce this very document.
 So everything is set up to download the source files of this document, rerun the code within it, and verify its results.
 
 The following command uses Git and GitHub to: 
@@ -99,7 +101,7 @@ It is tempting to automate the reproduction part entirely and use a `rerun()` fu
 However, I decided the reproduction must be feasible without the `repro` package. 
 This decision is supposed to prevent that long term reproducibility depends on the availability of the package.
 I am confident that Git, Make, Docker will be available for years to come, whereas I cannot say the same about this package.
-To compromise the needs of long term support and usability, `repro` offers advice about what to do, but right before doing it.
+To compromise the needs of long term support and usability, `repro` offers advice about what to do, but stops right before doing it.
 
 Which steps one has to take, depends on the tools chosen to implement dependency management.
 This tool determines the "entry point" for an analysis.
@@ -145,7 +147,7 @@ You can initialze a pull request with:
 usethis::pr_init()
 ```
 
-Then you can change files as you like and track them with Git.
+Then you can change the files of this thesis as you like and track them with Git.
 You should make sure that the analysis is still reproducible with:
 
 ```{r, eval=FALSE}
@@ -158,9 +160,10 @@ If you are satisfied with the changes you made, you can trigger the pull request
 usethis::pr_push()
 ```
 
-If I also find the changes to my liking, I can incorporate the changes on GitHub. If not, the changes can be discussed in the pull request or I could make amends before merging them.
+If I also find the changes to my liking, I can incorporate the changes on GitHub.
+If not, the changes can be discussed in the pull request or I could make amends before merging them.
 
-Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth.
+Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth or use cloud storage systems.
 This higher level of control fits well into the high standards of scientific work.
 However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, whereas of 2017 more than 15.000 developers contributed code [@thelinuxfoundation2017LinuxKernel2017]).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
@@ -243,7 +246,7 @@ check_docker()
 
 ### Configure Project
 
-Either rom template in new folder:
+Either from template in new folder:
 
 ```{r, eval=FALSE}
 repro_template("path/to/new/folder")
@@ -256,6 +259,6 @@ Or semi automatic with more flexibility in already existing projects:
 use_docker() # create Dockerfile
 use_make_docker() # create docker compatible Makefile
 usethis::use_git() # initialize git and add first commit
-rmarkdown::draft("pnas_article", # use PNAS template
+rmarkdown::draft("pnas_article", # use PNAS article template
                  package = "rticles") # requires rticles package
 ```
