@@ -17,7 +17,7 @@ repro:
   packages:
     - devtools
     - here
-    - aaronpeikert/repro@bcfbe90f
+    - aaronpeikert/repro@1e265ba
     - bookdown
     - usethis
 ---

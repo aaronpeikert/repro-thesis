@@ -15,4 +15,4 @@ RUN install2.r --error --skipinstalled \
   here \ 
   usethis
 RUN installGithub.r \ 
-  aaronpeikert/repro@bcfbe90f
+  aaronpeikert/repro@1e265ba
