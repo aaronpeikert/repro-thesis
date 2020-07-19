@@ -89,7 +89,7 @@ This markup is designed to be well readable even as source files.
 
 The following section shows examples of metadata, code and text, specified as above described, forming a minimal example of an RMarkdown ([adapted source code](https://github.com/rstudio/rmarkdown-book/blob/a10b33d47a2b223a8ef643c245d45e4dfc7091b8/02-basics.Rmd#L15-L39) from @xieMarkdownDefinitiveGuide2019/[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)):
 
-[^markdown]: The document you are viewing also results from a collection of [RMarkdowns](https://github.com/aaronpeikert/repro-thesis) availible as [website](https://aaronpeikert.github.io/repro-thesis/), [PDF](https://aaronpeikert.github.io/repro-thesis/ma.pdf) and [E-book](https://aaronpeikert.github.io/repro-thesis/ma.epub)
+[^markdown]: The document you are viewing also results from a collection of [RMarkdowns](https://github.com/aaronpeikert/repro-thesis) available as [website](https://aaronpeikert.github.io/repro-thesis/), [PDF](https://aaronpeikert.github.io/repro-thesis/ma.pdf) and [E-book](https://aaronpeikert.github.io/repro-thesis/ma.epub)
 
 ```{r include=FALSE}
 b = '`r b[1]`'  # an ugly hack; don't look at me
@@ -182,11 +182,11 @@ It allows for all features above and even more as it is an own programming langu
 However, the repro package provides a much-simplified interface to the essential features, eschewing the need to learn yet another language.
 
 
-## Containarization
+## Containerisation
 
 Most computer code is not self-contained but needs libraries and other software to work (e.g. the R programming language or packages).
 These external dependencies pose a risk for reproducibility because it may not be clear what is necessary---besides the code and data---and how to install it.
-Even when all needed software and their exact versions are recorded meticulously, it may be a challenge to install them.
+Even when all required software and their exact versions are recorded meticulously, it may be a challenge to install them.
 First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy of some years old software version.
 Setting up a computer exactly as someone else's is difficult enough, but replicating another computer how it was several years ago is at best painstaking.
 
