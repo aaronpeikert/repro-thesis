@@ -18,7 +18,7 @@ The structure of this chapter mirrors the workflow in Figure \@ref(fig:workflow)
 
 `repro` supports several alternative software implementations for each step and assembles them into one coherent workflow.
 This modular structure is inspired by the [usethis-package](https://usethis.r-lib.org) [@R-usethis].
-The steps here described follow the recommendations of @peikertReproducibleDataAnalysis2019, and hence combine RMarkdown, Git & GitHub, Make and Docker.
+The steps described here follow the recommendations of @peikertReproducibleDataAnalysis2019, and hence combine RMarkdown, Git & GitHub, Make and Docker.
 
 ## Setup
 
@@ -78,7 +78,7 @@ options(opts)
 
 ## Reproduction
 
-Because this document complies with all requieremnts described therin, it will serve as an example to reproduce.
+Because this document complies with all requirements described therein, it will serve as an example to reproduce.
 However, another example will be provided in the [Creation] section below.
 GitHub, Make, and Docker are enough to reproduce this very document.
 So everything is set up to download the source files of this document, rerun the code within it, and verify its results.
@@ -130,7 +130,7 @@ Then a software solution could track changes for only these digital objects and 
 ## Change
 
 For a researcher, reproducing an analysis and verifying its results, is often only a first step to make intentional changes.
-How researcher contribute to a project lays strictly outside the realm of reproducibility, but warrents discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
+How researchers contribute to a project lays strictly outside the realm of reproducibility, but warrants discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
 That the primary beneficiary of this advantage is the researcher collaborating with its past self is a pun in the open science community that bears some truth.
 However, the workflow of an external researcher contributing is more complicated.
 It is quite a challenge to collaborate under the circumstances where people do not work side by side or even know each other.
@@ -165,17 +165,17 @@ If not, the changes can be discussed in the pull request or I could make amends 
 
 Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth or use cloud storage systems.
 This higher level of control fits well into the high standards of scientific work.
-However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, whereas of 2017 more than 15.000 developers contributed code [@thelinuxfoundation2017LinuxKernel2017]).
+However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code [@thelinuxfoundation2017LinuxKernel2017]).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
 As the authors carry the responsibility for the overall correctness, they ought to vet every single contribution.
 
 Affirming the correctness of a contribution can be partly automated by affirming successful reproduction.
-Such automatic checks of changes are part of a software developing process, called continues integration.
-Continues integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
-In many ways, continues integration is the logical next step for reproducible workflows.
-Because much effort was already invested in ensuring reproducibility across machines, it is easy to move the analysis to a continues integration tool.
+Such automatic checks of changes are part of a software developing process, called continuous integration.
+Continuous integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
+In many ways, continuous integration is the logical next step for reproducible workflows.
+Because much effort was already invested in ensuring reproducibility across machines, it is easy to move the analysis to a continuous integration tool.
 
-Hence if you created a pull request, the continues integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.
+Hence, if you created a pull request, the continuous integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.
 
 ## Creation
 
@@ -223,7 +223,7 @@ These functions extend the [usethis-package](https://usethis.r-lib.org) [@R-uset
 
 ## Summary
 
-To summarise, if you want to create a reproducible project, you can do  so with the following code:
+To summarise, if you want to create a reproducible project, you can do so with the following code:
 
 ### Install `repro` package
 
