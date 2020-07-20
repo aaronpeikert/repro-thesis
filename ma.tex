@@ -129,7 +129,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Automating reproducible research workflows}
 \author{Aaron Peikert}
-\date{2020-07-17}
+\date{2020-07-20}
 
 \begin{document}
 \maketitle
@@ -142,7 +142,12 @@
 \section*{Abstract}\label{abstract}}
 \addcontentsline{toc}{section}{Abstract}
 
-This is a short summary.
+This thesis discusses practical and metascientific merits of reproducibility and presents \href{https://github.com/aaronpeikert/repro}{\texttt{repro}}, an R package which drastically simplifies the adherance to the best practices proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).
+The resulting workflow complies with open science principles, is tranferable across machines and conserved through time.
+Consequently, research projects are virtually garunteed to reproduce and are easier to replicate.
+It is explained how the technical technical solutions, namely Git, RMarkdown, Make and Docker overcome common reproducibility problems and how the interaction with these tools is simplified through automation.
+The high degree of automation allows the workflow to scale well across researchers, letting them collaborate more transparently and effectivly, as well as across machines, utalizing high performance and cloud computing technology.
+To adept to the ever shifting landscape of software requirements \href{https://github.com/aaronpeikert/repro}{\texttt{repro}} has a modular design allowing other workflow packages to build upon its infrastructure.
 
 \hypertarget{theoretical-considerations}{%
 \section{Theoretical Considerations}\label{theoretical-considerations}}
@@ -860,6 +865,59 @@ Or semi automatic with more flexibility in already existing projects:
 \section{Outlook}\label{outlook}}
 
 While the \texttt{repro} package exports 32 well documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
+I hope to make progress in three areas:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Building an infrastructure for other workflows,
+\item
+  explore continues integration (CI) for research projects, and
+\item
+  enable the leverage of high performance computing (HPC) clusters and cloud infrastructure.
+\end{enumerate}
+
+Because the user interface of \texttt{repro} was modeled after the \texttt{usethis} package, \texttt{repro} also inherited \texttt{usethis}' modular structure.
+This design decision was made more by accident than by intention, but is in hindside more than useful.
+Because of its modularity, \texttt{repro} can be extended easily and can serve as an infrastructure package.
+This usecase will be explored in the collaboration with Caspar van Lissa, who proposes a workflow , called \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} (Van Lissa et al., \protect\hyperlink{ref-vanlissaWORCSWorkflowOpen2020}{2020}), which is similar in spirit, but uses different tools.
+\href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} also utilizes on RMarkdown and Git, but in place of Docker it uses \href{https://rstudio.github.io/renv/articles/renv.html}{\texttt{renv}} and instead of Make it relies on a highly standardized file structure.
+Hence, only two ``moduls'' or rather functions have to be added to \texttt{repro} to support the workflow, \texttt{use\_renv()} (which replaces \texttt{use\_docker()}) and \texttt{use\_worcs\_template()} (which replaces \texttt{use\_repro\_template()}).
+Also \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} has other features like automatic codebook creation and synthetic data generation, which may be great supplements for a \texttt{repro} project.
+To ensure interoperability between the packages it is planned that much of the behind the scenes machinery is moved from \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} to \texttt{repro} in a more modular form.
+However, the users will not notice much of a difference, except that they may fuse the both workflows into one.
+
+Such lego system of reproducibility tools, where the users can decide which tools they want to include may be especially useful when some features are not strictly necessary for reproducibility.
+In its current form no tool is optional in the sense that only in unison they guarantee reproducibility.
+However, some features may be useful but not necessary for reproducibility.
+
+For example is it useful to have an online service such as GitHub Actions that asserts reproducibility of each change, but it is by no means necessary.
+As previously discussed there currently exists no easy solution to automatically verify reproduction.
+They key difficulty is to detect changes in the results that potentially alter the conclusion, from those which carry no meaning, e.g.~if the date is updated.
+To address this challenge I currently work on a prototype of an R package, which allows researcher to assert that some objects remain unchanged upon reproduction by wrapping them into \texttt{unchanged()}.
+This package keeps track of thus marked objects and throws an error if they accidentally change.
+If such solution would exist there would be no hurdle to incorporate continues integration into research projects.
+This would mean that all contribution are automatically vetted before they are incorporated and that the results are automatically updated, e.g.~the preprint or the additional material on \url{osf.org} would automatically be re-uploaded.
+Then projects could have a badge that signifies that a third party is able to reproduce it.
+Such continues updates do not only ease collaboration, but are also especially interesting for some continues data sources, e.g.~long running developmental studies or meta analysis, where new data becomes repeatedly available even after publication.
+
+Conveniences such as the above are possible because the here presented conception of reproducibility is highly automated.
+Hence, an analysis may be moved to another machine without manual intervention.
+This also opens some interesting possibilities unrelated to reproducibility, concerning the management of computational resources.
+It is often the case that an analysis require substantial amounts of computational resources, more than a single computer may deliver.
+In such case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
+The use of containers is the de facto standard of cloud computing providers, but also becomes increasingly common for high performance clusters.
+Hence it is a task that can easily accomplished with \texttt{repro}.
+However, these functions are still in development and not well tested enough to be published.
+A typical problem, when utilizing distributed computation, is the division of tasks between the computing instances, however this is pretty straightforward because of the deployed dependency management.
+Make can distribute tasks across thousands of nodes, while making sure that none of the dependencies collide.
+Originally, this functionality was available in \texttt{repro} for TORQUE, a HPC task scheduler, but because TORQUE will no longer be maintained I will phase out this set of functions.
+
+\texttt{repro} strives to make reproducibility more attractive, by lowering the barriers to advanced reproducibility tools.
+To my knowledge there is no standard that is as comprehensive as the here described combination of Git, RMarkdown, Make and Docker.
+However, the workflow presented by Van Lissa et al. (\protect\hyperlink{ref-vanlissaWORCSWorkflowOpen2020}{2020}) sacrifices a little bit of this flexibility to reduce the complexity drastically.
+Despite these efforts to make reproducibility easier I think it is worthwile to further simplify the approaches, to appeal to users that are more comfortable using Microsoft Office than RMarkdown and hesitant to use a formal version control system.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -952,6 +1010,9 @@ The Turing Way Community, Arnold, B., Bowler, L., Gibson, S., Herterich, P., Hig
 
 \leavevmode\hypertarget{ref-tichyVerisimilitudeRedefined1976}{}%
 Tichỳ, P. (1976). Verisimilitude redefined. \emph{The British Journal for the Philosophy of Science}, \emph{27}(1), 25--42.
+
+\leavevmode\hypertarget{ref-vanlissaWORCSWorkflowOpen2020}{}%
+Van Lissa, C. J., Brandmaier, A. M., Brinkman, L., Lamprecht, A.-L., Peikert, A., Struiksma, M., \& Vreede, B. (2020). \emph{WORCS: A Workflow for Open Reproducible Code in Science} {[}Preprint{]}. PsyArXiv. \url{https://doi.org/10.31234/osf.io/k4wde}
 
 \leavevmode\hypertarget{ref-R-usethis}{}%
 Wickham, H., \& Bryan, J. (2020). \emph{Usethis: Automate package and project setup}. \url{https://CRAN.R-project.org/package=usethis}
