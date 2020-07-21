@@ -11,7 +11,7 @@ Because the user interface of `repro` was modelled after the `usethis` package, 
 This design decision was made more by accident than by intention but is in hindside more than useful.
 Because of its modularity, `repro` can be extended easily and can serve as an infrastructure package.
 This use-case will be explored in collaboration with Caspar van Lissa, who proposes a workflow, called [`worcs`](https://cjvanlissa.github.io/worcs/) [@vanlissaWORCSWorkflowOpen2020], which is similar in spirit, but uses different tools.
-[`worcs`](https://cjvanlissa.github.io/worcs/) also utilizes on RMarkdown and Git, but in place of Docker, it uses [`renv`](https://rstudio.github.io/renv/articles/renv.html) and instead of Make it relies on a highly standardized file structure.
+[`worcs`](https://cjvanlissa.github.io/worcs/) also utilizes RMarkdown and Git, but in place of Docker, it uses [`renv`](https://rstudio.github.io/renv/articles/renv.html) and instead of Make it relies on a highly standardized file structure.
 Hence, only two "moduls" or rather functions have to be added to `repro` to support the workflow, `use_renv()` (which replaces `use_docker()`) and `use_worcs_template()` (which replaces `use_repro_template()`).
 Also, [`worcs`](https://cjvanlissa.github.io/worcs/) has other features like automatic codebook creation and synthetic data generation, which may be excellent supplements for a `repro` project.
 To ensure interoperability between the packages, it is planned that much of the behind the scenes machinery is moved from [`worcs`](https://cjvanlissa.github.io/worcs/) to `repro` in a more modular form.
@@ -38,7 +38,7 @@ It is often the case that an analysis requires substantial amounts of computatio
 In such a case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
 The use of containers is the de facto standard of cloud computing providers but also becomes increasingly common for high-performance clusters.
 Hence it is a task that can easily be accomplished with `repro`.
-However, these functions are still in development and not well tested enough to be published.
+However, these functions are still in development and not tested well´ enough to be published.
 A typical problem, when utilizing distributed computation, is the division of tasks between the computing instances.
 However, this is pretty straightforward because of the deployed dependency management.
 Make can distribute tasks across thousands of nodes while making sure that none of the dependencies collide.
@@ -48,3 +48,4 @@ Initially, this functionality was available in `repro` for TORQUE, an HPC task s
 To my knowledge, no standard is as comprehensive as the here described combination of Git, RMarkdown, Make and Docker.
 However, the workflow presented by @vanlissaWORCSWorkflowOpen2020 sacrifices a little bit of this flexibility to reduce the complexity drastically.
 Despite these efforts to make reproducibility easier, I think it is worthwhile to simplify the approaches further, to appeal to users that are more comfortable using Microsoft Office than RMarkdown and hesitant to use a formal version control system.
+Hopefully, `repro` is a first step to make reproducibility easier to archive.

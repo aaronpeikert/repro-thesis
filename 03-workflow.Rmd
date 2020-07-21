@@ -132,7 +132,7 @@ Then a software solution could track changes for only these digital objects and 
 For a researcher, reproducing an analysis and verifying its results, is often only a first step to make intentional changes.
 How researchers contribute to a project lays strictly outside the realm of reproducibility, but warrants discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
 That the primary beneficiary of this advantage is the researcher collaborating with its past self is a pun in the open science community that bears some truth.
-However, the workflow of an external researcher contributing is more complicated.
+However, the workflow of an external researcher contributing is more complicated and hence here described.
 It is quite a challenge to collaborate under the circumstances where people do not work side by side or even know each other.
 The core challenge is to allow the original creator full control over changes without burdening them too much.
 This problem confronted the open software community from its very beginning, and they came up with the following solution.
@@ -182,14 +182,14 @@ Hence, if you created a pull request, the continuous integration tool GitHub act
 Reproducing an analysis and creating a reproducible analysis are two very different issues.
 The `repro` packages main strength lies in simplifying the creation.
 First, the repro package comes along with a minimal, but comprehensive template including an example RMarkdown, R-script and data.
-This template can be accessed from within RStudio © via "File" -> "New Project" -> "New Directory" -> "Example repro template ", or from any R console via:
+This template can be accessed from within RStudio © via "File" → "New Project" → "New Directory" → "Example repro template ", or from any R console via:
 
 ```{r eval=FALSE}
-repro_template("path/to/new/project/")
+use_repro_template("path/to/new/project/")
 ```
 
 `repro` infers the dependencies to data and external code as well as the required packages from the `yaml` metadata of the RMarkdowns.
-Because analytic data projects have a particular structure, this mark up can be much simpler than writing `Dockerfiles` and `Makefiles` by hand.
+Because analytic data projects have a particular structure, this markup can be much simpler than writing `Dockerfiles` and `Makefiles` by hand.
 While Docker allows to install arbitrary Software, an analysis in R likely needs nothing but R-packages. Similarly, Make enables you to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.
 
 Hence, a minimal addition to the metadata, as can be seen in the following example, contains everything necessary to infer a complete `Dockerfile` and `Makefile`:
@@ -249,7 +249,7 @@ check_docker()
 Either from template in new folder:
 
 ```{r, eval=FALSE}
-repro_template("path/to/new/folder")
+use_repro_template("path/to/new/folder")
 automate()
 ```
 

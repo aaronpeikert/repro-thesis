@@ -26,7 +26,7 @@ First, it enables independent verification of the process of induction, and seco
 
 However, neither the practical reasons that results might be less error-prone and more reusable nor that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by @claerboutElectronicDocumentsGive1992 given above.
 A simple thought experiment illustrates this shortcoming:
-Imagine a binary program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
+Imagine a binary---therefore only machine readable---program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
 Furthermore, let us assume this hypothetical program may never hold if the dataset changes.
 Does the predicate "reproducible" in this situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
