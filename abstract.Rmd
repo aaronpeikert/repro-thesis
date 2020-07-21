@@ -1,6 +1,6 @@
-This thesis discusses practical and metascientific merits of reproducibility and presents [`repro`](https://github.com/aaronpeikert/repro), an R package which drastically simplifies the adherance to the best practices proposed by @peikertReproducibleDataAnalysis2019.
-The resulting workflow complies with open science principles, is tranferable across machines and conserved through time.
-Consequently, research projects are virtually garunteed to reproduce and are easier to replicate.
-It is explained how the technical technical solutions, namely Git, RMarkdown, Make and Docker overcome common reproducibility problems and how the interaction with these tools is simplified through automation.
-The high degree of automation allows the workflow to scale well across researchers, letting them collaborate more transparently and effectivly, as well as across machines, utalizing high performance and cloud computing technology.
-To adept to the ever shifting landscape of software requirements [`repro`](https://github.com/aaronpeikert/repro) has a modular design allowing other workflow packages to build upon its infrastructure.
+This thesis discusses the practical and metascientific merits of reproducibility and presents [`repro`](https://github.com/aaronpeikert/repro), an R package which drastically simplifies the adherence to the best practices proposed by @peikertReproducibleDataAnalysis2019.
+The resulting workflow complies with open science principles, is transferable across machines and conserved through time.
+Consequently, research projects are virtually guaranteed to reproduce and are easier to replicate.
+It is explained how the technical solutions, namely Git, RMarkdown, Make, and Docker, overcome common reproducibility problems and how the interaction with these tools is simplified through automation.
+The high degree of automation allows the workflow to scale well across researchers, letting them collaborate more transparently and effectively, as well as across machines, utilizing high performance and cloud computing technology.
+To adapt to the ever-shifting landscape of software requirements [`repro`](https://github.com/aaronpeikert/repro) has a modular design allowing other workflow packages to build upon its infrastructure.
