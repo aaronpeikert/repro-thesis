@@ -58,7 +58,7 @@ check_docker()
 
 ```{r, eval=FALSE}
 # check_github() renders this document irreproducible
-# because it relies on user specific settings unavailable in the container
+# because it relies on user settings unavailable in the container
 # hence it is not evaluated
 check_github()
 ```
@@ -83,7 +83,7 @@ options(opts)
 
 ## Reproduction
 
-Because this document complies with all requirements described therein, it will function as an example to reproduce.
+Because this document complies with outlined requirements, it will function as an example to reproduce.
 However, another more minimal example that actually contains an data analysis will be provided in the [Creation] section below.
 
 GitHub, Make, and Docker are sufficient to reproduce this very document.
@@ -147,7 +147,7 @@ In the terminology of GitHub, the public copy is a "fork", the tracked changes a
 
 Working with pull requests is easy, thanks to the `usethis` package.
 If you reproduced this document, you could make changes to it---which could be something trivial, like correcting spelling---and ask me to incorporate them.
-You can initialze a pull request with:
+You can initialize a pull request with:
 
 ```{r, eval=FALSE}
 usethis::pr_init()
@@ -200,7 +200,7 @@ While Docker allows to install arbitrary Software, an analysis in R likely needs
 
 Hence, a minimal addition to the metadata, as can be seen in the following example, contains everything necessary to infer a complete `Dockerfile` and `Makefile`:
 
-```
+```yaml
 repro:
   packages:
     - usethis
@@ -212,7 +212,7 @@ repro:
     mycars: data/mtcars.csv
 ```
 
-The function `automate()` creates a `Dockerfile` and a `Makefile`, which comply with all recommendations by @peikertReproducibleDataAnalysis2019.
+From this specification the function `automate()` creates a `Dockerfile` and a `Makefile`, which comply with all recommendations by @peikertReproducibleDataAnalysis2019.
 Strictly speaking, it creates four Dockerfiles and three Makefiles.
 Most of the files are created in the `.repro` directory and then assembled into the main `Dockerfile`/`Makefile` at top-level.
 One `Dockerfile` contains the base docker image, including the R version and the current date and another `Dockerfile` contains only the R packages.

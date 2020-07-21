@@ -38,7 +38,7 @@ It is often the case that an analysis requires substantial amounts of computatio
 In such a case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
 The use of containers is the de facto standard of cloud computing providers but also becomes increasingly common for high-performance clusters.
 Hence it is a task that can easily be accomplished with `repro`.
-However, these functions are still in development and not tested well´ enough to be published.
+However, these functions are still in development and not tested well enough to be published.
 A typical problem, when utilizing distributed computation, is the division of tasks between the computing instances.
 However, this is pretty straightforward because of the deployed dependency management.
 Make can distribute tasks across thousands of nodes while making sure that none of the dependencies collide.
