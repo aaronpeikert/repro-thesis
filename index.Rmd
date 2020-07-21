@@ -69,6 +69,8 @@ vignette styled: from preregistration to post publication review
  - show pull requests for post publication
 -->
 
+\newpage
+
 # Abstract {-}
 
 ```{r child='abstract.Rmd'}

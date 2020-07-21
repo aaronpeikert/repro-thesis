@@ -56,7 +56,7 @@ check_make()
 check_docker()
 ```
 
-```{r}
+```{r, eval=FALSE}
 # check_github() renders this document irreproducible
 # because it relies on user specific settings unavailable in the container
 # hence it is not evaluated
