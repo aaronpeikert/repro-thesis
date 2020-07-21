@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-07-20" />
+<meta name="date" content="2020-07-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="technical-solutions.html"><a href="technical-solutions.html#dynamic-document-generation"><i class="fa fa-check"></i><b>2.2</b> Dynamic Document Generation</a></li>
 <li class="chapter" data-level="2.3" data-path="technical-solutions.html"><a href="technical-solutions.html#version-control"><i class="fa fa-check"></i><b>2.3</b> Version Control</a></li>
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
-<li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containarization"><i class="fa fa-check"></i><b>2.5</b> Containarization</a></li>
+<li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containerisation"><i class="fa fa-check"></i><b>2.5</b> Containerisation</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Workflow</a><ul>
 <li class="chapter" data-level="3.1" data-path="workflow.html"><a href="workflow.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
@@ -191,7 +191,7 @@ Figure 3.1: Schematic illustration of a reproducible workflow.
 </ol>
 <p><code>repro</code> supports several alternative software implementations for each step and assembles them into one coherent workflow.
 This modular structure is inspired by the <a href="https://usethis.r-lib.org">usethis-package</a> <span class="citation">(Wickham &amp; Bryan, <a href="#ref-R-usethis">2020</a>)</span>.
-The steps here described follow the recommendations of <span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span>, and hence combine RMarkdown, Git &amp; GitHub, Make and Docker.</p>
+The steps described here follow the recommendations of <span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span>, and hence combine RMarkdown, Git &amp; GitHub, Make and Docker.</p>
 <div id="setup" class="section level2">
 <h2><span class="header-section-number">3.1</span> Setup</h2>
 <p>Reproduction, change, and creation of an analysis require the user to have software installed that is specific to the workflow they choose, but independent of the analysis.
@@ -220,7 +220,7 @@ Consequently, the following commands<a href="#fn4" class="footnote-ref" id="fnre
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">check_make</span>()</a></code></pre></div>
 <pre><code>## ✔ Make is installed, don&#39;t worry.</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">check_docker</span>()</a></code></pre></div>
-<pre><code>## ✔ You are inside a Docker containter!</code></pre>
+<pre><code>## ✔ You are inside a Docker container!</code></pre>
 <p>If everything is set up, users can proceed to reproduce an analysis that conforms to this workflow.</p>
 <p>If not, e.g. because Docker is not installed, users get an informative message appropriate for their platform (here Windows as an example).</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">check_git</span>()</a></code></pre></div>
@@ -235,7 +235,7 @@ Consequently, the following commands<a href="#fn4" class="footnote-ref" id="fnre
 </div>
 <div id="reproduction" class="section level2">
 <h2><span class="header-section-number">3.2</span> Reproduction</h2>
-<p>Because this document complies with all requieremnts described therin, it will serve as an example to reproduce.
+<p>Because this document complies with all requirements described therein, it will serve as an example to reproduce.
 However, another example will be provided in the <a href="workflow.html#creation">Creation</a> section below.
 GitHub, Make, and Docker are enough to reproduce this very document.
 So everything is set up to download the source files of this document, rerun the code within it, and verify its results.</p>
@@ -275,9 +275,9 @@ Then a software solution could track changes for only these digital objects and 
 <div id="change" class="section level2">
 <h2><span class="header-section-number">3.3</span> Change</h2>
 <p>For a researcher, reproducing an analysis and verifying its results, is often only a first step to make intentional changes.
-How researcher contribute to a project lays strictly outside the realm of reproducibility, but warrents discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
+How researchers contribute to a project lays strictly outside the realm of reproducibility, but warrants discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
 That the primary beneficiary of this advantage is the researcher collaborating with its past self is a pun in the open science community that bears some truth.
-However, the workflow of an external researcher contributing is more complicated.
+However, the workflow of an external researcher contributing is more complicated and hence here described.
 It is quite a challenge to collaborate under the circumstances where people do not work side by side or even know each other.
 The core challenge is to allow the original creator full control over changes without burdening them too much.
 This problem confronted the open software community from its very beginning, and they came up with the following solution.
@@ -296,25 +296,25 @@ You should make sure that the analysis is still reproducible with:</p>
 If not, the changes can be discussed in the pull request or I could make amends before merging them.</p>
 <p>Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth or use cloud storage systems.
 This higher level of control fits well into the high standards of scientific work.
-However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, whereas of 2017 more than 15.000 developers contributed code <span class="citation">(The Linux Foundation, <a href="#ref-thelinuxfoundation2017LinuxKernel2017">2017</a>)</span>).
+However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code <span class="citation">(The Linux Foundation, <a href="#ref-thelinuxfoundation2017LinuxKernel2017">2017</a>)</span>).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
 As the authors carry the responsibility for the overall correctness, they ought to vet every single contribution.</p>
 <p>Affirming the correctness of a contribution can be partly automated by affirming successful reproduction.
-Such automatic checks of changes are part of a software developing process, called continues integration.
-Continues integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
-In many ways, continues integration is the logical next step for reproducible workflows.
-Because much effort was already invested in ensuring reproducibility across machines, it is easy to move the analysis to a continues integration tool.</p>
-<p>Hence if you created a pull request, the continues integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.</p>
+Such automatic checks of changes are part of a software developing process, called continuous integration.
+Continuous integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
+In many ways, continuous integration is the logical next step for reproducible workflows.
+Because much effort was already invested in ensuring reproducibility across machines, it is easy to move the analysis to a continuous integration tool.</p>
+<p>Hence, if you created a pull request, the continuous integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.</p>
 </div>
 <div id="creation" class="section level2">
 <h2><span class="header-section-number">3.4</span> Creation</h2>
 <p>Reproducing an analysis and creating a reproducible analysis are two very different issues.
 The <code>repro</code> packages main strength lies in simplifying the creation.
 First, the repro package comes along with a minimal, but comprehensive template including an example RMarkdown, R-script and data.
-This template can be accessed from within RStudio © via “File” -&gt; “New Project” -&gt; “New Directory” -&gt; “Example repro template”, or from any R console via:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">repro_template</span>(<span class="st">&quot;path/to/new/project/&quot;</span>)</a></code></pre></div>
+This template can be accessed from within RStudio © via “File” → “New Project” → “New Directory” → “Example repro template”, or from any R console via:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">use_repro_template</span>(<span class="st">&quot;path/to/new/project/&quot;</span>)</a></code></pre></div>
 <p><code>repro</code> infers the dependencies to data and external code as well as the required packages from the <code>yaml</code> metadata of the RMarkdowns.
-Because analytic data projects have a particular structure, this mark up can be much simpler than writing <code>Dockerfiles</code> and <code>Makefiles</code> by hand.
+Because analytic data projects have a particular structure, this markup can be much simpler than writing <code>Dockerfiles</code> and <code>Makefiles</code> by hand.
 While Docker allows to install arbitrary Software, an analysis in R likely needs nothing but R-packages. Similarly, Make enables you to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.</p>
 <p>Hence, a minimal addition to the metadata, as can be seen in the following example, contains everything necessary to infer a complete <code>Dockerfile</code> and <code>Makefile</code>:</p>
 <pre><code>repro:
@@ -361,7 +361,7 @@ These functions extend the <a href="https://usethis.r-lib.org">usethis-package</
 <div id="configure-project" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Configure Project</h3>
 <p>Either from template in new folder:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">repro_template</span>(<span class="st">&quot;path/to/new/folder&quot;</span>)</a>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">use_repro_template</span>(<span class="st">&quot;path/to/new/folder&quot;</span>)</a>
 <a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">automate</span>()</a></code></pre></div>
 <p>Or semi automatic with more flexibility in already existing projects:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">use_docker</span>() <span class="co"># create Dockerfile</span></a>

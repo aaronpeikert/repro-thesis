@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-07-20" />
+<meta name="date" content="2020-07-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="technical-solutions.html"><a href="technical-solutions.html#dynamic-document-generation"><i class="fa fa-check"></i><b>2.2</b> Dynamic Document Generation</a></li>
 <li class="chapter" data-level="2.3" data-path="technical-solutions.html"><a href="technical-solutions.html#version-control"><i class="fa fa-check"></i><b>2.3</b> Version Control</a></li>
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
-<li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containarization"><i class="fa fa-check"></i><b>2.5</b> Containarization</a></li>
+<li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containerisation"><i class="fa fa-check"></i><b>2.5</b> Containerisation</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Workflow</a><ul>
 <li class="chapter" data-level="3.1" data-path="workflow.html"><a href="workflow.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
@@ -211,7 +211,7 @@ Instead, reproducibility has to rest on five pillars:</p>
 <p>While comprehensibility to the scientific community is probably the most crucial objective, it is also the most difficult to achieve.
 That is because as a non-technical requirement, no set of rules can assure its fulfilment (though clear writing<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and clean code<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.</p>
-<p><span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language <span class="citation">(R Core Team, <a href="#ref-R-base">2020</a>)</span> and provide the high-level overview which can be seen in Figure <a href="technical-solutions.html#fig:nutshell">2.1</a> .</p>
+<p><span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language <span class="citation">(R Core Team, <a href="#ref-R-base">2020</a>)</span> and provide the high-level overview which can be seen in Figure <a href="technical-solutions.html#fig:nutshell">2.1</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:nutshell"></span>
 <img src="images/nutshell.svg" alt="Overview of the interplay of RMarkdown, Git, Make, and Docker" width="100%" />
 <p class="caption">
@@ -279,14 +279,14 @@ This markup is designed to be well readable even as source files.</p>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="bn">```</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12">The slope of the regression is <span class="bn">`r b[1]`</span>.</a></code></pre></div>
-<p>Resulting in this document:</p>
+<p>Resulting in the document seen in Figure <a href="technical-solutions.html#fig:rmarkdown">2.2</a>:</p>
 <div class="figure" style="text-align: center"><span id="fig:rmarkdown"></span>
-<img src="images/rmarkdown.svg" alt="Result of minimal rmarkdown example." width="100%" />
+<img src="images/rmarkdown.svg" alt="Result of minimal RMarkdown example." width="100%" />
 <p class="caption">
-Figure 2.2: Result of minimal rmarkdown example.
+Figure 2.2: Result of minimal RMarkdown example.
 </p>
 </div>
-<p>Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the <code>repro</code> package extends the YAML metadata to incorporate <a href="technical-solutions.html#dependency-management">Dependency Management</a> and <a href="technical-solutions.html#containarization">Containarization</a> into the process of dynamic document creation.</p>
+<p>Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the <code>repro</code> package extends the YAML metadata to incorporate <a href="technical-solutions.html#dependency-management">Dependency Management</a> and <a href="technical-solutions.html#containerisation">Containerisation</a> into the process of dynamic document creation.</p>
 </div>
 <div id="version-control" class="section level2">
 <h2><span class="header-section-number">2.3</span> Version Control</h2>
@@ -336,13 +336,13 @@ In this example, upon recreation of the plot, the cleaned dataset is not generat
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.</p>
 <p>Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognised as a tool for reproducibility.
 It allows for all features above and even more as it is an own programming language.</p>
-<p>However, the repro package provides a much-simplified interface to the essential features, eschewing the need to learn yet another language.</p>
+<p>However, the repro package provides a much-simplified interface to the essential features of Make, eschewing the need to learn yet another language.</p>
 </div>
-<div id="containarization" class="section level2">
-<h2><span class="header-section-number">2.5</span> Containarization</h2>
+<div id="containerisation" class="section level2">
+<h2><span class="header-section-number">2.5</span> Containerisation</h2>
 <p>Most computer code is not self-contained but needs libraries and other software to work (e.g. the R programming language or packages).
 These external dependencies pose a risk for reproducibility because it may not be clear what is necessary—besides the code and data—and how to install it.
-Even when all needed software and their exact versions are recorded meticulously, it may be a challenge to install them.
+Even when all required software and their exact versions are recorded meticulously, it may be a challenge to install them.
 First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy of some years old software version.
 Setting up a computer exactly as someone else’s is difficult enough, but replicating another computer how it was several years ago is at best painstaking.</p>
 <p>To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualisation because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.</p>
@@ -377,7 +377,7 @@ Setting up a computer exactly as someone else’s is difficult enough, but repli
 <ol start="1">
 <li id="fn1"><p><span class="citation">Williams (<a href="#ref-williamsStyleLessonsClarity2017">2017</a>)</span> provides some excellent principles for writing clearly.<a href="technical-solutions.html#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p><span class="citation">Martin (<a href="#ref-martinCleanCoderCode2011">2011</a>)</span> proposes a coding paradigm that found widespread use because of its focus on understandability.<a href="technical-solutions.html#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>The document you are viewing also results from a collection of <a href="https://github.com/aaronpeikert/repro-thesis">RMarkdowns</a> availible as <a href="https://aaronpeikert.github.io/repro-thesis/">website</a>, <a href="https://aaronpeikert.github.io/repro-thesis/ma.pdf">PDF</a> and <a href="https://aaronpeikert.github.io/repro-thesis/ma.epub">E-book</a><a href="technical-solutions.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>The document you are viewing also results from a collection of <a href="https://github.com/aaronpeikert/repro-thesis">RMarkdowns</a> available as <a href="https://aaronpeikert.github.io/repro-thesis/">website</a>, <a href="https://aaronpeikert.github.io/repro-thesis/ma.pdf">PDF</a> and <a href="https://aaronpeikert.github.io/repro-thesis/ma.epub">E-book</a><a href="technical-solutions.html#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

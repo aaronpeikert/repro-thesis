@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-07-20" />
+<meta name="date" content="2020-07-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="technical-solutions.html"><a href="technical-solutions.html#dynamic-document-generation"><i class="fa fa-check"></i><b>2.2</b> Dynamic Document Generation</a></li>
 <li class="chapter" data-level="2.3" data-path="technical-solutions.html"><a href="technical-solutions.html#version-control"><i class="fa fa-check"></i><b>2.3</b> Version Control</a></li>
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
-<li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containarization"><i class="fa fa-check"></i><b>2.5</b> Containarization</a></li>
+<li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containerisation"><i class="fa fa-check"></i><b>2.5</b> Containerisation</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Workflow</a><ul>
 <li class="chapter" data-level="3.1" data-path="workflow.html"><a href="workflow.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
@@ -172,10 +172,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="theoretical-considerations" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Theoretical Considerations</h1>
-<p><span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> define reproducibility as the ability to gain the same results, from the same dataset.
+<p><span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> define reproducibility as the ability to obtain the same results, from the same dataset.
 Conversely, they call a result replicable if one draws the same conclusion from a new dataset.
 This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.</p>
-<p>The scientific community agrees that their work should be ideally reproducible.
+<p>The scientific community agrees that ideally their work should be reproducible.
 Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is “good scientific practice” to ensure what they consider reproducible <span class="citation">(“Reducing Our Irreproducibility,” <a href="#ref-AnnouncementReducingOur2013">2013</a>; Deutsche Forschungsgemeinschaft, <a href="#ref-dfg2019">2019</a>; Epskamp, <a href="#ref-epskamp2019rep">2019</a>)</span>.
 Several reasons, practical and meta-scientific, justify this consensus of reproducibility as a minimal standard of Science.</p>
 <p>Reproducibility makes researchers life more productive in two ways:
@@ -184,16 +184,16 @@ The act of reproduction provides, at the most basic level, an opportunity for th
 Philosophers of Science characterise Science mainly as a shared method of determining whether or not a statement about the world is “true” <span class="citation">(Andersen &amp; Hepburn, <a href="#ref-andersonScientificMethod2016">2016</a>)</span> or more broadly evaluating the statements verisimilitude <span class="citation">(Gilbert, <a href="#ref-gilbertModelBuildingDefinition1991">1991</a>; Meehl, <a href="#ref-meehlAppraisingAmendingTheories1990">1990</a>; Popper, <a href="#ref-popperCommentsTruthGrowth1962">1962</a>; Tichỳ, <a href="#ref-tichyVerisimilitudeRedefined1976">1976</a>)</span>.
 If this method is for experts to agree on the assumptions and deduce “truth”, reproducibility is hardly necessary.
 On the other hand, it does gain importance if one induces facts by carefully observing the world.
-The decisive difference is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may verify it.</p>
+The decisive difference between the above approaches is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may verify it.</p>
 <p>Accepting induction as a scientific method hence hinges on the verifiability by others.
 Some have even argued that such democratisation of Science is what fueled the so-called scientific revolution <span class="citation">(Heilbron, <a href="#ref-heilbronOxfordCompanionHistory2004">2004</a>, Scientific Revolution)</span>.
 The scientific revolution had the experiment as an agreed-upon method to observe reality, and a much later revolution provides statistical modelling <span class="citation">(Rodgers, <a href="#ref-rodgersEpistemologyMathematicalStatistical2010">2010</a>)</span> as a means to induction.
-This consensus about how to observe and how to induce gives modern scientific enterprises much of its credibility.
+This consensus about how to observe and how to induce gives modern scientific enterprises much of their credibility.
 Two reasons justify why we must assume reproducibility as a scientific standard if we accept induction as a scientific method:
 First, it enables independent verification of the process of induction, and second, it dramatically simplifies replication as a means to verify the induced truths.</p>
 <p>However, neither the practical reasons that results might be less error-prone and more reusable nor that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> given above.
 A simple thought experiment illustrates this shortcoming:
-Imagine a binary program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
+Imagine a binary—therefore only machine readable—program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
 Furthermore, let us assume this hypothetical program may never hold if the dataset changes.
 Does the predicate “reproducible” in this situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
@@ -205,11 +205,11 @@ Hence, I would only call a result reproducible if the results remain unchanged i
 With such a notion, the only valid cause of reproducibility is transparency.
 Only if it is clear how data relates to its results, both reproducibility and replication get promoted.
 Consequently, something is no longer either reproducible or not, but there are shades because a research product can promote replication to varying degrees.
-Note, that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researches about the analyses method, being openly accessible and providing reusable components.</p>
-<p>Hence reproducibility has a technical side, which is ensuring the same results, and a non-technical side, which is facilitating understanding.
+Note that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researchers about the analyses method, being openly accessible and providing reusable components.</p>
+<p>Hence, reproducibility has a technical side, which is ensuring the same results, and a non-technical side, which is facilitating understanding.
 The former relates to the practical advantages while the latter serves the metascientific purposes of reproducibility.
 An important caveat of the technical aspect is that generating the same results from the same data should always be possible regardless of time and machine.
-Following a reproducible analysis should be:</p>
+As such, a reproducible analysis should be:</p>
 <ol style="list-style-type: decimal">
 <li>understandable by other researchers,</li>
 <li>transferable across machines,</li>
