@@ -7,7 +7,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="steps.svg"
+   sodipodi:docname="idealized-workflow.svg"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    id="svg8"
    version="1.1"
@@ -197,7 +197,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -262,13 +262,13 @@
     <text
        id="text1250"
        y="95.224922"
-       x="168.31732"
+       x="168.84648"
        style="font-style:normal;font-weight:normal;font-size:7.72459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.264583"
        xml:space="preserve"><tspan
          id="tspan1254"
          style="font-size:7.72459px;fill:#808080;stroke-width:0.264583"
          y="95.224922"
-         x="168.31732"
+         x="168.84648"
          sodipodi:role="line">Software</tspan></text>
     <text
        transform="scale(1.0023925,0.99761321)"
@@ -304,21 +304,21 @@
        y="144.09671"
        id="text1270-6"
        transform="scale(1.0023925,0.99761321)"><tspan
-         sodipodi:role="line"
-         x="150.51721"
-         y="144.09671"
-         style="fill:#808080;stroke-width:0.193115"
-         id="tspan1278-5">Download</tspan><tspan
          id="tspan1318"
          sodipodi:role="line"
          x="150.51721"
-         y="153.75244"
-         style="fill:#808080;stroke-width:0.193115">Verify</tspan><tspan
+         y="144.09671"
+         style="fill:#808080;stroke-width:0.193115">Download</tspan><tspan
          id="tspan1320"
          sodipodi:role="line"
          x="150.51721"
+         y="153.75244"
+         style="fill:#808080;stroke-width:0.193115">Rerun analysis</tspan><tspan
+         sodipodi:role="line"
+         x="150.51721"
          y="163.40819"
-         style="fill:#808080;stroke-width:0.193115">Rerun analysis</tspan></text>
+         style="fill:#808080;stroke-width:0.193115"
+         id="tspan917">Verify</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.72459px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.193115"
@@ -371,12 +371,12 @@
        transform="scale(0.98855901,1.0115734)"
        id="text1857"
        y="100.27379"
-       x="154.21205"
+       x="154.74734"
        style="font-style:normal;font-weight:normal;font-size:30.6502px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:0.766255"
        xml:space="preserve"><tspan
          style="fill:#b3b3b3;stroke-width:0.766255"
          y="100.27379"
-         x="154.21205"
+         x="154.74734"
          id="tspan1855"
          sodipodi:role="line">}</tspan></text>
     <text

@@ -2,7 +2,7 @@ PROJECT := reprothesis
 WORKDIR := $(CURDIR)
 
 # list below your targets and their recipies
-all: apa7.csl images/nutshell.svg images/nutshell.pdf *.Rmd images/rmarkdown.svg
+all: apa7.csl images/nutshell.svg images/nutshell.pdf images/idealized-workflow.pdf *.Rmd images/rmarkdown.svg
 	$(RUN1) Rscript -e 'bookdown::render_book("_output.yml", output_format = "all")' $(RUN2)
 
 ### Wrap Commands ###
@@ -34,3 +34,5 @@ apa7.csl:
 	wget -O $@ https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
 images/rmarkdown.svg: images/rmarkdown.pdf
 	$(RUN1) inkscape --export-plain-svg=$@ $< $(RUN2)
+images/idealized-workflow.pdf: images/idealized-workflow.svg
+	$(RUN1) inkscape --export-area-drawing --export-pdf=$@ $< $(RUN2)
