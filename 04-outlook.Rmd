@@ -7,7 +7,7 @@ I hope to make progress in three areas:
 2. explore "continues integration" (CI) for research projects, and
 3. enable the leverage of high-performance computing (HPC) clusters and cloud infrastructure.
 
-Because the user interface of `repro` was modelled after the `usethis` package, `repro` also inherited `usethis`' modular structure.
+Because the user interface of `repro` was modeled after the `usethis` package, `repro` also inherited `usethis`' modular structure.
 This design decision was made more by accident than by intention but is in hindside more than useful.
 Because of its modularity, `repro` can be extended easily and can serve as an infrastructure package.
 This use-case will be explored in collaboration with Caspar van Lissa, who proposes a workflow, called [`worcs`](https://cjvanlissa.github.io/worcs/) [@vanlissaWORCSWorkflowOpen2020], which is similar in spirit, but uses different tools.
