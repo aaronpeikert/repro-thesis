@@ -1,6 +1,28 @@
-# Outlook
+# Discussion
 
-While the `repro` package exports `r length(ls("package:repro"))` well-documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
+This thesis started with a discussion about what functionality reproduction provides for research.
+I have argued there that the metascientific advantage is to validate the induction process and a practical advantage is to increase productivity.
+However, I have not focused on its function to archive scientific products, which is sometimes viewed as the traditional functionality of reproducibility.
+How likely is it that an analysis created with `repro` may be still reproducible after decades?
+A valid point of criticism is that this workflow introduces a bulk of software solutions and services that may not be available for long.
+Superficially it relies on R, RStudio, Pandoc, Git, Make, Docker, and for OS X on Homebrew and for Windows on Chocolaty as software and on GitHub, DockerHub, MRAN and Ubuntu Package Archive as services.
+However, this list of dependencies boils down to one service and one software.
+That is because all required software is bundled into the container, whose image can be stored.
+Hence, one needs some sort of storage provider which saves the container image and the other files associated with the project.
+This problem is widely recognized and because of the limited requirements---a typical project needs around one gigabyte of storage---there are several solutions available [@doornIntroductionArchivingResearch2007].
+When storage availability is garunted pretty much all long term reproducibility rests on the continued support of container software.
+To my knowledge there are at least four different software solutions that can run the here proposed docker images natively (Docker, CoreOS rkt, Mesos Containerizer, Singularity).
+This diversity in possible solutions makes long term support more likely, especially because Docker puts a lot of effort into backwards compatibility [^olddocker].
+However when long term support is of primary interest, one can convert the docker image to a raw disk image and also archive this. Such strategy opens two possibilities.
+First, such images are supported by all standard virtualization software. 
+Such reliance on platform virtualization is standard practice in disaster recovery plans of technical infrastructure [@maitraDisasterRecoveryPlanning2011].
+Second, such raw disk images can be directly installed on the hardware, without virtualization layer.
+Hence, as long as there is hardware available that is compatible with the current x64 architecture this solution still allows reproducibility[^ram].
+
+[^olddocker]: The docker image of this project can be executed with the first stable release of docker from October 16, 2014.
+[^ram]: The change from x32 to x64 architecture was driven by the ram limit. x32 has an addressable memory of 4 GiB (1 Gigabyte = $2^{30}$ bit), while x64 has an addressable memory of 16 EiB (1 Exabyte  = $2^{60}$ bit). 
+
+Although the `repro` package exports `r length(ls("package:repro"))` well-documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
 I hope to make progress in three areas:
 
 1. Building an infrastructure for other workflows,
