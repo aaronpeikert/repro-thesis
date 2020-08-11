@@ -100,7 +100,6 @@ title: "Hello R Markdown"
 author: "Ross Ihaka & Robert Gentleman"
 date: "1997-04-23"
 output: pdf_document
-papersize: "a6"
 ---
 ```
 ````markdown
