@@ -31,15 +31,20 @@ Furthermore, let us assume this hypothetical program may never hold if the datas
 Does the predicate "reproducible" in this situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
 This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility but rather in its side effects.
-Because it is a binary programm, it does not enhance understanding and because it not applicable to other datasets, it does not facilitate productivity.
-In fact such program does not grant the researcher any practical nor metascientific advantages over non-reproducible research products.
+Because it is a binary program, it does not enhance understanding and because it is not applicable to other datasets, it does not facilitate productivity.
+In fact such a program does not grant the researcher any practical or metascientific advantages over non-reproducible research products.
 
-Spoiling its elegant simplicity, I extend the definition by @claerboutElectronicDocumentsGive1992 to address this issue, by further demanding that reproducibility must facilitate replication.
-Hence, I would only call a result reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to.
-With such a notion, the only valid cause of reproducibility is transparency.
-Only if it is clear how data relates to its results, both reproducibility and replication get promoted.
-Consequently, something is no longer either reproducible or not, but there are shades because a research product can promote replication to varying degrees.
-Note that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researchers about the analyses method, being openly accessible and providing reusable components.
+Spoiling its elegant simplicity, I therefore extend the definition by @claerboutElectronicDocumentsGive1992 to address this issue, by further demanding that reproducibility must allow criticism and facilitate replication:
+
+> A reproducible scientific product allows one to obtain the same results from the same dataset in a way that enables substantive criticism and therefore facilitates replication.
+
+Thus, transparency should enable reproducibility: Ensuring a clear link between the data and its results, promotes both replicability and reproducibility.
+Comprehension is a necessary precondition to form substantive criticism, which motivates the iterative scientific process.
+Bowing to this general notion, scientific publications are required to provide enough detail about the research process so that others may contribute constructive criticism.
+I am convinced that we should accept the same standard for everything that is published --- including code.
+
+Consequently, something is no longer either reproducible or not, but there are shades because a research product can promote replication and comprehension to varying degrees.
+Also note that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researchers about the analyses method, being openly accessible and providing reusable components.
 
 Hence, reproducibility has a technical side, which is ensuring the same results, and a non-technical side, which is facilitating understanding.
 The former relates to the practical advantages while the latter serves the metascientific purposes of reproducibility.
@@ -51,7 +56,7 @@ As such, a reproducible analysis should be:
 3. conserved through time.
 
 This much more demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a "replication crises" [@ioannidisWhyMostPublished2005] and the rise of "machine learning" [@jordanMachineLearningTrends2015] as a scientific tool.
-Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories [@gigerenzerNullRitualWhat2004; @meehlTheoreticalRisksTabular1978].
+Both trends link to the use of statistical modeling on which the social sciences became reliant for testing and developing their theories [@gigerenzerNullRitualWhat2004; @meehlTheoreticalRisksTabular1978].
 It turns out that, if one fits the very same statistical model as published on newly gathered data, one fails more often to achieve the same results as published then one succeeds. [@opensciencecollaborationEstimatingReproducibilityPsychological2015].
 
 Such failure to replicate findings that were believed to be robust has grown to a level that some social scientists call a crisis.
