@@ -13,6 +13,7 @@ fontsize: 12pt
 linestretch: 1.2
 geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
 papersize: a4
+classoption: twoside
 repro:
   packages:
     - devtools
@@ -69,7 +70,7 @@ vignette styled: from preregistration to post publication review
  - show pull requests for post publication
 -->
 
-\newpage
+\newpage\null\thispagestyle{empty}\newpage
 
 # Abstract {-}
 
