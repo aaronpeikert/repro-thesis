@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-07-21" />
+<meta name="date" content="2020-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,6 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i>Acknowledgements</a></li>
 <li class="chapter" data-level="1" data-path="theoretical-considerations.html"><a href="theoretical-considerations.html"><i class="fa fa-check"></i><b>1</b> Theoretical Considerations</a></li>
 <li class="chapter" data-level="2" data-path="technical-solutions.html"><a href="technical-solutions.html"><i class="fa fa-check"></i><b>2</b> Technical Solutions</a><ul>
 <li class="chapter" data-level="2.1" data-path="technical-solutions.html"><a href="technical-solutions.html#file-organisation"><i class="fa fa-check"></i><b>2.1</b> File Organisation</a></li>
@@ -179,7 +180,7 @@ I hope to make progress in three areas:</p>
 <li>explore “continues integration” (CI) for research projects, and</li>
 <li>enable the leverage of high-performance computing (HPC) clusters and cloud infrastructure.</li>
 </ol>
-<p>Because the user interface of <code>repro</code> was modelled after the <code>usethis</code> package, <code>repro</code> also inherited <code>usethis</code>’ modular structure.
+<p>Because the user interface of <code>repro</code> was modeled after the <code>usethis</code> package, <code>repro</code> also inherited <code>usethis</code>’ modular structure.
 This design decision was made more by accident than by intention but is in hindside more than useful.
 Because of its modularity, <code>repro</code> can be extended easily and can serve as an infrastructure package.
 This use-case will be explored in collaboration with Caspar van Lissa, who proposes a workflow, called <a href="https://cjvanlissa.github.io/worcs/"><code>worcs</code></a> <span class="citation">(Van Lissa et al., <a href="#ref-vanlissaWORCSWorkflowOpen2020">2020</a>)</span>, which is similar in spirit, but uses different tools.
@@ -207,7 +208,7 @@ It is often the case that an analysis requires substantial amounts of computatio
 In such a case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
 The use of containers is the de facto standard of cloud computing providers but also becomes increasingly common for high-performance clusters.
 Hence it is a task that can easily be accomplished with <code>repro</code>.
-However, these functions are still in development and not tested well´ enough to be published.
+However, these functions are still in development and not tested well enough to be published.
 A typical problem, when utilizing distributed computation, is the division of tasks between the computing instances.
 However, this is pretty straightforward because of the deployed dependency management.
 Make can distribute tasks across thousands of nodes while making sure that none of the dependencies collide.

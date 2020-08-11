@@ -1,7 +1,7 @@
 \PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[12pt,a4paper,]{article}
+\documentclass[12pt,a4paper,twoside]{article}
 \usepackage{lmodern}
 \usepackage{setspace}
 \setstretch{1.2}
@@ -113,11 +113,16 @@
 \usepackage{libertinust1math}
 \usepackage{sourcecodepro}
 \usepackage{emptypage}
+\usepackage{nopageno}
 \renewcommand{\textfraction}{0.05}
 \renewcommand{\topfraction}{0.8}
 \renewcommand{\bottomfraction}{0.8}
 \renewcommand{\floatpagefraction}{0.75}
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
+%% change fontsize of output
+\let\oldverbatim\verbatim
+\let\endoldverbatim\endverbatim
+\renewenvironment{verbatim}{\footnotesize\oldverbatim}{\endoldverbatim}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -129,7 +134,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Automating reproducible research workflows}
 \author{Aaron Peikert}
-\date{2020-07-21}
+\date{2020-08-11}
 
 \begin{document}
 \maketitle
@@ -138,6 +143,8 @@
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
+\newpage\null\thispagestyle{empty}\newpage
+
 \hypertarget{abstract}{%
 \section*{Abstract}\label{abstract}}
 \addcontentsline{toc}{section}{Abstract}
@@ -148,6 +155,26 @@ Consequently, research projects are virtually guaranteed to reproduce and are ea
 It is explained how the technical solutions, namely Git, RMarkdown, Make, and Docker, overcome common reproducibility problems and how the interaction with these tools is simplified through automation.
 The high degree of automation allows the workflow to scale well across researchers, letting them collaborate more transparently and effectively, as well as across machines, utilizing high performance and cloud computing technology.
 To adapt to the ever-shifting landscape of software requirements \href{https://github.com/aaronpeikert/repro}{\texttt{repro}} has a modular design allowing other workflow packages to build upon its infrastructure.
+
+\hypertarget{acknowledgements}{%
+\section*{Acknowledgements}\label{acknowledgements}}
+\addcontentsline{toc}{section}{Acknowledgements}
+
+I dedicate this thesis to my mother, who endured what cannot be described to give what only can be felt.
+
+I want to thank my advisers, Dr.~Andreas M. Brandmaier and Prof.~Manuel Völkle for their time and patience, and my friends for their resourceful advice:
+
+\begin{itemize}
+\tightlist
+\item
+  Jakob Eißner (commits \href{https://github.com/aaronpeikert/repro-thesis/commit/bc53e58cf1861b4dbc4447853ad7f3895dd805ea}{\texttt{bc53e58}}, \href{https://github.com/aaronpeikert/repro-thesis/commit/9841a3695b9bc607b95e06e3d30b45116c6681ab}{\texttt{9841a36}} \& \href{https://github.com/aaronpeikert/repro-thesis/commit/4857dcb8536136efa63bbe5efb2da6ae6fc10681}{\texttt{4857dcb}})
+\item
+  Elisabeth Riha (commit \href{https://github.com/aaronpeikert/repro-thesis/commit/82f32d4d15dd3014dc0cf847166e0b023ea11a8a}{\texttt{82f32d4}})
+\item
+  Caroline Gahrmann (commit \href{https://github.com/aaronpeikert/repro-thesis/commit/d9a730cb1bdcedef3312bc2be32ad81a3d2a45b9}{\texttt{d9a730c}})
+\end{itemize}
+
+\newpage
 
 \hypertarget{theoretical-considerations}{%
 \section{Theoretical Considerations}\label{theoretical-considerations}}
@@ -393,7 +420,6 @@ The following section shows examples of metadata, code and text, specified as ab
 \FunctionTok{author:}\AttributeTok{ }\StringTok{"Ross Ihaka & Robert Gentleman"}
 \FunctionTok{date:}\AttributeTok{ }\StringTok{"1997-04-23"}
 \FunctionTok{output:}\AttributeTok{ pdf_document}
-\FunctionTok{papersize:}\AttributeTok{ }\StringTok{"a6"}
 \OtherTok{---}
 \end{Highlighting}
 \end{Shaded}
@@ -506,7 +532,7 @@ The \texttt{repro}-package infers automatically which packages are needed and cr
 The \texttt{repro} package is designed to streamline the researchers' workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
 To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the beforementioned tools.
-While there is a huge variety of how researchers approach an empirical study and its analysis, Figure \ref{fig:workflow} offers an idealized workflow.
+While there is a huge variety in how researchers can approach an empirical study and its analysis, Figure \ref{fig:workflow} offers an idealized workflow.
 
 \begin{figure}
 
@@ -525,14 +551,14 @@ The structure of this chapter mirrors the workflow in Figure \ref{fig:workflow} 
 \item
   Set up the required software;
 \item
-  reproduce an analysis that follows the here proposed standards;
+  reproduce an analysis that follows the here outlined standards;
 \item
   apply and publish changes;
 \item
   create a reproducible workflow from scratch.
 \end{enumerate}
 
-\texttt{repro} supports several alternative software implementations for each step and assembles them into one coherent workflow.
+\texttt{repro} supports several alternative software implementations for each step and integrates them into one coherent workflow.
 This modular structure is inspired by the \href{https://usethis.r-lib.org}{usethis-package} (Wickham \& Bryan, \protect\hyperlink{ref-R-usethis}{2020}).
 The steps described here follow the recommendations of Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}), and hence combine RMarkdown, Git \& GitHub, Make and Docker.
 
@@ -540,8 +566,8 @@ The steps described here follow the recommendations of Peikert \& Brandmaier (\p
 \subsection{Setup}\label{setup}}
 
 Reproduction, change, and creation of an analysis require the user to have software installed that is specific to the workflow they choose, but independent of the analysis.
-A set of functions (following the pattern \texttt{check\_*}, for a complete list see \texttt{help(check)}) helps users to ensure that everything they need is installed and correctly configured.
-If \texttt{repro} detects that something is not installed or configured, it advises users step by step on how to resolve these issues in accordance with their specific software platform.
+A set of functions (following the pattern \texttt{check\_*}, for a complete list see \texttt{help(check)}) assists users to ensure that everything they need is installed and correctly configured.
+If \texttt{repro} detects that something is not installed or configured, it guides users through a step by step procedure on how to resolve these issues in accordance with their specific software platform.
 Currently, it supports all major operating systems (Windows, OS X, Linux).
 
 First users have to install \texttt{repro}. The following code snippet installs repro from \href{https://github.com/aaronpeikert/repro}{GitHub}:
@@ -567,9 +593,9 @@ If repro is installed one may load it via:
 \end{Highlighting}
 \end{Shaded}
 
-Then users can check if the required software is already installed.
-The workflow by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) requires Git (and GitHub), Make, and Docker.
-Consequently, the following commands\footnote{There is also \texttt{check\_github()}, but its inclusion would render this document irreproducible, because \texttt{check\_github()} checks user-specific configurations.} check if the user has set up all the requirements:
+Subsequently, users can check if the required software is already installed.
+The workflow by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) depends on Git (and GitHub), Make, and Docker.
+Consequently, the following commands check if the user has set up all the requirements:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -601,9 +627,18 @@ Consequently, the following commands\footnote{There is also \texttt{check\_githu
 ## v You are inside a Docker container!
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# check_github() renders this document irreproducible}
+\CommentTok{# because it relies on user settings unavailable in the container}
+\CommentTok{# hence it is not evaluated}
+\KeywordTok{check_github}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
 If everything is set up, users can proceed to reproduce an analysis that conforms to this workflow.
 
-If not, e.g.~because Docker is not installed, users get an informative message appropriate for their platform (here Windows as an example).
+If not, e.g.~because Docker is not installed, users get an informative message appropriate for their platform (the following code chunk shows the message windows users get when Git is missing).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -643,10 +678,11 @@ If not, e.g.~because Docker is not installed, users get an informative message a
 \hypertarget{reproduction}{%
 \subsection{Reproduction}\label{reproduction}}
 
-Because this document complies with all requirements described therein, it will serve as an example to reproduce.
-However, another example will be provided in the \protect\hyperlink{creation}{Creation} section below.
-GitHub, Make, and Docker are enough to reproduce this very document.
-So everything is set up to download the source files of this document, rerun the code within it, and verify its results.
+Because this document complies with outlined requirements, it will function as an example to reproduce.
+However, another more minimal example that actually contains an data analysis will be provided in the \protect\hyperlink{creation}{Creation} section below.
+
+GitHub, Make, and Docker are sufficient to reproduce this very document.
+So if you followed the steps above, everything is set up to download the source files of this document, rerun the code within it, and verify its results.
 
 The following command uses Git and GitHub to:
 
@@ -669,17 +705,17 @@ The following command uses Git and GitHub to:
 \end{Highlighting}
 \end{Shaded}
 
-If executed, this code opens a new R session and therefore, all code from here on needs to run in the \emph{new} session.
+If executed, this code opens a new R session and therefor, all code from here on out needs to run in the \emph{new} session.
 
 It is tempting to automate the reproduction part entirely and use a \texttt{rerun()} function that figures out what to do and does so for you.
 However, I decided the reproduction must be feasible without the \texttt{repro} package.
-This decision is supposed to prevent that long term reproducibility depends on the availability of the package.
+This decision is supposed to ensure that long term reproducibility does not depend on the availability of the package.
 I am confident that Git, Make, Docker will be available for years to come, whereas I cannot say the same about this package.
-To compromise the needs of long term support and usability, \texttt{repro} offers advice about what to do, but stops right before doing it.
+To balance the needs of long term support and usability, \texttt{repro} offers advice about what to do, but stops right before doing it.
 
 Which steps one has to take, depends on the tools chosen to implement dependency management.
 This tool determines the ``entry point'' for an analysis.
-To detect the entry point, \texttt{repro} follows simple heuristics, which stem from what R users tend to use.
+To detect the entry point, \texttt{repro} follows simple heuristics, which are informed by what most R users tend to use.
 These conventions are quite ambiguous, but the clearest entry point is a \texttt{Makefile}.
 If no \texttt{Makefile} is available, the alternatives are either a central dynamic document (RMarkdown, Jupityer Notebook) or a primary script (R, Python, Oktave, Shell).
 In these cases, one can only guess from filenames like \texttt{manuscript.Rmd}, \texttt{analysis.Rmd}, \texttt{paper.Rmd}, \texttt{run.R} or \texttt{analysis.R}.
@@ -696,9 +732,9 @@ To recreate this document you have to follow the steps below:
 
 The argument \texttt{cache\ =\ FALSE} ensures that everything that can be recreated is recreated even when nothing was changed.
 
-It is difficult to verify if an analysis was reproduced.
+It is difficult to verify wether an analysis was reproduced.
 As a minimum standard one could demand, that the analysis is rerun errorfree or, as a maximal standard, that the resulting documents are exactly the same.
-Neither solution strikes the right balance, because error-free does not imply the same results while comparing binary files often leads to spurious differences.
+Neither solution strikes the right balance, because error-free does not imply the same results. At the same time the comparison of binary files often leads to spurious differences.
 Currently, researchers need to revert to manual checking and common sense to verify a successful reproduction.
 An automated verification procedure would require the researcher to explicitly state which results need to be identical.
 Then a software solution could track changes for only these digital objects and accordingly flag mismatches.
@@ -718,7 +754,7 @@ In the terminology of GitHub, the public copy is a ``fork'', the tracked changes
 
 Working with pull requests is easy, thanks to the \texttt{usethis} package.
 If you reproduced this document, you could make changes to it---which could be something trivial, like correcting spelling---and ask me to incorporate them.
-You can initialze a pull request with:
+You can initialize a pull request with:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -726,7 +762,7 @@ You can initialze a pull request with:
 \end{Highlighting}
 \end{Shaded}
 
-Then you can change the files of this thesis as you like and track them with Git.
+Subsequently, you may change the files of this thesis as you like and track them with Git.
 You should make sure that the analysis is still reproducible with:
 
 \begin{Shaded}
@@ -743,12 +779,12 @@ If you are satisfied with the changes you made, you can trigger the pull request
 \end{Highlighting}
 \end{Shaded}
 
-If I also find the changes to my liking, I can incorporate the changes on GitHub.
+If I---as the author of this document---would like to accept, I can incorporate the changes on GitHub.
 If not, the changes can be discussed in the pull request or I could make amends before merging them.
 
-Such distributed workflow allows a much more controlled way of collaboration as opposed to mail back and forth or use cloud storage systems.
-This higher level of control fits well into the high standards of scientific work.
-However, the more important aspect is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code (The Linux Foundation, \protect\hyperlink{ref-thelinuxfoundation2017LinuxKernel2017}{2017})).
+Such distributed workflow allows for a much more controlled way of collaboration as opposed to mail back and forth or using cloud storage systems.
+This higher level of control matches the high standards of scientific work.
+However, even more important is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code (The Linux Foundation, \protect\hyperlink{ref-thelinuxfoundation2017LinuxKernel2017}{2017})).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
 As the authors carry the responsibility for the overall correctness, they ought to vet every single contribution.
 
@@ -775,24 +811,26 @@ This template can be accessed from within RStudio © via ``File'' → ``New Proj
 \end{Shaded}
 
 \texttt{repro} infers the dependencies to data and external code as well as the required packages from the \texttt{yaml} metadata of the RMarkdowns.
-Because analytic data projects have a particular structure, this markup can be much simpler than writing \texttt{Dockerfiles} and \texttt{Makefiles} by hand.
+Because analytic data projects have a particular structure, this markup can be much simpler than writing \texttt{Dockerfiles} and \texttt{Makefiles} manually.
 While Docker allows to install arbitrary Software, an analysis in R likely needs nothing but R-packages. Similarly, Make enables you to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.
 
 Hence, a minimal addition to the metadata, as can be seen in the following example, contains everything necessary to infer a complete \texttt{Dockerfile} and \texttt{Makefile}:
 
-\begin{verbatim}
-repro:
-  packages:
-    - usethis
-    - fs
-    - aaronpeikert/repro@d09def75df
-  scripts:
-    - R/clean.R
-  data:
-    mycars: data/mtcars.csv
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{repro:}
+  \FunctionTok{packages:}
+    \KeywordTok{-}\NormalTok{ usethis}
+    \KeywordTok{-}\NormalTok{ fs}
+    \KeywordTok{-}\NormalTok{ aaronpeikert/repro@d09def75df}
+  \FunctionTok{scripts:}
+    \KeywordTok{-}\NormalTok{ R/clean.R}
+  \FunctionTok{data:}
+    \FunctionTok{mycars:}\AttributeTok{ data/mtcars.csv}
+\end{Highlighting}
+\end{Shaded}
 
-The function \texttt{automate()} creates a \texttt{Dockerfile} and a \texttt{Makefile}, which both comply with all recommendations in Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).
+From this specification the function \texttt{automate()} creates a \texttt{Dockerfile} and a \texttt{Makefile}, which comply with all recommendations by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).
 Strictly speaking, it creates four Dockerfiles and three Makefiles.
 Most of the files are created in the \texttt{.repro} directory and then assembled into the main \texttt{Dockerfile}/\texttt{Makefile} at top-level.
 One \texttt{Dockerfile} contains the base docker image, including the R version and the current date and another \texttt{Dockerfile} contains only the R packages.
@@ -878,7 +916,7 @@ I hope to make progress in three areas:
   enable the leverage of high-performance computing (HPC) clusters and cloud infrastructure.
 \end{enumerate}
 
-Because the user interface of \texttt{repro} was modelled after the \texttt{usethis} package, \texttt{repro} also inherited \texttt{usethis}' modular structure.
+Because the user interface of \texttt{repro} was modeled after the \texttt{usethis} package, \texttt{repro} also inherited \texttt{usethis}' modular structure.
 This design decision was made more by accident than by intention but is in hindside more than useful.
 Because of its modularity, \texttt{repro} can be extended easily and can serve as an infrastructure package.
 This use-case will be explored in collaboration with Caspar van Lissa, who proposes a workflow, called \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} (Van Lissa et al., \protect\hyperlink{ref-vanlissaWORCSWorkflowOpen2020}{2020}), which is similar in spirit, but uses different tools.
@@ -909,7 +947,7 @@ It is often the case that an analysis requires substantial amounts of computatio
 In such a case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
 The use of containers is the de facto standard of cloud computing providers but also becomes increasingly common for high-performance clusters.
 Hence it is a task that can easily be accomplished with \texttt{repro}.
-However, these functions are still in development and not tested well´ enough to be published.
+However, these functions are still in development and not tested well enough to be published.
 A typical problem, when utilizing distributed computation, is the division of tasks between the computing instances.
 However, this is pretty straightforward because of the deployed dependency management.
 Make can distribute tasks across thousands of nodes while making sure that none of the dependencies collide.
