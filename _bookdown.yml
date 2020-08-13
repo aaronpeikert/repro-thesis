@@ -3,4 +3,4 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Chapter "
-rmd_files: ["index.Rmd", "acknowledgements.Rmd","01-intro.Rmd", "02-tools.Rmd", "03-workflow.Rmd", "04-outlook.Rmd","references.Rmd"]
+rmd_files: ["index.Rmd", "acknowledgements.Rmd","01-intro.Rmd", "02-tools.Rmd", "03-workflow.Rmd", "04-discussion.Rmd","references.Rmd"]
