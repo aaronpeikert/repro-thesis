@@ -1,50 +1,53 @@
 # Discussion
 
 This thesis started with a discussion about what functionality reproduction provides for research.
-I have argued there that the metascientific advantage is to validate the induction process and the practical advantage is to increase productivity.
+I have argued there that the metascientific advantage is to validate the induction process, and the practical benefit is to increase productivity.
+I then showed how tools and principles from software engineering ensure reproducibility and presented `repro` a package for the R programming language that simplifies their use.
+
 However, I have not focused on its function to archive scientific products, which is sometimes viewed as the traditional functionality of reproducibility.
-How likely is it that an analysis created with `repro` may be still reproducible after decades?
+How likely is it that an analysis created with `repro` is still reproducible after decades?
 A valid point of criticism is that this workflow introduces a bulk of software solutions and services that may not be available for long.
 Superficially it relies on R, RStudio, Pandoc, Git, Make, Docker, Homebrew (OS X only) and Chocolaty (Windows only) as software and on GitHub, DockerHub, MRAN and Ubuntu Package Archive as services.
 However, this list of dependencies boils down to one service and one software.
 That is because all required software is bundled into the container, whose image can be stored.
-Hence, one needs some sort of storage provider which saves the container image and the other files associated with the project.
-This problem of longterm storage for scientific data is widely recognized and because of the limited requirements---a typical project (except data) needs around one gigabyte of storage---there are several solutions available [@doornIntroductionArchivingResearch2007].
-When storage availability is garunted pretty much all long term reproducibility rests on the continued support of container software.
-To my knowledge there are at least four different software solutions that can run the here proposed docker images natively (Docker, CoreOS rkt, Mesos Containerizer, Singularity).
-This diversity in possible solutions makes long term support more likely, especially because Docker puts a lot of effort into backwards compatibility [^olddocker].
-However when long term support is of primary interest, one can convert the docker image to a raw disk image and also archive this. Such strategy opens two possibilities.
-First, such images are supported by all standard virtualization software. 
-Such reliance on platform virtualization is standard practice in disaster recovery plans of technical infrastructure [@maitraDisasterRecoveryPlanning2011].
-Second, such raw disk images can be directly installed on the hardware, without virtualization layer.
-Hence, as long as there is hardware available that is compatible with the current x64 architecture this solution still allows reproducibility[^ram].
+Hence, one needs a storage provider which saves the container image and the other files associated with the project.
+This problem of longterm storage for scientific data is widely recognised and because of the limited requirements---a typical project (except data) needs around one gigabyte of storage---there are several solutions available [@doornIntroductionArchivingResearch2007].
+When storage availability is guaranteed pretty much all long term reproducibility rests on the continued support of container software.
+To my knowledge, there are at least four different software solutions that can run the here proposed docker images natively (Docker, CoreOS rkt, Mesos Containerizer, Singularity).
+This diversity in possible solutions makes long term support more likely.  Docker itself also prioritises backwards compatibility [^olddocker].
+However, when long term support is of primary interest, one can convert the docker image to a raw disk image and also archive this.
+Such strategy opens two possibilities.
+First, such images are supported by all standard virtualisation software. 
+Such reliance on platform virtualisation is standard practice in disaster recovery plans of technical infrastructure [@maitraDisasterRecoveryPlanning2011] and should hence be available for some time to come.
+Second, such raw disk images can be directly installed on the hardware, without virtualisation layer.
+Hence, as long as there is hardware available, that is compatible with the current x64 architecture, this solution still allows reproducibility[^ram].
 
-[^olddocker]: The docker image of this project can be executed with the first stable release of docker from October 16, 2014.
-[^ram]: The change from x32 to x64 architecture was driven by the RAM limit. x32 has an addressable memory of 4 GiB (1 Gigabyte = $2^{30}$ bit), while x64 has an addressable memory of 16 EiB (1 Exabyte  = $2^{60}$ bit). 
+[^olddocker]: The docker image of this project can be executed with the first stable release of Docker from October 16, 2014.
+[^ram]: The RAM limit drove the change from x32 to x64 architecture. x32 has an addressable memory of 4 GiB (1 Gigabyte = $2^{30}$ bit), while x64 has an addressable memory of 16 EiB (1 Exabyte  = $2^{60}$ bit). Even when the time has come that computer architecture that is compatible with x64 is not available anymore, it is to be expected that this architecture can be emulated with platform virtualisation similarly to the current support of x32 on x64 only computers.
 
 The usage of containers to recreate the computational environment relies on the assumption that all required software can be indeed installed within the container.
-This assumptions holds for most open source software and is straight forward to implement for all software available in the Ubuntu Package Archive.
+This assumptions hold for most open-source software and is straight forward to implement for all software available in the Ubuntu Package Archive.
 However, even when there is no technical hurdle for commercial software, there might be a legal hurdle imposed by the license agreement.
-There is an ongoing debate about how compatible commercial closed software is with Open Science in general and reproducibility in particular [@inceCaseOpenComputer2012], but e.g. for MATLAB there are three different models for hybrid approaches:
-First, they provide a possibility for reusing the hosts Matlab license within the container.
-Second, the MATLAB Coder program allows the cross compilation of Matlab code to C/C++ and thus its inclusion in open source code.
+There is an ongoing debate about how compatible commercial closed software is with Open Science in general and reproducibility in particular [@inceCaseOpenComputer2012], but, e.g. for Matlab, there are three different models for hybrid approaches:
+First, Mathworks provides a possibility for reusing the host's Matlab license within the container.
+Second, the MATLAB Coder program allows the cross-compilation of Matlab code to C/C++ and thus its inclusion in open source code.
 Third, the MATLAB Compiler can compile code to a binary that may be run within the container.
-Hopefully similar solutions emerge for other research software with restrictive licenses.
+Hopefully, similar solutions emerge for other research software with restrictive licenses.
 
 The here presented workflow aspires to an ideal of full transparency, but may in practice require some compromises.
-A prime example of this are ethical and legal considerations of publishing data that can only with great difficulty be de-identified.
+A prime example of this is the ethical and legal considerations of publishing data that can only with great difficulty be de-identified.
 While there are several technical possibilities for this problem, they may require more time and skill than a researcher is willing to invest.
-The same holds true for many other problems that are either field or even project specific.
-While such problems are beyond the scope of this thesis, I hope that future research concentrates on field specific reproducibility problems and their solution e.g. for longtitudanal or neuroimaging data.
+The same holds for many other problems that are either field or even project-specific.
+While such problems are beyond the scope of this thesis, I hope that future research concentrates on field-specific reproducibility problems and their solution, e.g. for longitudinal or neuroimaging data.
 
-These general limitations of the workflow are coupled with some `repro` specific limitations.
-The most difficult problem with `repro` is the tradeoff between flexibility and usability.
-On the one hand a wide range of possible user requirements call for much freedom and flexibility, but on the other hand this might be overwhelming for some users.
-A major difficulty in this context is the unintended flexibility users get, because I decided to keep explicit specification to an absolute minimum.
-Hence, `repro` needs to infer the current state of the users project and computer.
-But because users have unlimited freedome to design a project as they like it is clear that `repro` can not cover all possibilities.
-Therefore it is easiest to start with the provided template and customize it.
-As `repro` majors and is applied in more usecases it will become more flexible with regard to the users setup.
+These general limitations of the workflow are coupled with some `repro` specific restrictions.
+The most challenging problem with `repro` is the tradeoff between flexibility and usability.
+On the one hand, a wide range of possible user requirements call for much freedom and flexibility, but on the other hand, this might be overwhelming for some users.
+A significant difficulty in this context is the unintended flexibility users get because I decided to keep explicit specification to an absolute minimum.
+Hence, `repro` needs to infer the current state of the user's project and computer.
+But because users have unlimited freedom to design a project as they like, it is clear that `repro` can not cover all possibilities.
+To prevent errors, it is at the moment advisable to start with the provided template and customise it.
+As `repro` majors and is applied in more use-cases, it will become more flexible concerning the user's setup.
 Till then defensive programming techniques were employed to detect and friendly report such problems.
 
 Although the `repro` package exports `r length(ls("package:repro"))` well-documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
@@ -54,11 +57,11 @@ I hope to make progress in three areas:
 2. explore "continues integration" (CI) for research projects, and
 3. enable the leverage of high-performance computing (HPC) clusters and cloud infrastructure.
 
-Because the user interface of `repro` was modeled after the `usethis` package, `repro` also inherited `usethis`' modular structure.
+Because the user interface of `repro` was modelled after the `usethis` package, `repro` also inherited `usethis`' modular structure.
 This design decision was made more by accident than by intention but is in hindside more than useful.
 Because of its modularity, `repro` can be extended easily and can serve as an infrastructure package.
 This use-case will be explored in collaboration with Caspar van Lissa, who proposes a workflow, called [`worcs`](https://cjvanlissa.github.io/worcs/) [@vanlissaWORCSWorkflowOpen2020], which is similar in spirit, but uses different tools.
-[`worcs`](https://cjvanlissa.github.io/worcs/) also utilizes RMarkdown and Git, but in place of Docker, it uses [`renv`](https://rstudio.github.io/renv/articles/renv.html) and instead of Make it relies on a highly standardized file structure.
+[`worcs`](https://cjvanlissa.github.io/worcs/) also utilises RMarkdown and Git, but in place of Docker, it uses [`renv`](https://rstudio.github.io/renv/articles/renv.html) and instead of Make it relies on a highly standardised file structure.
 Hence, only two "moduls" or rather functions have to be added to `repro` to support the workflow, `use_renv()` (which replaces `use_docker()`) and `use_worcs_template()` (which replaces `use_repro_template()`).
 Also, [`worcs`](https://cjvanlissa.github.io/worcs/) has other features like automatic codebook creation and synthetic data generation, which may be excellent supplements for a `repro` project.
 To ensure interoperability between the packages, it is planned that much of the behind the scenes machinery is moved from [`worcs`](https://cjvanlissa.github.io/worcs/) to `repro` in a more modular form.
@@ -73,20 +76,20 @@ As previously discussed there currently exists no easy solution to verify reprod
 The key difficulty is to detect changes in the results that potentially alter the conclusion, from those which carry no meaning, e.g. if the date is updated.
 To address this challenge, I currently work on a prototype of an R package, which allows the researcher to assert that some objects remain unchanged upon reproduction, by wrapping them into `unchanged()`.
 This package keeps track of thus marked objects and throws an error if they accidentally change.
-If such a solution would exist, there would be no hurdle to incorporate continues integration into research projects.
-This would mean that all contributions are automatically vetted before they are incorporated and that the results are automatically updated, e.g. the preprint or the additional material on [osf.org](osf.org) would automatically be re-uploaded.
+If such a solution existed, there would be no hurdle to incorporate continues integration into research projects.
+Continues integration could vet all contributions automatically before they are incorporated and update the results, e.g. the preprint or the additional material on [osf.org](osf.org).
 Then projects could have a badge that signifies that a third party is able to reproduce it.
 Such continues updates do not only ease collaboration but are also especially interesting for some continues data sources, e.g. long-running developmental studies or meta-analysis, where new data becomes repeatedly available even after publication.
 
 Conveniences such as the above are possible because the here presented conception of reproducibility is highly automated.
 Hence, an analysis may be moved to another machine without manual intervention.
-This also opens some interesting possibilities unrelated to reproducibility, concerning the management of computational resources.
+This functionality also opens some exciting possibilities unrelated to reproducibility, concerning the management of computational resources.
 It is often the case that an analysis requires substantial amounts of computational resources, more than a single computer may deliver.
 In such a case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
 The use of containers is the de facto standard of cloud computing providers but also becomes increasingly common for high-performance clusters.
 Hence it is a task that can easily be accomplished with `repro`.
 However, these functions are still in development and not tested well enough to be published.
-A typical problem, when utilizing distributed computation, is the division of tasks between the computing instances.
+A typical problem, when utilising distributed computation, is the division of tasks between the computing instances.
 However, this is pretty straightforward because of the deployed dependency management.
 Make can distribute tasks across thousands of nodes while making sure that none of the dependencies collide.
 Initially, this functionality was available in `repro` for TORQUE, an HPC task scheduler, but because TORQUE will no longer be maintained I will phase out this set of functions.
@@ -95,4 +98,5 @@ Initially, this functionality was available in `repro` for TORQUE, an HPC task s
 To my knowledge, no standard is as comprehensive as the here described combination of Git, RMarkdown, Make and Docker.
 However, the workflow presented by @vanlissaWORCSWorkflowOpen2020 sacrifices a little bit of this flexibility to reduce the complexity drastically.
 Despite these efforts to make reproducibility easier, I think it is worthwhile to simplify the approaches further, to appeal to users that are more comfortable using Microsoft Office than RMarkdown and hesitant to use a formal version control system.
-Hopefully, `repro` is a first step to make reproducibility easier to archive.
+Hopefully, `repro` is the first step to make reproducibility easier to achieve.
+
