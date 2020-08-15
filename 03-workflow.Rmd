@@ -9,7 +9,25 @@ While there is a huge variety in how researchers can approach an empirical study
 knitr::include_graphics("images/idealized-workflow.svg", auto_pdf = TRUE)
 ```
 
-The structure of this chapter mirrors the workflow in Figure \@ref(fig:workflow) and explains step by step how to:
+This workflow can be approached from two perspectives, either as an author of a reproducible analysis or as a contributor.
+I use the term contributor in its broadest possible meaning, because---in my view---even a reader who is thorough enough to reproduce an analysis contributes something of value.
+Consequently, I include everyone with an interest in reproducing the analysis in the group of collaborators, be it a coauthor, a reviewer or the very person who originally created the analysis at an earlier point in time.
+
+From the contributor's point of view `repro` acts as an assistance system, advising users on how to setup their computers and how to reproduce an analysis.
+It is a major difficulty for untrained users to detect their systems state accurately and act correspondingly.
+`repro` parses complex technical information and presents them in a straightforward way.
+It therefore enables even relatively inexperienced users to make use of tools which otherwise would require extensive training.
+From the perspective of the author who creates an analysis, `repro` is a toolbox which provides the right tools for most of the user's requirements.
+In the creation phase, the benefit for inexperienced users is even more accentuated.
+Following the standards of @peikertReproducibleDataAnalysis2019 usually requires experience in the use of Bash, Make, Docker, YAML, (R-)Markdown, R, Latex, knitr, and Git.
+Besides some practice, users need to be aware, remember, and correctly implement best practices in each tool.
+`repro` significantly lowers this threshold.
+`repro` still expects the user to have some training in the use of R, (R-)Markdown, and Git---which is increasingly recognized as a standard in the Open Science and R community---but forgos training in Make and Docker.
+An important guideline in designing `repro` was to make best practices easier to implement than their alternatives.
+Where possible `repro` allows the user to forget about the details of the often tricky implementation and abstracts them away.
+
+The structure of this chapter mirrors the workflow in Figure \@ref(fig:workflow), first from the perspective of an contributor, then from the perspective of an creator.
+It explains step by step how to:
 
 1. Set up the required software;
 2. reproduce an analysis that follows the here outlined standards;
@@ -27,7 +45,7 @@ A set of functions (following the pattern `check_*`, for a complete list see `he
 If `repro` detects that something is not installed or configured, it guides users through a step by step procedure on how to resolve these issues in accordance with their specific software platform.
 Currently, it supports all major operating systems (Windows, OS X, Linux).
 
-First users have to install `repro`. The following code snippet installs repro from [GitHub](https://github.com/aaronpeikert/repro):
+First users have to install `repro`. The following code snippet installs `repro` from [GitHub](https://github.com/aaronpeikert/repro):
 
 ```{r, eval=FALSE}
 # check if remotes is installed, if not install it
