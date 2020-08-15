@@ -1,7 +1,7 @@
 # Technical Solutions
 
 This section summarises the workflow proposed by @peikertReproducibleDataAnalysis2019 [see also @theturingwaycommunityTuringWayHandbook2019 for a similar approach].
-They argue that publicly sharing code is not sufficient to ensure reproducibility:
+They argue that publicly sharing code and materials is not sufficient to ensure reproducibility:
 Instead, reproducibility has to rest on five pillars:
 
 1. file management
@@ -23,15 +23,17 @@ These pillars stipulate the relations between thought, code and data with their 
 
 1. understandable to other researchers,
 2. transferable across machines,
-3. conserved through time.
+3. presever over time.
 
 While comprehensibility to the scientific community is probably the most crucial objective, it is also the most difficult to achieve.
 That is because as a non-technical requirement, no set of rules can assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.
 
-@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language [@R-base] and provide the high-level overview which can be seen in Figure \@ref(fig:nutshell).
+@peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, for users of the R programming language [@R-base] and provide the high-level overview which can be seen in Figure \@ref(fig:nutshell).
 
-```{r nutshell, echo=FALSE, fig.cap="Overview of the interplay of RMarkdown, Git, Make, and Docker", out.width="100%", fig.align="center"}
+(ref:nutshellref) Overview of the interplay of RMarkdown, Git, Make, and Docker [@peikertReproducibleDataAnalysis2019].
+
+```{r nutshell, echo=FALSE, fig.cap="(ref:nutshellref)", out.width="100%", fig.align="center"}
 knitr::include_graphics("images/nutshell.svg", auto_pdf = TRUE)
 ```
 
@@ -65,10 +67,10 @@ The researcher can thus adept code and files to their need, either by merely cha
 
 ## Dynamic Document Generation
 
-A clear file structure helps researchers to better understand how a scientific analysis relates to the code but an otherwise strict segregation of code and document inhibits a full grasp.
+A clear file structure helps researchers to better understand how a scientific result relates to the code but an otherwise strict segregation of code and document may impede how both connect, e.g. which parts of code generate which results.
 Providing a direct link, dynamic document generation allows interspersing text with code and its results, in order to produce a human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
-This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; @nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain an error that could have been prevented.
+This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; @nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain at least one error that could have been prevented.
 
 RMarkdown provides a convenient framework to write such dynamic documents and render them as a wide range of output formats[^markdown]. In an RMarkdown, three parts can be distinguished:
 
@@ -77,7 +79,7 @@ RMarkdown provides a convenient framework to write such dynamic documents and re
 * one with descriptive text.
 
 Each part uses its own language, all of them designed with ease of use and readability in mind.
-The one section containing the output format and other metadata alongside is written in YAML (see the example below).
+The one section containing the output format and other metadata alongside is written in YAML (recursive acronym for "YAML Ain’t Markup Language", see the example below).
 This specification is located on the top, separated by three dashes at the beginning and at the end of the section.
 (R-)Code executing an analysis can be placed in a distinct chunk or inline within the text.
 The former has three backticks on their own line signifying beginning and end.
@@ -109,7 +111,7 @@ Below is a code chunk:
 
 `r ''````{r}
 fit = lm(dist ~ speed, data = cars)
-b   = coef(fit)
+b = coef(fit)
 plot(cars)
 abline(fit)
 ```
@@ -117,7 +119,7 @@ abline(fit)
 The slope of the regression is `r b[1]`.
 ````
 
-Resulting in the document seen in Figure \@ref(fig:rmarkdown):
+Resulting in the rendered document seen in Figure \@ref(fig:rmarkdown):
 
 ```{r rmarkdown, echo=FALSE, fig.cap="Result of minimal RMarkdown example.", out.width="100%", fig.align="center"}
 knitr::include_graphics("images/rmarkdown.svg", auto_pdf = TRUE)
@@ -127,7 +129,7 @@ Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure 
 
 ## Version Control
 
-Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
+Text, code and results of a scientific document are typically modified in cycles of many revisions.
 As changes accumulate, different versions do so as well, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
 One may argue that in the typical publication process, the final product is apparent: the published paper.
 However, reproducibility may be crucial even before publication as part of collaboration and within the peer-review process.
@@ -160,8 +162,8 @@ While a few other commands are necessary to set up Git in a given project direct
 
 ## Dependency Management
 
-In an analysis, the results depend on code which in turn depends on data.
-However, seldomly the data is analysed as it is, but some code is dedicated to preparing it.
+In a scientific analysis of empierical data, the statisctical or computaional results depend on code which in turn depends on data.
+However, rarely the data is analysed as it is, but some code is dedicated to preparing it (e.g. removing outliers, reshaping, aggregating, artifact correction etc.).
 Most likely, each analysis needs a slightly different version of the data.
 An analysis of missingness requires the missings to be retained, but some statistical models do not allow that.
 Or the modelling software requires data to be differently shaped, then the plotting library.
@@ -175,19 +177,18 @@ Such structure allows to save considerable computing time, as dependencies are n
 In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.
 
-Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognised as a tool for reproducibility.
-It allows for all features above and even more as it is an own programming language.
+Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognised as a tool for ensuring reproducibility.
+It allows for all features mentioned above and even more as it a full-fledged programming language.
 
-However, the repro package provides a much-simplified interface to the essential features of Make, eschewing the need to learn yet another language.
-
+The repro package provides a simplified interface to the essential features of Make, eschewing the need to learn yet another language, while leveraging its most important features dependency management for scientific data analyses.
 
 ## Containerisation
 
-Most computer code is not self-contained but needs libraries and other software to work (e.g. the R programming language or packages).
+Most computer code is not self-contained but depends on libraries and other software to work (e.g. the R programming language or packages).
 These external dependencies pose a risk for reproducibility because it may not be clear what is necessary---besides the code and data---and how to install it.
-Even when all required software and their exact versions are recorded meticulously, it may be a challenge to install them.
-First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy of some years old software version.
-Setting up a computer exactly as someone else's is difficult enough, but replicating another computer how it was several years ago is at best painstaking.
+Even when all required software and their exact versions are recorded meticulously, it may be a challenge to install them on a different system.
+First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy a specific software version.
+Setting up a computer exactly as someone else's is difficult enough, but replicating another computers state from several years ago is at best painstaking, if not impossible.
 
 To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualisation because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.
 

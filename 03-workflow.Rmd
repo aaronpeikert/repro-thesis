@@ -1,8 +1,8 @@
-# Workflow
+# Working with `repro`
 
 The `repro` package is designed to streamline the researchers' workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
-To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the beforementioned tools.
+To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the aforementioned tools.
 While there is a huge variety in how researchers can approach an empirical study and its analysis, Figure \@ref(fig:workflow) offers an idealized workflow.
 
 ```{r workflow, eval = TRUE, echo = FALSE, fig.cap="Schematic illustration of a reproducible workflow.  ", out.width="50%", fig.align="center"}
@@ -101,8 +101,8 @@ options(opts)
 
 ## Reproduction
 
-Because this document complies with outlined requirements, it will function as an example to reproduce.
-However, another more minimal example that actually contains an data analysis will be provided in the [Creation] section below.
+This thesis was written according to the proposed standards using `repro` and may serve as an example of reproduction.
+I also provide a minimal example actually contains data and a data analysis in the [Creation] section below.
 
 GitHub, Make, and Docker are sufficient to reproduce this very document.
 So if you followed the steps above, everything is set up to download the source files of this document, rerun the code within it, and verify its results.
@@ -122,10 +122,10 @@ usethis::create_from_github("aaronpeikert/repro-thesis",
 If executed, this code opens a new R session and therefor, all code from here on out needs to run in the *new* session.
 
 It is tempting to automate the reproduction part entirely and use a `rerun()` function that figures out what to do and does so for you.
-However, I decided the reproduction must be feasible without the `repro` package. 
+However, I decided the reproduction must be feasible without the `repro` package to avoid monopolization of reproducibility by a single software package. 
 This decision is supposed to ensure that long term reproducibility does not depend on the availability of the package.
 I am confident that Git, Make, Docker will be available for years to come, whereas I cannot say the same about this package.
-To balance the needs of long term support and usability, `repro` offers advice about what to do, but stops right before doing it.
+To balance the needs of long term support and usability, `repro` offers advice about what to do, but stops right before doing it (you can see an example after the next code chunk).
 
 Which steps one has to take, depends on the tools chosen to implement dependency management.
 This tool determines the "entry point" for an analysis.
@@ -145,8 +145,10 @@ rerun(cache = FALSE)
 The argument `cache = FALSE` ensures that everything that can be recreated is recreated even when nothing was changed.
 
 It is difficult to verify wether an analysis was reproduced.
-As a minimum standard one could demand, that the analysis is rerun errorfree or, as a maximal standard, that the resulting documents are exactly the same.
-Neither solution strikes the right balance, because error-free does not imply the same results. At the same time the comparison of binary files often leads to spurious differences.
+As a minimum standard one could demand, that the analysis is rerun free of errors or, as a maximal standard, that the resulting documents are exactly the same.
+Neither solution strikes the right balance, because error-free does not imply the same results.
+At the same time the comparison of binary files often leads to spurious differences, e.g. because of numerical instabilities.
+
 Currently, researchers need to revert to manual checking and common sense to verify a successful reproduction.
 An automated verification procedure would require the researcher to explicitly state which results need to be identical.
 Then a software solution could track changes for only these digital objects and accordingly flag mismatches.
@@ -197,7 +199,7 @@ Affirming the correctness of a contribution can be partly automated by affirming
 Such automatic checks of changes are part of a software developing process, called continuous integration.
 Continuous integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
 In many ways, continuous integration is the logical next step for reproducible workflows.
-Because much effort was already invested in ensuring reproducibility across machines, it is easy to move the analysis to a continuous integration tool.
+Because much effort was already invested in ensuring reproducibility across computers, it is easy to move the analysis to a continuous integration tool.
 
 Hence, if you created a pull request, the continuous integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.
 

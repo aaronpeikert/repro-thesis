@@ -64,13 +64,12 @@ This use-case will be explored in collaboration with Caspar van Lissa, who propo
 [`worcs`](https://cjvanlissa.github.io/worcs/) also utilises RMarkdown and Git, but in place of Docker, it uses [`renv`](https://rstudio.github.io/renv/articles/renv.html) and instead of Make it relies on a highly standardised file structure.
 Hence, only two "moduls" or rather functions have to be added to `repro` to support the workflow, `use_renv()` (which replaces `use_docker()`) and `use_worcs_template()` (which replaces `use_repro_template()`).
 Also, [`worcs`](https://cjvanlissa.github.io/worcs/) has other features like automatic codebook creation and synthetic data generation, which may be excellent supplements for a `repro` project.
-To ensure interoperability between the packages, it is planned that much of the behind the scenes machinery is moved from [`worcs`](https://cjvanlissa.github.io/worcs/) to `repro` in a more modular form.
+To ensure interoperability between the packages, it is planned that much of backend is moved from [`worcs`](https://cjvanlissa.github.io/worcs/) to `repro` in a more modular form.
 However, the users will not notice much of a difference, except that they may fuse both workflows into one.
 
-Such lego system of reproducibility tools, where the users can decide which tools they want to include may be especially useful when some features are not strictly necessary for reproducibility.
+Such Lego system of reproducibility tools, where the users can decide which tools they want to include may be especially useful when some features are not strictly necessary for reproducibility.
 In its current form, no tool is optional in the sense that only in unison they guarantee reproducibility.
 However, some features may be useful but not necessary for reproducibility.
-
 For example, is it useful to have an online service such as GitHub Actions that asserts reproducibility of each change, but it is by no means necessary.
 As previously discussed there currently exists no easy solution to verify reproduction automatically.
 The key difficulty is to detect changes in the results that potentially alter the conclusion, from those which carry no meaning, e.g. if the date is updated.
@@ -82,7 +81,7 @@ Then projects could have a badge that signifies that a third party is able to re
 Such continues updates do not only ease collaboration but are also especially interesting for some continues data sources, e.g. long-running developmental studies or meta-analysis, where new data becomes repeatedly available even after publication.
 
 Conveniences such as the above are possible because the here presented conception of reproducibility is highly automated.
-Hence, an analysis may be moved to another machine without manual intervention.
+Hence, an analysis may be moved to another computer without manual intervention.
 This functionality also opens some exciting possibilities unrelated to reproducibility, concerning the management of computational resources.
 It is often the case that an analysis requires substantial amounts of computational resources, more than a single computer may deliver.
 In such a case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
@@ -96,7 +95,6 @@ Initially, this functionality was available in `repro` for TORQUE, an HPC task s
 
 `repro` strives to make reproducibility more attractive by lowering the barriers to advanced reproducibility tools.
 To my knowledge, no standard is as comprehensive as the here described combination of Git, RMarkdown, Make and Docker.
-However, the workflow presented by @vanlissaWORCSWorkflowOpen2020 sacrifices a little bit of this flexibility to reduce the complexity drastically.
 Despite these efforts to make reproducibility easier, I think it is worthwhile to simplify the approaches further, to appeal to users that are more comfortable using Microsoft Office than RMarkdown and hesitant to use a formal version control system.
 Hopefully, `repro` is the first step to make reproducibility easier to achieve.
 
