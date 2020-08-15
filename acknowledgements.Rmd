@@ -7,5 +7,6 @@ I want to thank my advisers, Dr. Andreas M. Brandmaier and Prof. Manuel Völkle 
 * Jakob Eißner (commits [`bc53e58`](https://github.com/aaronpeikert/repro-thesis/commit/bc53e58cf1861b4dbc4447853ad7f3895dd805ea), [`9841a36`](https://github.com/aaronpeikert/repro-thesis/commit/9841a3695b9bc607b95e06e3d30b45116c6681ab) & [`4857dcb`](https://github.com/aaronpeikert/repro-thesis/commit/4857dcb8536136efa63bbe5efb2da6ae6fc10681))
 * Elisabeth Riha (commit [`82f32d4`](https://github.com/aaronpeikert/repro-thesis/commit/82f32d4d15dd3014dc0cf847166e0b023ea11a8a))
 * Caroline Gahrmann (commit [`d9a730c`](https://github.com/aaronpeikert/repro-thesis/commit/d9a730cb1bdcedef3312bc2be32ad81a3d2a45b9))
+* Andreas Brandmaier (commit [`9207348`](https://github.com/aaronpeikert/repro-thesis/commit/9207348f06a56d58637ced8636ad1e0005eb3e14))
 
 \newpage
