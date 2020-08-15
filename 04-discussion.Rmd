@@ -26,7 +26,7 @@ Hence, as long as there is hardware available, that is compatible with the curre
 [^ram]: The RAM limit drove the change from x32 to x64 architecture. x32 has an addressable memory of 4 GiB (1 Gigabyte = $2^{30}$ bit), while x64 has an addressable memory of 16 EiB (1 Exabyte  = $2^{60}$ bit). Even when the time has come that computer architecture that is compatible with x64 is not available anymore, it is to be expected that this architecture can be emulated with platform virtualisation similarly to the current support of x32 on x64 only computers.
 
 The usage of containers to recreate the computational environment relies on the assumption that all required software can be indeed installed within the container.
-This assumptions hold for most open-source software and is straight forward to implement for all software available in the Ubuntu Package Archive.
+This assumption holds for most open-source software and is straight forward to implement for all software available in the Ubuntu Package Archive.
 However, even when there is no technical hurdle for commercial software, there might be a legal hurdle imposed by the license agreement.
 There is an ongoing debate about how compatible commercial closed software is with Open Science in general and reproducibility in particular [@inceCaseOpenComputer2012], but, e.g. for Matlab, there are three different models for hybrid approaches:
 First, Mathworks provides a possibility for reusing the host's Matlab license within the container.
@@ -35,7 +35,7 @@ Third, the MATLAB Compiler can compile code to a binary that may be run within t
 Hopefully, similar solutions emerge for other research software with restrictive licenses.
 
 The here presented workflow aspires to an ideal of full transparency, but may in practice require some compromises.
-A prime example of this is the ethical and legal considerations of publishing data that can only with great difficulty be de-identified.
+A prime example of this are the ethical and legal considerations of publishing data that can only with great difficulty be de-identified.
 While there are several technical possibilities for this problem, they may require more time and skill than a researcher is willing to invest.
 The same holds for many other problems that are either field or even project-specific.
 While such problems are beyond the scope of this thesis, I hope that future research concentrates on field-specific reproducibility problems and their solution, e.g. for longitudinal or neuroimaging data.

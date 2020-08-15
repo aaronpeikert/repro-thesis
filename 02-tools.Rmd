@@ -1,6 +1,6 @@
 # Technical Solutions
 
-This section summarises the workflow proposed by @peikertReproducibleDataAnalysis2019 [see also @theturingwaycommunityTuringWayHandbook2019 for a very similar approach].
+This section summarises the workflow proposed by @peikertReproducibleDataAnalysis2019 [see also @theturingwaycommunityTuringWayHandbook2019 for a similar approach].
 They argue that publicly sharing code is not sufficient to ensure reproducibility:
 Instead, reproducibility has to rest on five pillars:
 
@@ -191,6 +191,6 @@ Setting up a computer exactly as someone else's is difficult enough, but replica
 
 To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualisation because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.
 
-Docker allows virtualisation of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualisation is called containerisation. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g. on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called `Dockerfile`. This file defines on which container the result should be based upon and what software should be installed within it.
+Docker allows virtualisation of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualisation is called containerisation. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g. two containers with the same R version share the storage for everything but the different R packages. Containers are created from a plain specification called `Dockerfile`. This file defines on which container the result should be based upon and what software should be installed within it.
 
 The `repro`-package infers automatically which packages are needed and creates an appropriate Dockerfiles and the container from it.
