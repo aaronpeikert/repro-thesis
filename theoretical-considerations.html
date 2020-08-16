@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-08-11" />
+<meta name="date" content="2020-08-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -141,18 +141,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
 <li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containerisation"><i class="fa fa-check"></i><b>2.5</b> Containerisation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Workflow</a><ul>
-<li class="chapter" data-level="3.1" data-path="workflow.html"><a href="workflow.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
-<li class="chapter" data-level="3.2" data-path="workflow.html"><a href="workflow.html#reproduction"><i class="fa fa-check"></i><b>3.2</b> Reproduction</a></li>
-<li class="chapter" data-level="3.3" data-path="workflow.html"><a href="workflow.html#change"><i class="fa fa-check"></i><b>3.3</b> Change</a></li>
-<li class="chapter" data-level="3.4" data-path="workflow.html"><a href="workflow.html#creation"><i class="fa fa-check"></i><b>3.4</b> Creation</a></li>
-<li class="chapter" data-level="3.5" data-path="workflow.html"><a href="workflow.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="workflow.html"><a href="workflow.html#install-repro-package"><i class="fa fa-check"></i><b>3.5.1</b> Install <code>repro</code> package</a></li>
-<li class="chapter" data-level="3.5.2" data-path="workflow.html"><a href="workflow.html#check-required-reproducibility-software"><i class="fa fa-check"></i><b>3.5.2</b> Check required reproducibility software</a></li>
-<li class="chapter" data-level="3.5.3" data-path="workflow.html"><a href="workflow.html#configure-project"><i class="fa fa-check"></i><b>3.5.3</b> Configure Project</a></li>
+<li class="chapter" data-level="3" data-path="working-with-repro.html"><a href="working-with-repro.html"><i class="fa fa-check"></i><b>3</b> Working with <code>repro</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="working-with-repro.html"><a href="working-with-repro.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.2" data-path="working-with-repro.html"><a href="working-with-repro.html#reproduction"><i class="fa fa-check"></i><b>3.2</b> Reproduction</a></li>
+<li class="chapter" data-level="3.3" data-path="working-with-repro.html"><a href="working-with-repro.html#change"><i class="fa fa-check"></i><b>3.3</b> Change</a></li>
+<li class="chapter" data-level="3.4" data-path="working-with-repro.html"><a href="working-with-repro.html#creation"><i class="fa fa-check"></i><b>3.4</b> Creation</a></li>
+<li class="chapter" data-level="3.5" data-path="working-with-repro.html"><a href="working-with-repro.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="working-with-repro.html"><a href="working-with-repro.html#install-repro-package"><i class="fa fa-check"></i><b>3.5.1</b> Install <code>repro</code> package</a></li>
+<li class="chapter" data-level="3.5.2" data-path="working-with-repro.html"><a href="working-with-repro.html#check-required-reproducibility-software"><i class="fa fa-check"></i><b>3.5.2</b> Check required reproducibility software</a></li>
+<li class="chapter" data-level="3.5.3" data-path="working-with-repro.html"><a href="working-with-repro.html#configure-project"><i class="fa fa-check"></i><b>3.5.3</b> Configure Project</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="outlook.html"><a href="outlook.html"><i class="fa fa-check"></i><b>4</b> Outlook</a></li>
+<li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -175,8 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 1</span> Theoretical Considerations</h1>
 <p><span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> define reproducibility as the ability to obtain the same results, from the same dataset.
 Conversely, they call a result replicable if one draws the same conclusion from a new dataset.
-This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.</p>
-<p>The scientific community agrees that ideally their work should be reproducible.
+This thesis is concerned with the former goal, providing researchers with an accessible yet modular workflow, that is virtually guaranteed to reproduce across time and computers.</p>
+<p>The scientific community agrees that ideally, their work should be reproducible.
 Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is “good scientific practice” to ensure what they consider reproducible <span class="citation">(“Reducing Our Irreproducibility,” <a href="#ref-AnnouncementReducingOur2013">2013</a>; Deutsche Forschungsgemeinschaft, <a href="#ref-dfg2019">2019</a>; Epskamp, <a href="#ref-epskamp2019rep">2019</a>)</span>.
 Several reasons, practical and meta-scientific, justify this consensus of reproducibility as a minimal standard of Science.</p>
 <p>Reproducibility makes researchers life more productive in two ways:
@@ -185,44 +185,49 @@ The act of reproduction provides, at the most basic level, an opportunity for th
 Philosophers of Science characterise Science mainly as a shared method of determining whether or not a statement about the world is “true” <span class="citation">(Andersen &amp; Hepburn, <a href="#ref-andersonScientificMethod2016">2016</a>)</span> or more broadly evaluating the statements verisimilitude <span class="citation">(Gilbert, <a href="#ref-gilbertModelBuildingDefinition1991">1991</a>; Meehl, <a href="#ref-meehlAppraisingAmendingTheories1990">1990</a>; Popper, <a href="#ref-popperCommentsTruthGrowth1962">1962</a>; Tichỳ, <a href="#ref-tichyVerisimilitudeRedefined1976">1976</a>)</span>.
 If this method is for experts to agree on the assumptions and deduce “truth”, reproducibility is hardly necessary.
 On the other hand, it does gain importance if one induces facts by carefully observing the world.
-The decisive difference between the above approaches is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may verify it.</p>
+The decisive difference between the above approaches is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may empirically verify it.</p>
 <p>Accepting induction as a scientific method hence hinges on the verifiability by others.
 Some have even argued that such democratisation of Science is what fueled the so-called scientific revolution <span class="citation">(Heilbron, <a href="#ref-heilbronOxfordCompanionHistory2004">2004</a>, Scientific Revolution)</span>.
-The scientific revolution had the experiment as an agreed-upon method to observe reality, and a much later revolution provides statistical modelling <span class="citation">(Rodgers, <a href="#ref-rodgersEpistemologyMathematicalStatistical2010">2010</a>)</span> as a means to induction.
-This consensus about how to observe and how to induce gives modern scientific enterprises much of their credibility.
+The scientific revolution had the experiment as an agreed-upon method to observe reality, and a much later revolution provided statistical modelling <span class="citation">(Rodgers, <a href="#ref-rodgersEpistemologyMathematicalStatistical2010">2010</a>)</span> as a means to induction.
+This consensus about how to observe and how to induce builds the foundation of modern empirical Science.
 Two reasons justify why we must assume reproducibility as a scientific standard if we accept induction as a scientific method:
-First, it enables independent verification of the process of induction, and second, it dramatically simplifies replication as a means to verify the induced truths.</p>
-<p>However, neither the practical reasons that results might be less error-prone and more reusable nor that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> given above.
+First, it allows independent verification of the process of induction, and second, it enables replication as a means to verify the induced truths.</p>
+<p>However, neither verification of the induction nor the induces results are strictly enabled by the definition of reproducibility provided by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> given above.
 A simple thought experiment illustrates this shortcoming:
-Imagine a binary—therefore only machine readable—program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
+Imagine a binary—therefore only machine-readable—program being perfectly reproducible; hence upon the input of the same dataset, it completes a scientific manuscript with the identical numbers at the right places.
 Furthermore, let us assume this hypothetical program may never hold if the dataset changes.
 Does the predicate “reproducible” in this situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
-This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility but rather in its side effects.
-Because it is a binary programm, it does not enhance understanding and because it not applicable to other datasets, it does not facilitate productivity.
-In fact such program does not grant the researcher any practical nor metascientific advantages over non-reproducible research products.</p>
-<p>Spoiling its elegant simplicity, I extend the definition by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> to address this issue, by further demanding that reproducibility must facilitate replication.
-Hence, I would only call a result reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to.
-With such a notion, the only valid cause of reproducibility is transparency.
-Only if it is clear how data relates to its results, both reproducibility and replication get promoted.
-Consequently, something is no longer either reproducible or not, but there are shades because a research product can promote replication to varying degrees.
-Note that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researchers about the analyses method, being openly accessible and providing reusable components.</p>
-<p>Hence, reproducibility has a technical side, which is ensuring the same results, and a non-technical side, which is facilitating understanding.
+This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility per se but rather in its secondary effects.
+Because it is a binary program, it does not enhance understanding and because it does not apply to other datasets, it does not facilitate productivity.
+In fact, such a program does not grant the researcher any practical or metascientific advantages over non-reproducible research products.</p>
+<p>Spoiling its elegant simplicity, I, therefore, extend the definition by <span class="citation">Claerbout &amp; Karrenbach (<a href="#ref-claerboutElectronicDocumentsGive1992">1992</a>)</span> to address this issue, by further demanding that reproducibility must allow criticism and facilitate replication:</p>
+<blockquote>
+<p>A reproducible scientific product allows one to obtain the same results from the same dataset in a way that enables substantive criticism and therefore facilitates replication.</p>
+</blockquote>
+<p>Thus, transparency should enable reproducibility: Ensuring a clear link between the data and its results, promotes both replicability and reproducibility.
+Comprehension is a necessary precondition to form substantive criticism, which motivates the iterative scientific process.
+Bowing to this general notion, scientific publications are required to provide enough detail about the research process so that others may contribute constructive criticism.
+I am convinced that we should accept the same standard for everything that is published — including code.</p>
+<p>Consequently, something is no longer either reproducible or not, but there are shades because a research product can promote replication and comprehension to varying degrees.
+Also note that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g. by educating other researchers about the method of analyses, being openly accessible and providing reusable components.</p>
+<p>Hence, reproducibility has a technical aspect, which is ensuring identical results, and a non-technical side, which is facilitating understanding and progress through cumulative Science.
 The former relates to the practical advantages while the latter serves the metascientific purposes of reproducibility.
-An important caveat of the technical aspect is that generating the same results from the same data should always be possible regardless of time and machine.
+An important caveat of the technical aspect is that generating the same results from the same data should always be possible regardless of time and computer.
 As such, a reproducible analysis should be:</p>
 <ol style="list-style-type: decimal">
 <li>understandable by other researchers,</li>
-<li>transferable across machines,</li>
+<li>transferable across computers,</li>
 <li>conserved through time.</li>
 </ol>
-<p>This much more demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a “replication crises” <span class="citation">(Ioannidis, <a href="#ref-ioannidisWhyMostPublished2005">2005</a>)</span> and the rise of “machine learning” <span class="citation">(Jordan &amp; Mitchell, <a href="#ref-jordanMachineLearningTrends2015">2015</a>)</span> as a scientific tool.
+<p>This demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a “replication crises” <span class="citation">(Ioannidis, <a href="#ref-ioannidisWhyMostPublished2005">2005</a>)</span> and the rise of “machine learning” <span class="citation">(Jordan &amp; Mitchell, <a href="#ref-jordanMachineLearningTrends2015">2015</a>)</span> as a scientific tool.
 Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories <span class="citation">(Gigerenzer et al., <a href="#ref-gigerenzerNullRitualWhat2004">2004</a>; Meehl, <a href="#ref-meehlTheoreticalRisksTabular1978">1978</a>)</span>.
-It turns out that, if one fits the very same statistical model as published on newly gathered data, one fails more often to achieve the same results as published then one succeeds. <span class="citation">(Open Science Collaboration, <a href="#ref-opensciencecollaborationEstimatingReproducibilityPsychological2015">2015</a>)</span>.</p>
-<p>Such failure to replicate findings that were believed to be robust has grown to a level that some social scientists call a crisis.
+It turns out that, if one fits the very same statistical model as published on newly gathered data, one fails more often to achieve results that are consistent with what was published, than one succeeds. <span class="citation">(Open Science Collaboration, <a href="#ref-opensciencecollaborationEstimatingReproducibilityPsychological2015">2015</a>)</span>.</p>
+<p>Such failure to replicate findings that were believed to be robust has grown to a level that some social scientists call a crisis <span class="citation">(Pashler &amp; Wagenmakers, <a href="#ref-pashlerEditorsIntroductionSpecial2012">2012</a>)</span>.
 They put forth various causes and remedies to this crisis.
 Most remedies share a common motif: transparency.
-Some call for Bayesian statistics <span class="citation">(Maxwell et al., <a href="#ref-maxwellPsychologySufferingReplication2015">2015</a>)</span>, as it makes assumptions more explicit, or demand preregistration <span class="citation">(Nosek et al., <a href="#ref-nosekPreregistrationRevolution2018">2018</a>)</span> as a means to clarify how to analyse the data, beforehand and publicly. Others require the researchers to publish their data <span class="citation">(Boulton et al., <a href="#ref-boultonScienceOpenEnterprise2012">2012</a>)</span>.
+Some call for Bayesian statistics <span class="citation">(Maxwell et al., <a href="#ref-maxwellPsychologySufferingReplication2015">2015</a>)</span>, as it makes assumptions more explicit, or demand preregistration <span class="citation">(Nosek et al., <a href="#ref-nosekPreregistrationRevolution2018">2018</a>)</span> as a means to clarify how to analyse the data, before data was collected.
+Others require the researchers to publish their data <span class="citation">(Boulton et al., <a href="#ref-boultonScienceOpenEnterprise2012">2012</a>)</span>.
 Similar calls for transparency, as a response to the replication crises, have formed the open science movement which stresses the necessity of six principles <span class="citation">(Kraker et al., <a href="#ref-krakerCaseOpenScience2011">2011</a>)</span>:</p>
 <ul>
 <li>Open Access,</li>
@@ -232,17 +237,20 @@ Similar calls for transparency, as a response to the replication crises, have fo
 <li>Open Peer Review and</li>
 <li>Open Educational Resources.</li>
 </ul>
-<p>I argue that a research product resting on these pillars facilitates replication optimally and hence, it satisfies the highest standard of reproducibility.
+<p>I argue that a research product resting on the first four pillars facilitates replication optimally and hence, it satisfies the highest standard of reproducibility.
+The last two pillars are then consequences of reproducibility.
 If everyone has access to a scientific product and its data along with the source code, everyone has the possibility of understanding the underlying methodology, which enables them to criticise the results and educate themselves.
 Having done so, they are in the best position for replication.
 Hence, any one’s ability to reproduce such a result gives a tangible affirmation of its usefulness to the scientific community.</p>
-<p>While reproducibility is no hurdle if one can perform the calculations needed with a pocket calculator, the more and more frequent use of computer-intensive methods renders such expectation questionable.
-The use of machine learning techniques, which has been once enabled by the computer taking over strenuous works, now impedes our quest for reproducibility.
-More massive amounts of more complicated computer code than ever before create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis themselves <span class="citation">(Hutson, <a href="#ref-hutsonArtificialIntelligenceFaces2018">2018</a>)</span>.
-Yet, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone to reproduce even the most sophisticated analysis.</p>
-<p><span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> put forth an analysis workflow which provides this accessibility for everyone to reproduce any kind of analysis.
+<p>While establishing reproducibility is no hurdle if one can perform the calculations needed with a pocket calculator, the more and more frequent use of computer-intensive methods renders such expectation questionable.
+The use of machine learning techniques, which has been once enabled by the computer taking over strenuous works like estimating and comparing thousands of models, now impedes our quest for reproducibility.
+More massive amounts of more complicated computer code than ever before, create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis themselves <span class="citation">(Hutson, <a href="#ref-hutsonArtificialIntelligenceFaces2018">2018</a>)</span>.
+At the same time, machine learning becomes more and more popular ins psychological research <span class="citation">(Brandmaier et al., <a href="#ref-brandmaierStructuralEquationModel2013">2013</a>; Jacobucci et al., <a href="#ref-jacobucciPracticalGuideVariable2019">2019</a>; Yarkoni &amp; Westfall, <a href="#ref-yarkoniChoosingPredictionExplanation2017">2017</a>)</span>.
+Therefore, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone in any field to reproduce even the most sophisticated analysis.
+Such possibility enables commutative Science and allows the researcher to build a more complete and accurate understanding of the fields subject matter.</p>
+<p><span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> put forth an analysis workflow which provides this convenience for everyone to reproduce any kind of analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
-Setting up the workflow eats up a considerable amount of the researcher’s time, which they may rather spend on advancing research.
+Setting up the workflow eats up a considerable amount of the researcher’s time because it requires a level of technical sophistication that cannot be expected across all disciplines. This time should researcher rather spend on advancing research.
 This additional effort offsets the increase in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or even oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may become automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.
@@ -259,6 +267,9 @@ Providing a version of the analysis workflow by <span class="citation">Peikert &
 </div>
 <div id="ref-boultonScienceOpenEnterprise2012">
 <p>Boulton, G., Campbell, P., Collins, B., Elias, P., Hall, W., Laurie, G., O’Neill, O., Rawlins, M., Thornton, J., &amp; Vallance, P. (2012). Science as an open enterprise. <em>The Royal Society</em>.</p>
+</div>
+<div id="ref-brandmaierStructuralEquationModel2013">
+<p>Brandmaier, A. M., von Oertzen, T., McArdle, J. J., &amp; Lindenberger, U. (2013). Structural equation model trees. <em>Psychological Methods</em>, <em>18</em>(1), 71–86. <a href="https://doi.org/10.1037/a0030001">https://doi.org/10.1037/a0030001</a></p>
 </div>
 <div id="ref-claerboutElectronicDocumentsGive1992">
 <p>Claerbout, J. F., &amp; Karrenbach, M. (1992). Electronic documents give reproducible research a new meaning. <em>SEG Technical Program Expanded Abstracts 1992</em>, 601–604. <a href="https://doi.org/10.1190/1.1822162">https://doi.org/10.1190/1.1822162</a></p>
@@ -284,6 +295,9 @@ Providing a version of the analysis workflow by <span class="citation">Peikert &
 <div id="ref-ioannidisWhyMostPublished2005">
 <p>Ioannidis, J. P. A. (2005). Why Most Published Research Findings Are False. <em>PLOS Medicine</em>, <em>2</em>(8), e124. <a href="https://doi.org/10.1371/journal.pmed.0020124">https://doi.org/10.1371/journal.pmed.0020124</a></p>
 </div>
+<div id="ref-jacobucciPracticalGuideVariable2019">
+<p>Jacobucci, R., Brandmaier, A. M., &amp; Kievit, R. A. (2019). A Practical Guide to Variable Selection in Structural Equation Modeling by Using Regularized Multiple-Indicators, Multiple-Causes Models. <em>Advances in Methods and Practices in Psychological Science</em>, <em>2</em>(1), 55–76. <a href="https://doi.org/10.1177/2515245919826527">https://doi.org/10.1177/2515245919826527</a></p>
+</div>
 <div id="ref-jordanMachineLearningTrends2015">
 <p>Jordan, M. I., &amp; Mitchell, T. M. (2015). Machine learning: Trends, perspectives, and prospects. <em>Science</em>, <em>349</em>(6245), 255–260. <a href="https://doi.org/10.1126/science.aaa8415">https://doi.org/10.1126/science.aaa8415</a></p>
 </div>
@@ -305,6 +319,9 @@ Providing a version of the analysis workflow by <span class="citation">Peikert &
 <div id="ref-opensciencecollaborationEstimatingReproducibilityPsychological2015">
 <p>Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. <em>Science</em>, <em>349</em>(6251), aac4716–aac4716. <a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a></p>
 </div>
+<div id="ref-pashlerEditorsIntroductionSpecial2012">
+<p>Pashler, H., &amp; Wagenmakers, E. (2012). Editors’ Introduction to the Special Section on Replicability in Psychological Science: A Crisis of Confidence? <em>Perspectives on Psychological Science</em>, <em>7</em>(6), 528–530. <a href="https://doi.org/10.1177/1745691612465253">https://doi.org/10.1177/1745691612465253</a></p>
+</div>
 <div id="ref-peikertReproducibleDataAnalysis2019">
 <p>Peikert, A., &amp; Brandmaier, A. M. (2019). <em>A Reproducible Data Analysis Workflow with R Markdown, Git, Make, and Docker</em> [Preprint]. PsyArXiv. <a href="https://doi.org/10.31234/osf.io/8xzqy">https://doi.org/10.31234/osf.io/8xzqy</a></p>
 </div>
@@ -319,6 +336,9 @@ Providing a version of the analysis workflow by <span class="citation">Peikert &
 </div>
 <div id="ref-tichyVerisimilitudeRedefined1976">
 <p>Tichỳ, P. (1976). Verisimilitude redefined. <em>The British Journal for the Philosophy of Science</em>, <em>27</em>(1), 25–42.</p>
+</div>
+<div id="ref-yarkoniChoosingPredictionExplanation2017">
+<p>Yarkoni, T., &amp; Westfall, J. (2017). Choosing Prediction Over Explanation in Psychology: Lessons From Machine Learning. <em>Perspectives on Psychological Science</em>, <em>12</em>(6), 1100–1122. <a href="https://doi.org/10.1177/1745691617693393">https://doi.org/10.1177/1745691617693393</a></p>
 </div>
 </div>
             </section>
@@ -369,6 +389,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

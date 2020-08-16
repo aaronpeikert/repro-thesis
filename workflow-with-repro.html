@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Workflow | Reproducibility made simple</title>
-  <meta name="description" content="Chapter 3 Workflow | Reproducibility made simple" />
+  <title>Chapter 3 Workflow with repro | Reproducibility made simple</title>
+  <meta name="description" content="Chapter 3 Workflow with repro | Reproducibility made simple" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Workflow | Reproducibility made simple" />
+  <meta property="og:title" content="Chapter 3 Workflow with repro | Reproducibility made simple" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Workflow | Reproducibility made simple" />
+  <meta name="twitter:title" content="Chapter 3 Workflow with repro | Reproducibility made simple" />
   
   
   
@@ -141,15 +141,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
 <li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containerisation"><i class="fa fa-check"></i><b>2.5</b> Containerisation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>3</b> Workflow</a><ul>
-<li class="chapter" data-level="3.1" data-path="workflow.html"><a href="workflow.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
-<li class="chapter" data-level="3.2" data-path="workflow.html"><a href="workflow.html#reproduction"><i class="fa fa-check"></i><b>3.2</b> Reproduction</a></li>
-<li class="chapter" data-level="3.3" data-path="workflow.html"><a href="workflow.html#change"><i class="fa fa-check"></i><b>3.3</b> Change</a></li>
-<li class="chapter" data-level="3.4" data-path="workflow.html"><a href="workflow.html#creation"><i class="fa fa-check"></i><b>3.4</b> Creation</a></li>
-<li class="chapter" data-level="3.5" data-path="workflow.html"><a href="workflow.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="workflow.html"><a href="workflow.html#install-repro-package"><i class="fa fa-check"></i><b>3.5.1</b> Install <code>repro</code> package</a></li>
-<li class="chapter" data-level="3.5.2" data-path="workflow.html"><a href="workflow.html#check-required-reproducibility-software"><i class="fa fa-check"></i><b>3.5.2</b> Check required reproducibility software</a></li>
-<li class="chapter" data-level="3.5.3" data-path="workflow.html"><a href="workflow.html#configure-project"><i class="fa fa-check"></i><b>3.5.3</b> Configure Project</a></li>
+<li class="chapter" data-level="3" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html"><i class="fa fa-check"></i><b>3</b> Workflow with <code>repro</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.2" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#reproduction"><i class="fa fa-check"></i><b>3.2</b> Reproduction</a></li>
+<li class="chapter" data-level="3.3" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#change"><i class="fa fa-check"></i><b>3.3</b> Change</a></li>
+<li class="chapter" data-level="3.4" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#creation"><i class="fa fa-check"></i><b>3.4</b> Creation</a></li>
+<li class="chapter" data-level="3.5" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#summary"><i class="fa fa-check"></i><b>3.5</b> Summary</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#install-repro-package"><i class="fa fa-check"></i><b>3.5.1</b> Install <code>repro</code> package</a></li>
+<li class="chapter" data-level="3.5.2" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#check-required-reproducibility-software"><i class="fa fa-check"></i><b>3.5.2</b> Check required reproducibility software</a></li>
+<li class="chapter" data-level="3.5.3" data-path="workflow-with-repro.html"><a href="workflow-with-repro.html#configure-project"><i class="fa fa-check"></i><b>3.5.3</b> Configure Project</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
@@ -171,12 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="workflow" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Workflow</h1>
+<div id="workflow-with-repro" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Workflow with <code>repro</code></h1>
 <p>The <code>repro</code> package is designed to streamline the researchers’ workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
 To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the beforementioned tools.
-While there is a huge variety in how researchers can approach an empirical study and its analysis, Figure <a href="workflow.html#fig:workflow">3.1</a> offers an idealized workflow.</p>
+While there is a huge variety in how researchers can approach an empirical study and its analysis, Figure <a href="workflow-with-repro.html#fig:workflow">3.1</a> offers an idealized workflow.</p>
 <div class="figure" style="text-align: center"><span id="fig:workflow"></span>
 <img src="images/idealized-workflow.svg" alt="Schematic illustration of a reproducible workflow.  " width="50%" />
 <p class="caption">
@@ -198,7 +198,7 @@ Besides some practice, users need to be aware, remember, and correctly implement
 <code>repro</code> still expects the user to have some training in the use of R, (R-)Markdown, and Git—which is increasingly recognized as a standard in the Open Science and R community—but forgos training in Make and Docker.
 An important guideline in designing <code>repro</code> was to make best practices easier to implement than their alternatives.
 Where possible <code>repro</code> allows the user to forget about the details of the often tricky implementation and abstracts them away.</p>
-<p>The structure of this chapter mirrors the workflow in Figure <a href="workflow.html#fig:workflow">3.1</a>, first from the perspective of an contributor, then from the perspective of an creator.
+<p>The structure of this chapter mirrors the workflow in Figure <a href="workflow-with-repro.html#fig:workflow">3.1</a>, first from the perspective of an contributor, then from the perspective of an creator.
 It explains step by step how to:</p>
 <ol style="list-style-type: decimal">
 <li>Set up the required software;</li>
@@ -257,7 +257,7 @@ Consequently, the following commands check if the user has set up all the requir
 <div id="reproduction" class="section level2">
 <h2><span class="header-section-number">3.2</span> Reproduction</h2>
 <p>Because this document complies with outlined requirements, it will function as an example to reproduce.
-However, another more minimal example that actually contains an data analysis will be provided in the <a href="workflow.html#creation">Creation</a> section below.</p>
+However, another more minimal example that actually contains an data analysis will be provided in the <a href="workflow-with-repro.html#creation">Creation</a> section below.</p>
 <p>GitHub, Make, and Docker are sufficient to reproduce this very document.
 So if you followed the steps above, everything is set up to download the source files of this document, rerun the code within it, and verify its results.</p>
 <p>The following command uses Git and GitHub to:</p>
@@ -324,7 +324,7 @@ As the authors carry the responsibility for the overall correctness, they ought 
 Such automatic checks of changes are part of a software developing process, called continuous integration.
 Continuous integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
 In many ways, continuous integration is the logical next step for reproducible workflows.
-Because much effort was already invested in ensuring reproducibility across machines, it is easy to move the analysis to a continuous integration tool.</p>
+Because much effort was already invested in ensuring reproducibility across computers, it is easy to move the analysis to a continuous integration tool.</p>
 <p>Hence, if you created a pull request, the continuous integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.</p>
 </div>
 <div id="creation" class="section level2">

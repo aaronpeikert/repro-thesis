@@ -134,7 +134,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Automating reproducible research workflows}
 \author{Aaron Peikert}
-\date{2020-08-11}
+\date{2020-08-16}
 
 \begin{document}
 \maketitle
@@ -149,12 +149,12 @@
 \section*{Abstract}\label{abstract}}
 \addcontentsline{toc}{section}{Abstract}
 
-This thesis discusses the practical and metascientific merits of reproducibility and presents \href{https://github.com/aaronpeikert/repro}{\texttt{repro}}, an R package which drastically simplifies the adherence to the best practices proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).
-The resulting workflow complies with open science principles, is transferable across machines and conserved through time.
-Consequently, research projects are virtually guaranteed to reproduce and are easier to replicate.
-It is explained how the technical solutions, namely Git, RMarkdown, Make, and Docker, overcome common reproducibility problems and how the interaction with these tools is simplified through automation.
-The high degree of automation allows the workflow to scale well across researchers, letting them collaborate more transparently and effectively, as well as across machines, utilizing high performance and cloud computing technology.
-To adapt to the ever-shifting landscape of software requirements \href{https://github.com/aaronpeikert/repro}{\texttt{repro}} has a modular design allowing other workflow packages to build upon its infrastructure.
+This thesis discusses the practical and metascientific merits of reproducibility of scientific workflows and results. I present \href{https://github.com/aaronpeikert/repro}{\texttt{repro}}, an R package which simplifies the adherence to the best practices of reproducibility proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).
+The resulting workflow complies with Open Science principles, is transferable across machines and preserved over time.
+Research projects are virtually guaranteed to reproduce and consequently are more comfortable to replicate.
+I explained how the technical solutions, namely Git, RMarkdown, Make, and Docker, overcome common problems of reproducibility and how the interaction with these tools is simplified through automation.
+The high degree of automation allows the workflow to scale well across researchers, letting them collaborate more transparently and effectively, as well as across machines, including high performance and cloud computing technology.
+To adapt to the ever-shifting landscape of software requirements \href{https://github.com/aaronpeikert/repro}{\texttt{repro}} has a modular design allowing other packages implementing research workflows to build upon its infrastructure.
 
 \hypertarget{acknowledgements}{%
 \section*{Acknowledgements}\label{acknowledgements}}
@@ -172,6 +172,8 @@ I want to thank my advisers, Dr.~Andreas M. Brandmaier and Prof.~Manuel Völkle 
   Elisabeth Riha (commit \href{https://github.com/aaronpeikert/repro-thesis/commit/82f32d4d15dd3014dc0cf847166e0b023ea11a8a}{\texttt{82f32d4}})
 \item
   Caroline Gahrmann (commit \href{https://github.com/aaronpeikert/repro-thesis/commit/d9a730cb1bdcedef3312bc2be32ad81a3d2a45b9}{\texttt{d9a730c}})
+\item
+  Andreas Brandmaier (commit \href{https://github.com/aaronpeikert/repro-thesis/commit/9207348f06a56d58637ced8636ad1e0005eb3e14}{\texttt{9207348}})
 \end{itemize}
 
 \newpage
@@ -181,9 +183,9 @@ I want to thank my advisers, Dr.~Andreas M. Brandmaier and Prof.~Manuel Völkle 
 
 Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) define reproducibility as the ability to obtain the same results, from the same dataset.
 Conversely, they call a result replicable if one draws the same conclusion from a new dataset.
-This thesis concerns itself with the former, providing researchers with an accessible analysis workflow, that is virtually guaranteed to reproduce across time and devices.
+This thesis is concerned with the former goal, providing researchers with an accessible yet modular workflow, that is virtually guaranteed to reproduce across time and computers.
 
-The scientific community agrees that ideally their work should be reproducible.
+The scientific community agrees that ideally, their work should be reproducible.
 Indeed it may be hard to find a researcher who distrusts a result because it is reproducible; to the contrary, many argue it is ``good scientific practice'' to ensure what they consider reproducible (``Reducing Our Irreproducibility,'' \protect\hyperlink{ref-AnnouncementReducingOur2013}{2013}; Deutsche Forschungsgemeinschaft, \protect\hyperlink{ref-dfg2019}{2019}; Epskamp, \protect\hyperlink{ref-epskamp2019rep}{2019}).
 Several reasons, practical and meta-scientific, justify this consensus of reproducibility as a minimal standard of Science.
 
@@ -194,35 +196,42 @@ Beyond these two purely pragmatic reasons, reproduction is crucial, depending on
 Philosophers of Science characterise Science mainly as a shared method of determining whether or not a statement about the world is ``true'' (Andersen \& Hepburn, \protect\hyperlink{ref-andersonScientificMethod2016}{2016}) or more broadly evaluating the statements verisimilitude (Gilbert, \protect\hyperlink{ref-gilbertModelBuildingDefinition1991}{1991}; Meehl, \protect\hyperlink{ref-meehlAppraisingAmendingTheories1990}{1990}; Popper, \protect\hyperlink{ref-popperCommentsTruthGrowth1962}{1962}; Tichỳ, \protect\hyperlink{ref-tichyVerisimilitudeRedefined1976}{1976}).
 If this method is for experts to agree on the assumptions and deduce ``truth'', reproducibility is hardly necessary.
 On the other hand, it does gain importance if one induces facts by carefully observing the world.
-The decisive difference between the above approaches is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may verify it.
+The decisive difference between the above approaches is that the former gains credibility by the authority of the experts, while the latter is trustworthy because anyone may empirically verify it.
 
 Accepting induction as a scientific method hence hinges on the verifiability by others.
 Some have even argued that such democratisation of Science is what fueled the so-called scientific revolution (Heilbron, \protect\hyperlink{ref-heilbronOxfordCompanionHistory2004}{2004}, Scientific Revolution).
-The scientific revolution had the experiment as an agreed-upon method to observe reality, and a much later revolution provides statistical modelling (Rodgers, \protect\hyperlink{ref-rodgersEpistemologyMathematicalStatistical2010}{2010}) as a means to induction.
-This consensus about how to observe and how to induce gives modern scientific enterprises much of their credibility.
+The scientific revolution had the experiment as an agreed-upon method to observe reality, and a much later revolution provided statistical modelling (Rodgers, \protect\hyperlink{ref-rodgersEpistemologyMathematicalStatistical2010}{2010}) as a means to induction.
+This consensus about how to observe and how to induce builds the foundation of modern empirical Science.
 Two reasons justify why we must assume reproducibility as a scientific standard if we accept induction as a scientific method:
-First, it enables independent verification of the process of induction, and second, it dramatically simplifies replication as a means to verify the induced truths.
+First, it allows independent verification of the process of induction, and second, it enables replication as a means to verify the induced truths.
 
-However, neither the practical reasons that results might be less error-prone and more reusable nor that the process of induction and the induced facts are more straightforward to verify, if reproducible, derive strictly from the definition of reproducibility provided by Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) given above.
+However, neither verification of the induction nor the induces results are strictly enabled by the definition of reproducibility provided by Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) given above.
 A simple thought experiment illustrates this shortcoming:
-Imagine a binary---therefore only machine readable---program being perfectly reproducible; hence upon the input of the same dataset, it fills a scientific manuscript with the same numbers at the right places.
+Imagine a binary---therefore only machine-readable---program being perfectly reproducible; hence upon the input of the same dataset, it completes a scientific manuscript with the identical numbers at the right places.
 Furthermore, let us assume this hypothetical program may never hold if the dataset changes.
 Does the predicate ``reproducible'' in this situation reduce the number of mistakes or enables reuse? Unlikely.
 Or could one audit it and use it in replication? Hardly.
-This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility but rather in its side effects.
-Because it is a binary programm, it does not enhance understanding and because it not applicable to other datasets, it does not facilitate productivity.
-In fact such program does not grant the researcher any practical nor metascientific advantages over non-reproducible research products.
+This admittedly constructed case of a reproducible black box shows that we are not interested in reproducibility per se but rather in its secondary effects.
+Because it is a binary program, it does not enhance understanding and because it does not apply to other datasets, it does not facilitate productivity.
+In fact, such a program does not grant the researcher any practical or metascientific advantages over non-reproducible research products.
 
-Spoiling its elegant simplicity, I extend the definition by Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) to address this issue, by further demanding that reproducibility must facilitate replication.
-Hence, I would only call a result reproducible if the results remain unchanged if the data does, and it furthermore helps other researchers to replicate the results if they attempt to.
-With such a notion, the only valid cause of reproducibility is transparency.
-Only if it is clear how data relates to its results, both reproducibility and replication get promoted.
-Consequently, something is no longer either reproducible or not, but there are shades because a research product can promote replication to varying degrees.
-Note that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g.~by educating other researchers about the analyses method, being openly accessible and providing reusable components.
+Spoiling its elegant simplicity, I, therefore, extend the definition by Claerbout \& Karrenbach (\protect\hyperlink{ref-claerboutElectronicDocumentsGive1992}{1992}) to address this issue, by further demanding that reproducibility must allow criticism and facilitate replication:
 
-Hence, reproducibility has a technical side, which is ensuring the same results, and a non-technical side, which is facilitating understanding.
+\begin{quote}
+A reproducible scientific product allows one to obtain the same results from the same dataset in a way that enables substantive criticism and therefore facilitates replication.
+\end{quote}
+
+Thus, transparency should enable reproducibility: Ensuring a clear link between the data and its results, promotes both replicability and reproducibility.
+Comprehension is a necessary precondition to form substantive criticism, which motivates the iterative scientific process.
+Bowing to this general notion, scientific publications are required to provide enough detail about the research process so that others may contribute constructive criticism.
+I am convinced that we should accept the same standard for everything that is published --- including code.
+
+Consequently, something is no longer either reproducible or not, but there are shades because a research product can promote replication and comprehension to varying degrees.
+Also note that a scientific result can facilitate replication without anyone ever attempting to replicate it, e.g.~by educating other researchers about the method of analyses, being openly accessible and providing reusable components.
+
+Hence, reproducibility has a technical aspect, which is ensuring identical results, and a non-technical side, which is facilitating understanding and progress through cumulative Science.
 The former relates to the practical advantages while the latter serves the metascientific purposes of reproducibility.
-An important caveat of the technical aspect is that generating the same results from the same data should always be possible regardless of time and machine.
+An important caveat of the technical aspect is that generating the same results from the same data should always be possible regardless of time and computer.
 As such, a reproducible analysis should be:
 
 \begin{enumerate}
@@ -231,19 +240,20 @@ As such, a reproducible analysis should be:
 \item
   understandable by other researchers,
 \item
-  transferable across machines,
+  transferable across computers,
 \item
   conserved through time.
 \end{enumerate}
 
-This much more demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a ``replication crises'' (Ioannidis, \protect\hyperlink{ref-ioannidisWhyMostPublished2005}{2005}) and the rise of ``machine learning'' (Jordan \& Mitchell, \protect\hyperlink{ref-jordanMachineLearningTrends2015}{2015}) as a scientific tool.
+This demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a ``replication crises'' (Ioannidis, \protect\hyperlink{ref-ioannidisWhyMostPublished2005}{2005}) and the rise of ``machine learning'' (Jordan \& Mitchell, \protect\hyperlink{ref-jordanMachineLearningTrends2015}{2015}) as a scientific tool.
 Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories (Gigerenzer et al., \protect\hyperlink{ref-gigerenzerNullRitualWhat2004}{2004}; Meehl, \protect\hyperlink{ref-meehlTheoreticalRisksTabular1978}{1978}).
-It turns out that, if one fits the very same statistical model as published on newly gathered data, one fails more often to achieve the same results as published then one succeeds. (Open Science Collaboration, \protect\hyperlink{ref-opensciencecollaborationEstimatingReproducibilityPsychological2015}{2015}).
+It turns out that, if one fits the very same statistical model as published on newly gathered data, one fails more often to achieve results that are consistent with what was published, than one succeeds. (Open Science Collaboration, \protect\hyperlink{ref-opensciencecollaborationEstimatingReproducibilityPsychological2015}{2015}).
 
-Such failure to replicate findings that were believed to be robust has grown to a level that some social scientists call a crisis.
+Such failure to replicate findings that were believed to be robust has grown to a level that some social scientists call a crisis (Pashler \& Wagenmakers, \protect\hyperlink{ref-pashlerEditorsIntroductionSpecial2012}{2012}).
 They put forth various causes and remedies to this crisis.
 Most remedies share a common motif: transparency.
-Some call for Bayesian statistics (Maxwell et al., \protect\hyperlink{ref-maxwellPsychologySufferingReplication2015}{2015}), as it makes assumptions more explicit, or demand preregistration (Nosek et al., \protect\hyperlink{ref-nosekPreregistrationRevolution2018}{2018}) as a means to clarify how to analyse the data, beforehand and publicly. Others require the researchers to publish their data (Boulton et al., \protect\hyperlink{ref-boultonScienceOpenEnterprise2012}{2012}).
+Some call for Bayesian statistics (Maxwell et al., \protect\hyperlink{ref-maxwellPsychologySufferingReplication2015}{2015}), as it makes assumptions more explicit, or demand preregistration (Nosek et al., \protect\hyperlink{ref-nosekPreregistrationRevolution2018}{2018}) as a means to clarify how to analyse the data, before data was collected.
+Others require the researchers to publish their data (Boulton et al., \protect\hyperlink{ref-boultonScienceOpenEnterprise2012}{2012}).
 Similar calls for transparency, as a response to the replication crises, have formed the open science movement which stresses the necessity of six principles (Kraker et al., \protect\hyperlink{ref-krakerCaseOpenScience2011}{2011}):
 
 \begin{itemize}
@@ -262,19 +272,22 @@ Similar calls for transparency, as a response to the replication crises, have fo
   Open Educational Resources.
 \end{itemize}
 
-I argue that a research product resting on these pillars facilitates replication optimally and hence, it satisfies the highest standard of reproducibility.
+I argue that a research product resting on the first four pillars facilitates replication optimally and hence, it satisfies the highest standard of reproducibility.
+The last two pillars are then consequences of reproducibility.
 If everyone has access to a scientific product and its data along with the source code, everyone has the possibility of understanding the underlying methodology, which enables them to criticise the results and educate themselves.
 Having done so, they are in the best position for replication.
 Hence, any one's ability to reproduce such a result gives a tangible affirmation of its usefulness to the scientific community.
 
-While reproducibility is no hurdle if one can perform the calculations needed with a pocket calculator, the more and more frequent use of computer-intensive methods renders such expectation questionable.
-The use of machine learning techniques, which has been once enabled by the computer taking over strenuous works, now impedes our quest for reproducibility.
-More massive amounts of more complicated computer code than ever before create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis themselves (Hutson, \protect\hyperlink{ref-hutsonArtificialIntelligenceFaces2018}{2018}).
-Yet, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone to reproduce even the most sophisticated analysis.
+While establishing reproducibility is no hurdle if one can perform the calculations needed with a pocket calculator, the more and more frequent use of computer-intensive methods renders such expectation questionable.
+The use of machine learning techniques, which has been once enabled by the computer taking over strenuous works like estimating and comparing thousands of models, now impedes our quest for reproducibility.
+More massive amounts of more complicated computer code than ever before, create room for errors and misunderstandings, leading the machine learning community to believe that they face a reproducibility crisis themselves (Hutson, \protect\hyperlink{ref-hutsonArtificialIntelligenceFaces2018}{2018}).
+At the same time, machine learning becomes more and more popular ins psychological research (Brandmaier et al., \protect\hyperlink{ref-brandmaierStructuralEquationModel2013}{2013}; Jacobucci et al., \protect\hyperlink{ref-jacobucciPracticalGuideVariable2019}{2019}; Yarkoni \& Westfall, \protect\hyperlink{ref-yarkoniChoosingPredictionExplanation2017}{2017}).
+Therefore, I am far from calling for abstinence from machine learning, just because it complicates reproduction, but want to emphasise the need for solutions that allow anyone in any field to reproduce even the most sophisticated analysis.
+Such possibility enables commutative Science and allows the researcher to build a more complete and accurate understanding of the fields subject matter.
 
-Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) put forth an analysis workflow which provides this accessibility for everyone to reproduce any kind of analysis.
+Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) put forth an analysis workflow which provides this convenience for everyone to reproduce any kind of analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
-Setting up the workflow eats up a considerable amount of the researcher's time, which they may rather spend on advancing research.
+Setting up the workflow eats up a considerable amount of the researcher's time because it requires a level of technical sophistication that cannot be expected across all disciplines. This time should researcher rather spend on advancing research.
 This additional effort offsets the increase in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or even oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may become automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.
@@ -283,8 +296,8 @@ Providing a version of the analysis workflow by Peikert \& Brandmaier (\protect\
 \hypertarget{technical-solutions}{%
 \section{Technical Solutions}\label{technical-solutions}}
 
-This section summarises the workflow proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}; see also The Turing Way Community et al., \protect\hyperlink{ref-theturingwaycommunityTuringWayHandbook2019}{2019} for a very similar approach).
-They argue that publicly sharing code is not sufficient to ensure reproducibility:
+This section summarises the workflow proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}; see also The Turing Way Community et al., \protect\hyperlink{ref-theturingwaycommunityTuringWayHandbook2019}{2019} for a similar approach).
+They argue that publicly sharing code and materials is not sufficient to ensure reproducibility:
 Instead, reproducibility has to rest on five pillars:
 
 \begin{enumerate}
@@ -331,14 +344,16 @@ These pillars stipulate the relations between thought, code and data with their 
 \item
   transferable across machines,
 \item
-  conserved through time.
+  preserved over time.
 \end{enumerate}
 
 While comprehensibility to the scientific community is probably the most crucial objective, it is also the most difficult to achieve.
 That is because as a non-technical requirement, no set of rules can assure its fulfilment (though clear writing\footnote{Williams (\protect\hyperlink{ref-williamsStyleLessonsClarity2017}{2017}) provides some excellent principles for writing clearly.} and clean code\footnote{Martin (\protect\hyperlink{ref-martinCleanCoderCode2011}{2011}) proposes a coding paradigm that found widespread use because of its focus on understandability.} certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.
 
-Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) propose to use a combination of RMarkdown, Git, Make, and Docker, because they are the most popular tools for users of the R programming language (R Core Team, \protect\hyperlink{ref-R-base}{2020}) and provide the high-level overview which can be seen in Figure \ref{fig:nutshell}.
+Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) propose to use a combination of RMarkdown, Git, Make, and Docker, for users of the R programming language (R Core Team, \protect\hyperlink{ref-R-base}{2020}) and provide the high-level overview which can be seen in Figure \ref{fig:nutshell}.
+
+
 
 \begin{figure}
 
@@ -346,12 +361,13 @@ Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis201
 
 }
 
-\caption{Overview of the interplay of RMarkdown, Git, Make, and Docker}\label{fig:nutshell}
+\caption{Overview of the interplay of RMarkdown, Git, Make, and Docker (Peikert \& Brandmaier, \protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).}\label{fig:nutshell}
 \end{figure}
 
 However, they stress that any combination of tools is suitable as long as it facilitates the above pillars.
 
-Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package \texttt{repro}. The relation of these tools with \texttt{repro} is then expanded in the next chapter.
+Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package \texttt{repro}.
+The relation of these tools with \texttt{repro} is then expanded in the next chapter.
 
 \hypertarget{file-organisation}{%
 \subsection{File Organisation}\label{file-organisation}}
@@ -373,20 +389,23 @@ Following two guidelines makes the file structure self-contained:
 \end{enumerate}
 
 This simple concept of a self-contained folder is facilitated by two R specific tools: \href{https://r4ds.had.co.nz/workflow-projects.html}{RStudio projects} and the \texttt{here} package (Müller, \protect\hyperlink{ref-R-here}{2017}).
-The former exempts the user from changing the working directory manually; the latter infers absolute paths from relative ones.
+The former exempt the user from changing the working directory manually; the latter infers absolute paths from relative ones.
 However, unlike the native R solution, this inference is consistent across operating systems, scripts and RMarkdowns.
 
 The \texttt{repro} package offers a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
 This template provides the researcher with a minimal example of a reproducible analysis.
-The researcher can thus adept code and files to their need, either by merely changing them manually or by the modular structure of \texttt{repro}.
+It enables researchers to learn by easy to understand examples, e.g.~how files should refer to each other.
+Such learning by example complements the abstract arguments for best practices with a more hands-on perspective.
+The researcher can thus adapt code and files to their need, either by merely changing them manually or by the modular structure of \texttt{repro}.
+Furthermore, does this template provide a reference for researchers that is more concise than any tutorial and connects the concept of file structure, with the ideas of the following sections.
 
 \hypertarget{dynamic-document-generation}{%
 \subsection{Dynamic Document Generation}\label{dynamic-document-generation}}
 
-A clear file structure helps researchers to better understand how a scientific analysis relates to the code but an otherwise strict segregation of code and document inhibits a full grasp.
+A clear file structure helps researchers to understand better how a scientific result relates to the code, but the otherwise strict segregation of code and document may obscure how both connect, e.g.~which parts of code generate which results.
 Providing a direct link, dynamic document generation allows interspersing text with code and its results, in order to produce a human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
-This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; Nuijten et al. (\protect\hyperlink{ref-nuijtenPrevalenceStatisticalReporting2016}{2016}) reports that 50\% of papers from the psychological sciences contain an error that could have been prevented.
+This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; Nuijten et al. (\protect\hyperlink{ref-nuijtenPrevalenceStatisticalReporting2016}{2016}) reports that 50\% of papers from the psychological sciences contain at least one error that could have been prevented.
 
 RMarkdown provides a convenient framework to write such dynamic documents and render them as a wide range of output formats\footnote{The document you are viewing also results from a collection of \href{https://github.com/aaronpeikert/repro-thesis}{RMarkdowns} available as \href{https://aaronpeikert.github.io/repro-thesis/}{website}, \href{https://aaronpeikert.github.io/repro-thesis/ma.pdf}{PDF} and \href{https://aaronpeikert.github.io/repro-thesis/ma.epub}{E-book}}. In an RMarkdown, three parts can be distinguished:
 
@@ -401,8 +420,8 @@ RMarkdown provides a convenient framework to write such dynamic documents and re
 \end{itemize}
 
 Each part uses its own language, all of them designed with ease of use and readability in mind.
-The one section containing the output format and other metadata alongside is written in YAML (see the example below).
-This specification is located on the top, separated by three dashes at the beginning and at the end of the section.
+The one section containing the output format and other metadata alongside is written in YAML (recursive acronym for ``YAML Ain't Markup Language'', see the example below).
+This specification is located on the top, separated by three dashes at the beginning and the end of the section.
 (R-)Code executing an analysis can be placed in a distinct chunk or inline within the text.
 The former has three backticks on their own line signifying beginning and end.
 The latter is quoted in a pair single backticks.
@@ -432,7 +451,7 @@ The following section shows examples of metadata, code and text, specified as ab
 
 \BaseNTok{```\{r\}}
 \BaseNTok{fit = lm(dist ~ speed, data = cars)}
-\BaseNTok{b   = coef(fit)}
+\BaseNTok{b = coef(fit)}
 \BaseNTok{plot(cars)}
 \BaseNTok{abline(fit)}
 \BaseNTok{```}
@@ -441,7 +460,7 @@ The following section shows examples of metadata, code and text, specified as ab
 \end{Highlighting}
 \end{Shaded}
 
-Resulting in the document seen in Figure \ref{fig:rmarkdown}:
+Resulting in the rendered document seen in Figure \ref{fig:rmarkdown}:
 
 \begin{figure}
 
@@ -452,15 +471,19 @@ Resulting in the document seen in Figure \ref{fig:rmarkdown}:
 \caption{Result of minimal RMarkdown example.}\label{fig:rmarkdown}
 \end{figure}
 
-Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the \texttt{repro} package extends the YAML metadata to incorporate \protect\hyperlink{dependency-management}{Dependency Management} and \protect\hyperlink{containerisation}{Containerisation} into the process of dynamic document creation.
+Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction.
+To virtually guarantee reproduction, the \texttt{repro} package extends the YAML metadata to incorporate \protect\hyperlink{dependency-management}{Dependency Management} and \protect\hyperlink{containerisation}{Containerisation} into the process of dynamic document creation.
+It, therefore, extends the existing metadata model of RMarkdown to capture all dependencies of the analysis and ensure reproduction.
+Because many researchers are already familiar with RMarkdown this solution provides minimal cognitive overhead.
+However, even though the metadata relates to a single document, \texttt{repro} compiles all needed information from all documents across the project into suitable Docker- and Makefiles.
 
 \hypertarget{version-control}{%
 \subsection{Version Control}\label{version-control}}
 
-Text, code and results of a scientific document are refined in cycles of many revisions to accommodate highest standards.
+Text, code and results of a scientific document are typically modified in cycles of many revisions.
 As changes accumulate, different versions do so as well, posing a problem for reproducibility as it may be challenging to find out which version of code relates to the final product.
 One may argue that in the typical publication process, the final product is apparent: the published paper.
-However, reproducibility may be crucial even before publication as part of collaboration and within the peer-review process.
+However, reproducibility may be crucial even before publication as part of the collaboration and within the peer-review process.
 Also, recent trends in the publication process as preprints, open review, registered reports and post-publication review, blur the lines between published and unpublished.
 
 To organise different versions as changes accumulate across the phases of a project across machines and users is a well-known challenge in software development.
@@ -472,7 +495,7 @@ This linking procedure creates a ``pedigree'' of versions that makes it easy to 
 Going back in time to a specific version only requires knowing the hash of the commit.
 To mark commits as special milestones, they can be tagged, e.g.~as preregistration, preprint, submission or publication.
 
-While mastering Git requires some experience, most of the time, only four commands are needed, which may be accessed through RStudio's Git interface:
+While mastering Git requires some experience, most of the time, only four commands are needed, all of which can be accessed through RStudio's Git interface:
 
 \begin{description}
 \tightlist
@@ -487,12 +510,16 @@ download and integrate recent commits from the server
 \end{description}
 
 While a few other commands are necessary to set up Git in a given project directory, this work is done by the \texttt{repro}-package.
+In my experience, Git is overwhelming to learn because users have to interact with it through a terminal.
+While R users have some experience with interactive programs that can only be accessed through written commands (i.e.~R itself), Git follows---from the perspective of R users---strange and archaic syntactical rules.
+Thanks to \texttt{usethis} and indirectly through \texttt{credentials} (Ooms, \protect\hyperlink{ref-R-credentials}{2019}\protect\hyperlink{ref-R-credentials}{a}) and \texttt{gert} (Ooms, \protect\hyperlink{ref-R-gert}{2019}\protect\hyperlink{ref-R-gert}{b}) users can use most of Git through R commands.
+Because \texttt{repro} has the same interface as \texttt{usethis} the cognitive overhead is kept as low as possible.
 
 \hypertarget{dependency-management}{%
 \subsection{Dependency Management}\label{dependency-management}}
 
-In an analysis, the results depend on code which in turn depends on data.
-However, seldomly the data is analysed as it is, but some code is dedicated to preparing it.
+In a scientific analysis of empirical data, the statistical or computational results depend on code which in turn depends on data.
+However, rarely the data is analysed as it is, but some code is dedicated to preparing it (e.g.~removing outliers, reshaping, aggregating, artefact correction etc.).
 Most likely, each analysis needs a slightly different version of the data.
 An analysis of missingness requires the missings to be retained, but some statistical models do not allow that.
 Or the modelling software requires data to be differently shaped, then the plotting library.
@@ -506,33 +533,103 @@ Such structure allows to save considerable computing time, as dependencies are n
 In this example, upon recreation of the plot, the cleaned dataset is not generated as long as the cleaning script and the raw data remain unchanged.
 Such intelligent behaviour is most useful when the preprocessing requires a lot of computing time as is typical in neuroimaging or machine learning.
 
-Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognised as a tool for reproducibility.
-It allows for all features above and even more as it is an own programming language.
+Make is a tool for dependency management.
+While originally designed for the compilation of programs, it is now increasingly recognised as a tool for ensuring reproducibility.
+It allows for all features mentioned above and even more as it a full-fledged programming language.
 
-However, the repro package provides a much-simplified interface to the essential features of Make, eschewing the need to learn yet another language.
+The repro package provides a simplified interface to the essential features of Make, eschewing the need to learn yet another language while leveraging its most important feature: ``dependency management'' for scientific data analyses. Similarly to Git Make uses an interface that is quite different from the way R is used.
+Because Make doesn't have to be used interactively, \texttt{repro} reuses the interface of RMarkdown to interact with Make.
 
 \hypertarget{containerisation}{%
 \subsection{Containerisation}\label{containerisation}}
 
-Most computer code is not self-contained but needs libraries and other software to work (e.g.~the R programming language or packages).
+Most computer code is not self-contained but depends on libraries and other software to work (e.g.~the R programming language or packages).
 These external dependencies pose a risk for reproducibility because it may not be clear what is necessary---besides the code and data---and how to install it.
-Even when all required software and their exact versions are recorded meticulously, it may be a challenge to install them.
-First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy of some years old software version.
-Setting up a computer exactly as someone else's is difficult enough, but replicating another computer how it was several years ago is at best painstaking.
+Even when all required software and their exact versions are recorded meticulously, it may be a challenge to install them on a different system.
+First, it is difficult to maintain different software versions on the same computer, and second, it may be unclear how to obtain an exact copy a specific software version.
+Setting up a computer exactly as someone else's is difficult enough, but replicating another computers state from several years ago is at best painstaking, if not impossible.
 
 To overcome this challenge, the software environment of a project needs separation from the rest of the software environment. Technically such separation is called virtualisation because one software environment is hosted on another. Such virtual environment allows each project to have its own software environment without interfering with each other. Hence, such setup is ideal for conservation and can easily be recreated on another machine.
 
-Docker allows virtualisation of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualisation is called containerisation. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g.~on a container for the same R version, they only use the storage they need for the different R packages. Containers are created from a plain specification called \texttt{Dockerfile}. This file defines on which container the result should be based upon and what software should be installed within it.
+Docker allows virtualisation of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualisation is called containerisation. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g.~two containers with the same R version share the storage for everything but the different R packages. Containers are created from a plain specification called \texttt{Dockerfile}. This file defines on which container the result should be based upon and what software should be installed within it.
 
-The \texttt{repro}-package infers automatically which packages are needed and creates an appropriate Dockerfiles and the container from it.
+The \texttt{repro}-package automatically infers which packages are needed and creates an appropriate Dockerfiles and the container from it.
+This process relies on the same syntax as is employed for Make, so that users do not have to differentiate between file and software dependencies.
+E.g. for this project this Dockerfile looks like this:
 
-\hypertarget{workflow}{%
-\section{Workflow}\label{workflow}}
+\begin{verbatim}
+FROM rocker/verse:3.6.3
+ARG BUILD_DATE=2020-07-16
+WORKDIR /home/rstudio
+RUN MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE} \
+  && echo MRAN=$MRAN >> /etc/environment \
+  && export MRAN=$MRAN \
+  && echo "options(repos = c(CRAN='$MRAN'), download.file.method = 'libcurl')"\ 
+  >> /usr/local/lib/R/etc/Rprofile.site
+RUN install2.r --error --skipinstalled \ 
+  bookdown \ 
+  devtools \ 
+  gert \ 
+  here \ 
+  usethis
+RUN installGithub.r \ 
+  aaronpeikert/repro@7ab744a51d
+\end{verbatim}
+
+Furthermore, does \texttt{repro} provide the infrastructure that connects Make and Docker, e.g.~it adds appropriate Make target for the container's image, and tunnels the other Make targets through the container.
+This results in a special Makefile for the Docker-related instruction that is incoporated in the main Makefile e.g.~like this:
+
+\begin{verbatim}
+### Docker Options ###
+# --user indicates which user to emulate
+# -v which directory on the host should be accessable in the container
+# the last argument is the name of the container which is the project name
+DFLAGS = --rm $(DUSER) -v $(DDIR):$(DHOME) $(PROJECT)
+DCMD = run
+DHOME = /home/rstudio/
+
+# docker for windows needs a pretty unusual path specification
+# which needs to be specified *manually*
+ifeq ($(WINDOWS),TRUE)
+ifndef WINDIR
+$(error WINDIR is not set)
+endif
+    DDIR := $(WINDIR)
+    # is meant to be empty
+    UID :=
+    DUSER :=
+else
+    DDIR := $(CURDIR)
+    UID = $(shell id -u)
+    DUSER = --user $(UID)
+endif
+
+### Docker Command ###
+
+ifeq ($(DOCKER),TRUE)
+    DRUN := docker $(DCMD) $(DFLAGS)
+    WORKDIR := $(DHOME)
+endif
+
+### Docker Image ###
+
+docker: build
+build: Dockerfile
+    docker build -t $(PROJECT) .
+rebuild:
+    docker build --no-cache -t $(PROJECT) .
+save-docker: $(PROJECT).tar.gz
+$(PROJECT).tar.gz:
+    docker save $(PROJECT):latest | gzip > $@
+\end{verbatim}
+
+\hypertarget{working-with-repro}{%
+\section{\texorpdfstring{Working with \texttt{repro}}{Working with repro}}\label{working-with-repro}}
 
 The \texttt{repro} package is designed to streamline the researchers' workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
-To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the beforementioned tools.
-While there is a huge variety in how researchers can approach an empirical study and its analysis, Figure \ref{fig:workflow} offers an idealized workflow.
+To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the tools as mentioned earlier.
+While there is a considerable variety in how researchers can approach an empirical study and its analysis, Figure \ref{fig:workflow} offers an idealized workflow.
 
 \begin{figure}
 
@@ -543,7 +640,25 @@ While there is a huge variety in how researchers can approach an empirical study
 \caption{Schematic illustration of a reproducible workflow.  }\label{fig:workflow}
 \end{figure}
 
-The structure of this chapter mirrors the workflow in Figure \ref{fig:workflow} and explains step by step how to:
+This workflow can be approached from two perspectives, that of an author of a reproducible analysis or as a contributor.
+I use the term contributor in its broadest possible meaning, because---in my view---even a reader who is thorough enough to reproduce an analysis contributes something of value.
+Consequently, I include everyone with interest in reproducing the analysis in the group of collaborators, be it a coauthor, a reviewer or the very person who created the analysis at an earlier point in time.
+
+From the contributor's point of view \texttt{repro} acts as an assistance system, advising users on how to set up their computers and how to reproduce an analysis.
+It is a major difficulty for untrained users to detect their systems state accurately and act correspondingly.
+\texttt{repro} parses complex technical information and straightforwardly presents them.
+It, therefore, enables even relatively inexperienced users to make use of tools which otherwise would require extensive training.
+From the perspective of the author who creates an analysis, \texttt{repro} is a toolbox which provides the right tools for most of the user's requirements.
+In the creation phase, the benefit for inexperienced users is even more accentuated.
+Following the standards of Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) usually requires experience in the use of Bash, Make, Docker, YAML, (R-)Markdown, R, Latex, knitr, and Git.
+Besides some practice, users need to be aware, remember, and correctly implement best practices in each tool.
+\texttt{repro} significantly lowers this threshold.
+\texttt{repro} still expects the user to have some training in the use of R, (R-)Markdown, and Git---which is increasingly recognized as a standard in the Open Science and R community---but forgoes training in Make and Docker.
+An essential guideline in designing \texttt{repro} was to make best practices more accessible to implement than their alternatives.
+Where possible \texttt{repro} allows the user to forget about the details of the often tricky implementation and abstracts them away.
+
+The structure of this chapter mirrors the workflow in Figure \ref{fig:workflow}, first from the perspective of a contributor, then from the perspective of a creator.
+It explains step by step how to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -570,7 +685,7 @@ A set of functions (following the pattern \texttt{check\_*}, for a complete list
 If \texttt{repro} detects that something is not installed or configured, it guides users through a step by step procedure on how to resolve these issues in accordance with their specific software platform.
 Currently, it supports all major operating systems (Windows, OS X, Linux).
 
-First users have to install \texttt{repro}. The following code snippet installs repro from \href{https://github.com/aaronpeikert/repro}{GitHub}:
+First users have to install \texttt{repro}. The following code snippet installs \texttt{repro} from \href{https://github.com/aaronpeikert/repro}{GitHub}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -624,7 +739,7 @@ Consequently, the following commands check if the user has set up all the requir
 \end{Shaded}
 
 \begin{verbatim}
-## v You are inside a Docker container!
+## v You are inside a Docker containter!
 \end{verbatim}
 
 \begin{Shaded}
@@ -659,8 +774,7 @@ If not, e.g.~because Docker is not installed, users get an informative message a
 \end{verbatim}
 
 \begin{verbatim}
-## * To install it, follow directions on: 
-##   'https://chocolatey.org/docs/installation'
+## * To install it, follow directions on: 'https://chocolatey.org/docs/installation'
 \end{verbatim}
 
 \begin{verbatim}
@@ -678,8 +792,8 @@ If not, e.g.~because Docker is not installed, users get an informative message a
 \hypertarget{reproduction}{%
 \subsection{Reproduction}\label{reproduction}}
 
-Because this document complies with outlined requirements, it will function as an example to reproduce.
-However, another more minimal example that actually contains an data analysis will be provided in the \protect\hyperlink{creation}{Creation} section below.
+This thesis was written according to the proposed standards using \texttt{repro} and may serve as an example of reproduction.
+I also provide a minimal example that contains a data analysis in the \protect\hyperlink{creation}{Creation} section below.
 
 GitHub, Make, and Docker are sufficient to reproduce this very document.
 So if you followed the steps above, everything is set up to download the source files of this document, rerun the code within it, and verify its results.
@@ -705,18 +819,18 @@ The following command uses Git and GitHub to:
 \end{Highlighting}
 \end{Shaded}
 
-If executed, this code opens a new R session and therefor, all code from here on out needs to run in the \emph{new} session.
+If executed, this code opens a new R session, and therefore, all code from here on out needs to run in the \emph{new} session.
 
 It is tempting to automate the reproduction part entirely and use a \texttt{rerun()} function that figures out what to do and does so for you.
-However, I decided the reproduction must be feasible without the \texttt{repro} package.
+However, I decided the reproduction must be feasible without the \texttt{repro} package to avoid monopolization of reproducibility by a single software package.
 This decision is supposed to ensure that long term reproducibility does not depend on the availability of the package.
 I am confident that Git, Make, Docker will be available for years to come, whereas I cannot say the same about this package.
-To balance the needs of long term support and usability, \texttt{repro} offers advice about what to do, but stops right before doing it.
+To balance the needs of long term support and usability, \texttt{repro} offers advice about what to do, but stops right before doing it (you can see an example after the next code chunk).
 
 Which steps one has to take, depends on the tools chosen to implement dependency management.
 This tool determines the ``entry point'' for an analysis.
 To detect the entry point, \texttt{repro} follows simple heuristics, which are informed by what most R users tend to use.
-These conventions are quite ambiguous, but the clearest entry point is a \texttt{Makefile}.
+These conventions are quite ambiguous, but the most explicit entry point is a \texttt{Makefile}.
 If no \texttt{Makefile} is available, the alternatives are either a central dynamic document (RMarkdown, Jupityer Notebook) or a primary script (R, Python, Oktave, Shell).
 In these cases, one can only guess from filenames like \texttt{manuscript.Rmd}, \texttt{analysis.Rmd}, \texttt{paper.Rmd}, \texttt{run.R} or \texttt{analysis.R}.
 
@@ -730,20 +844,31 @@ To recreate this document you have to follow the steps below:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## * To reproduce this project, run the following code block in a terminal:
+\end{verbatim}
+
+\begin{verbatim}
+##   make docker &&
+##   make -B DOCKER=TRUE
+\end{verbatim}
+
 The argument \texttt{cache\ =\ FALSE} ensures that everything that can be recreated is recreated even when nothing was changed.
 
-It is difficult to verify wether an analysis was reproduced.
-As a minimum standard one could demand, that the analysis is rerun errorfree or, as a maximal standard, that the resulting documents are exactly the same.
-Neither solution strikes the right balance, because error-free does not imply the same results. At the same time the comparison of binary files often leads to spurious differences.
+It is challenging to verify wether an analysis was reproduced.
+As a minimum standard one could demand, that the analysis is rerun free of errors or, as a maximal standard, that the resulting documents are exactly the same.
+Neither solution strikes the right balance because error-free does not imply the same results.
+At the same time, the comparison of binary files often leads to spurious differences, e.g.~because of numerical instabilities.
+
 Currently, researchers need to revert to manual checking and common sense to verify a successful reproduction.
-An automated verification procedure would require the researcher to explicitly state which results need to be identical.
+An automated verification procedure would require the researcher to state which results need to be identical explicitly.
 Then a software solution could track changes for only these digital objects and accordingly flag mismatches.
 
 \hypertarget{change}{%
 \subsection{Change}\label{change}}
 
 For a researcher, reproducing an analysis and verifying its results, is often only a first step to make intentional changes.
-How researchers contribute to a project lays strictly outside the realm of reproducibility, but warrants discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
+How researchers contribute to a project lays strictly outside the realm of reproducibility, but warrants discussion because easy collaboration is one of the most significant practical advantages of reproducibility.
 That the primary beneficiary of this advantage is the researcher collaborating with its past self is a pun in the open science community that bears some truth.
 However, the workflow of an external researcher contributing is more complicated and hence here described.
 It is quite a challenge to collaborate under the circumstances where people do not work side by side or even know each other.
@@ -767,9 +892,18 @@ You should make sure that the analysis is still reproducible with:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{rerun}\NormalTok{()}
+\KeywordTok{rerun}\NormalTok{(}\DataTypeTok{cache =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## * To reproduce this project, run the following code block in a terminal:
+\end{verbatim}
+
+\begin{verbatim}
+##   make docker &&
+##   make DOCKER=TRUE
+\end{verbatim}
 
 If you are satisfied with the changes you made, you can trigger the pull request with:
 
@@ -780,19 +914,19 @@ If you are satisfied with the changes you made, you can trigger the pull request
 \end{Shaded}
 
 If I---as the author of this document---would like to accept, I can incorporate the changes on GitHub.
-If not, the changes can be discussed in the pull request or I could make amends before merging them.
+If not, the changes can be discussed in the pull request, or I could make amends before merging them.
 
-Such distributed workflow allows for a much more controlled way of collaboration as opposed to mail back and forth or using cloud storage systems.
+Such a distributed workflow allows for a much more controlled way of collaboration as opposed to mailing back and forth or using cloud storage systems.
 This higher level of control matches the high standards of scientific work.
-However, even more important is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code (The Linux Foundation, \protect\hyperlink{ref-thelinuxfoundation2017LinuxKernel2017}{2017})).
+However, even more important is that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code (The Linux Foundation, \protect\hyperlink{ref-thelinuxfoundation2017LinuxKernel2017}{2017})).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
 As the authors carry the responsibility for the overall correctness, they ought to vet every single contribution.
 
-Affirming the correctness of a contribution can be partly automated by affirming successful reproduction.
+Affirming the correctness of a contribution can be partly automated by confirming successful reproduction.
 Such automatic checks of changes are part of a software developing process, called continuous integration.
-Continuous integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
+Continuous integration runs code in cloud computing environments that asserts the correctness when changes are pushed to GitHub.
 In many ways, continuous integration is the logical next step for reproducible workflows.
-Because much effort was already invested in ensuring reproducibility across machines, it is easy to move the analysis to a continuous integration tool.
+Because much effort was already invested in ensuring reproducibility across computers, it is easy to move the analysis to a continuous integration tool.
 
 Hence, if you created a pull request, the continuous integration tool GitHub actions, will rebuild this document, affirming reproducibility and let me see the results of your changes.
 
@@ -812,7 +946,7 @@ This template can be accessed from within RStudio © via ``File'' → ``New Proj
 
 \texttt{repro} infers the dependencies to data and external code as well as the required packages from the \texttt{yaml} metadata of the RMarkdowns.
 Because analytic data projects have a particular structure, this markup can be much simpler than writing \texttt{Dockerfiles} and \texttt{Makefiles} manually.
-While Docker allows to install arbitrary Software, an analysis in R likely needs nothing but R-packages. Similarly, Make enables you to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.
+While Docker allows installing arbitrary software, an analysis in R likely needs nothing but R-packages. Similarly, Make enables you to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.
 
 Hence, a minimal addition to the metadata, as can be seen in the following example, contains everything necessary to infer a complete \texttt{Dockerfile} and \texttt{Makefile}:
 
@@ -830,7 +964,7 @@ Hence, a minimal addition to the metadata, as can be seen in the following examp
 \end{Highlighting}
 \end{Shaded}
 
-From this specification the function \texttt{automate()} creates a \texttt{Dockerfile} and a \texttt{Makefile}, which comply with all recommendations by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).
+From this specification, the function \texttt{automate()} creates a \texttt{Dockerfile} and a \texttt{Makefile}, which comply with all recommendations by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}).
 Strictly speaking, it creates four Dockerfiles and three Makefiles.
 Most of the files are created in the \texttt{.repro} directory and then assembled into the main \texttt{Dockerfile}/\texttt{Makefile} at top-level.
 One \texttt{Dockerfile} contains the base docker image, including the R version and the current date and another \texttt{Dockerfile} contains only the R packages.
@@ -838,7 +972,7 @@ It also produces one file where the user can amend software installation or set 
 The \texttt{Makefiles} are similarly separated, with one file dedicated to RMarkdowns and another one for the required logic that executes the make commands in the container.
 
 The \texttt{automate()} function is designed to simplify the workflow proposed by Peikert \& Brandmaier (\protect\hyperlink{ref-peikertReproducibleDataAnalysis2019}{2019}) as much as possible.
-Such simplification means inevitably to restrict the users freedom.
+Such simplification means inevitably to restrict the user's freedom.
 While they can still do everything they want in the realm of Make and Docker, this approach does not allow other reproducibility software to be used.
 Users, which need more control and are more advanced, could instead rely on the modular nature of \texttt{repro}.
 Each component can be added to the project by the \texttt{use\_*} functions.
@@ -899,10 +1033,57 @@ Or semi automatic with more flexibility in already existing projects:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{outlook}{%
-\section{Outlook}\label{outlook}}
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
 
-While the \texttt{repro} package exports 33 well-documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
+This thesis started with a discussion about what functionality reproduction provides for research.
+I have argued there that the metascientific advantage is to validate the induction process, and the practical benefit is to increase productivity.
+I then showed how tools and principles from software engineering ensure reproducibility and presented \texttt{repro} a package for the R programming language that simplifies their use.
+
+However, I have not focused on its function to archive scientific products, which is sometimes viewed as the traditional functionality of reproducibility.
+How likely is it that an analysis created with \texttt{repro} is still reproducible after decades?
+A valid point of criticism is that this workflow introduces a bulk of software solutions and services that may not be available for long.
+Superficially it relies on R, RStudio, Pandoc, Git, Make, Docker, Homebrew (OS X only) and Chocolaty (Windows only) as software and on GitHub, DockerHub, MRAN and Ubuntu Package Archive as services.
+However, this list of dependencies boils down to one service and one software.
+That is because all required software is bundled into the container, whose image can be stored.
+Hence, one needs a storage provider which saves the container image and the other files associated with the project.
+This problem of longterm storage for scientific data is widely recognised and because of the limited requirements---a typical project (except data) needs around one gigabyte of storage---there are several solutions available (Doorn \& Tjalsma, \protect\hyperlink{ref-doornIntroductionArchivingResearch2007}{2007}).
+When storage availability is guaranteed pretty much all long term reproducibility rests on the continued support of container software.
+To my knowledge, there are at least four different software solutions that can run the here proposed docker images natively (Docker, CoreOS rkt, Mesos Containerizer, Singularity).
+This diversity in possible solutions makes long term support more likely. Docker itself also prioritises backwards compatibility.\footnote{The docker image of this project can be executed with the first stable release of Docker from October 16, 2014.}
+However, when long term support is of primary interest, one can convert the docker image to a raw disk image and also archive this.
+Such strategy opens two possibilities.
+First, such images are supported by all standard virtualisation software.
+Such reliance on platform virtualisation is standard practice in disaster recovery plans of technical infrastructure (Maitra et al., \protect\hyperlink{ref-maitraDisasterRecoveryPlanning2011}{2011}) and should hence be available for some time to come.
+Second, such raw disk images can be directly installed on the hardware, without virtualisation layer.
+Hence, as long as there is hardware available, that is compatible with the current x64 architecture, this solution still allows reproducibility\footnote{The RAM limit drove the change from x32 to x64 architecture. x32 has an addressable memory of 4 GiB (1 Gigabyte = \(2^{30}\) bit), while x64 has an addressable memory of 16 EiB (1 Exabyte = \(2^{60}\) bit). Even when the time has come that computer architecture that is compatible with x64 is not available anymore, it is to be expected that this architecture can be emulated with platform virtualisation similarly to the current support of x32 on x64 only computers.}.
+
+The usage of containers to recreate the computational environment relies on the assumption that all required software can be indeed installed within the container.
+This assumption holds for most open-source software and is straight forward to implement for all software available in the Ubuntu Package Archive.
+However, even when there is no technical hurdle for commercial software, there might be a legal hurdle imposed by the license agreement.
+There is an ongoing debate about how compatible commercial closed software is with Open Science in general and reproducibility in particular (Ince et al., \protect\hyperlink{ref-inceCaseOpenComputer2012}{2012}), but, e.g.~for Matlab, there are three different models for hybrid approaches:
+First, Mathworks provides a possibility for reusing the host's Matlab license within the container.
+Second, the MATLAB Coder program allows the cross-compilation of Matlab code to C/C++ and thus its inclusion in open source code.
+Third, the MATLAB Compiler can compile code to a binary that may be run within the container.
+Hopefully, similar solutions emerge for other research software with restrictive licenses.
+
+The here presented workflow aspires to an ideal of full transparency, but may in practice require some compromises.
+A prime example of this are the ethical and legal considerations of publishing data that can only with great difficulty be de-identified.
+While there are several technical possibilities for this problem, they may require more time and skill than a researcher is willing to invest.
+The same holds for many other problems that are either field or even project-specific.
+While such problems are beyond the scope of this thesis, I hope that future research concentrates on field-specific reproducibility problems and their solution, e.g.~for longitudinal or neuroimaging data.
+
+These general limitations of the workflow are coupled with some \texttt{repro} specific restrictions.
+The most challenging problem with \texttt{repro} is the tradeoff between flexibility and usability.
+On the one hand, a wide range of possible user requirements call for much freedom and flexibility, but on the other hand, this might be overwhelming for some users.
+A significant difficulty in this context is the unintended flexibility users get because I decided to keep explicit specification to an absolute minimum.
+Hence, \texttt{repro} needs to infer the current state of the user's project and computer.
+But because users have unlimited freedom to design a project as they like, it is clear that \texttt{repro} can not cover all possibilities.
+To prevent errors, it is at the moment advisable to start with the provided template and customise it.
+As \texttt{repro} majors and is applied in more use-cases, it will become more flexible concerning the user's setup.
+Till then defensive programming techniques were employed to detect and friendly report such problems.
+
+Although the \texttt{repro} package exports 35 well-documented functions, assures their correctness by close to 200 unit tests and amasses all in all short of 2000 lines of code, many workflows and features are incomplete.
 I hope to make progress in three areas:
 
 \begin{enumerate}
@@ -916,48 +1097,46 @@ I hope to make progress in three areas:
   enable the leverage of high-performance computing (HPC) clusters and cloud infrastructure.
 \end{enumerate}
 
-Because the user interface of \texttt{repro} was modeled after the \texttt{usethis} package, \texttt{repro} also inherited \texttt{usethis}' modular structure.
+Because the user interface of \texttt{repro} was modelled after the \texttt{usethis} package, \texttt{repro} also inherited \texttt{usethis}' modular structure.
 This design decision was made more by accident than by intention but is in hindside more than useful.
 Because of its modularity, \texttt{repro} can be extended easily and can serve as an infrastructure package.
 This use-case will be explored in collaboration with Caspar van Lissa, who proposes a workflow, called \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} (Van Lissa et al., \protect\hyperlink{ref-vanlissaWORCSWorkflowOpen2020}{2020}), which is similar in spirit, but uses different tools.
-\href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} also utilizes RMarkdown and Git, but in place of Docker, it uses \href{https://rstudio.github.io/renv/articles/renv.html}{\texttt{renv}} and instead of Make it relies on a highly standardized file structure.
+\href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} also utilises RMarkdown and Git, but in place of Docker, it uses \href{https://rstudio.github.io/renv/articles/renv.html}{\texttt{renv}} and instead of Make it relies on a highly standardised file structure.
 Hence, only two ``moduls'' or rather functions have to be added to \texttt{repro} to support the workflow, \texttt{use\_renv()} (which replaces \texttt{use\_docker()}) and \texttt{use\_worcs\_template()} (which replaces \texttt{use\_repro\_template()}).
 Also, \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} has other features like automatic codebook creation and synthetic data generation, which may be excellent supplements for a \texttt{repro} project.
-To ensure interoperability between the packages, it is planned that much of the behind the scenes machinery is moved from \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} to \texttt{repro} in a more modular form.
+To ensure interoperability between the packages, it is planned that much of the backend is moved from \href{https://cjvanlissa.github.io/worcs/}{\texttt{worcs}} to \texttt{repro} in a more modular form.
 However, the users will not notice much of a difference, except that they may fuse both workflows into one.
 
-Such lego system of reproducibility tools, where the users can decide which tools they want to include may be especially useful when some features are not strictly necessary for reproducibility.
+Such a Lego system of reproducibility tools, where the users can decide which tools they want to include may be especially useful when some features are not strictly necessary for reproducibility.
 In its current form, no tool is optional in the sense that only in unison they guarantee reproducibility.
 However, some features may be useful but not necessary for reproducibility.
-
 For example, is it useful to have an online service such as GitHub Actions that asserts reproducibility of each change, but it is by no means necessary.
 As previously discussed there currently exists no easy solution to verify reproduction automatically.
 The key difficulty is to detect changes in the results that potentially alter the conclusion, from those which carry no meaning, e.g.~if the date is updated.
 To address this challenge, I currently work on a prototype of an R package, which allows the researcher to assert that some objects remain unchanged upon reproduction, by wrapping them into \texttt{unchanged()}.
 This package keeps track of thus marked objects and throws an error if they accidentally change.
-If such a solution would exist, there would be no hurdle to incorporate continues integration into research projects.
-This would mean that all contributions are automatically vetted before they are incorporated and that the results are automatically updated, e.g.~the preprint or the additional material on \url{osf.org} would automatically be re-uploaded.
+If such a solution existed, there would be no hurdle to incorporate continues integration into research projects.
+Continues integration could vet all contributions automatically before they are incorporated and update the results, e.g.~the preprint or the additional material on \url{osf.org}.
 Then projects could have a badge that signifies that a third party is able to reproduce it.
 Such continues updates do not only ease collaboration but are also especially interesting for some continues data sources, e.g.~long-running developmental studies or meta-analysis, where new data becomes repeatedly available even after publication.
 
 Conveniences such as the above are possible because the here presented conception of reproducibility is highly automated.
-Hence, an analysis may be moved to another machine without manual intervention.
-This also opens some interesting possibilities unrelated to reproducibility, concerning the management of computational resources.
+Hence, an analysis may be moved to another computer without manual intervention.
+This functionality also opens some exciting possibilities unrelated to reproducibility, concerning the management of computational resources.
 It is often the case that an analysis requires substantial amounts of computational resources, more than a single computer may deliver.
 In such a case, a here described analysis can easily be moved to a more powerful computer or even spread across hundreds.
 The use of containers is the de facto standard of cloud computing providers but also becomes increasingly common for high-performance clusters.
 Hence it is a task that can easily be accomplished with \texttt{repro}.
 However, these functions are still in development and not tested well enough to be published.
-A typical problem, when utilizing distributed computation, is the division of tasks between the computing instances.
+A typical problem, when utilising distributed computation, is the division of tasks between the computing instances.
 However, this is pretty straightforward because of the deployed dependency management.
 Make can distribute tasks across thousands of nodes while making sure that none of the dependencies collide.
 Initially, this functionality was available in \texttt{repro} for TORQUE, an HPC task scheduler, but because TORQUE will no longer be maintained I will phase out this set of functions.
 
 \texttt{repro} strives to make reproducibility more attractive by lowering the barriers to advanced reproducibility tools.
 To my knowledge, no standard is as comprehensive as the here described combination of Git, RMarkdown, Make and Docker.
-However, the workflow presented by Van Lissa et al. (\protect\hyperlink{ref-vanlissaWORCSWorkflowOpen2020}{2020}) sacrifices a little bit of this flexibility to reduce the complexity drastically.
 Despite these efforts to make reproducibility easier, I think it is worthwhile to simplify the approaches further, to appeal to users that are more comfortable using Microsoft Office than RMarkdown and hesitant to use a formal version control system.
-Hopefully, \texttt{repro} is a first step to make reproducibility easier to archive.
+Hopefully, \texttt{repro} is the first step to make reproducibility easier to achieve.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -973,11 +1152,17 @@ Announcement: Reducing Our Irreproducibility. (2013). \emph{Nature}, \emph{496}(
 \leavevmode\hypertarget{ref-boultonScienceOpenEnterprise2012}{}%
 Boulton, G., Campbell, P., Collins, B., Elias, P., Hall, W., Laurie, G., O'Neill, O., Rawlins, M., Thornton, J., \& Vallance, P. (2012). Science as an open enterprise. \emph{The Royal Society}.
 
+\leavevmode\hypertarget{ref-brandmaierStructuralEquationModel2013}{}%
+Brandmaier, A. M., von Oertzen, T., McArdle, J. J., \& Lindenberger, U. (2013). Structural equation model trees. \emph{Psychological Methods}, \emph{18}(1), 71--86. \url{https://doi.org/10.1037/a0030001}
+
 \leavevmode\hypertarget{ref-claerboutElectronicDocumentsGive1992}{}%
 Claerbout, J. F., \& Karrenbach, M. (1992). Electronic documents give reproducible research a new meaning. \emph{SEG Technical Program Expanded Abstracts 1992}, 601--604. \url{https://doi.org/10.1190/1.1822162}
 
 \leavevmode\hypertarget{ref-dfg2019}{}%
 Deutsche Forschungsgemeinschaft. (2019). \emph{Leitlinien zur Sicherung guter wissenschaftlicher Praxis}. \url{https://www.dfg.de/download/pdf/foerderung/rechtliche_rahmenbedingungen/gute_wissenschaftliche_praxis/kodex_gwp.pdf}
+
+\leavevmode\hypertarget{ref-doornIntroductionArchivingResearch2007}{}%
+Doorn, P., \& Tjalsma, H. (2007). Introduction: Archiving research data. \emph{Archival Science}, \emph{7}(1), 1--20.
 
 \leavevmode\hypertarget{ref-epskamp2019rep}{}%
 Epskamp, S. (2019). Reproducibility and replicability in a fast-paced methodological world. \emph{Advances in Methods and Practices in Psychological Science}, \emph{2}(2), 145--155. \url{https://doi.org/https://doi.org/10.1177/2515245919847421}
@@ -994,14 +1179,23 @@ Heilbron, J. L. (Ed.). (2004). The Oxford Companion to the History of Modern Sci
 \leavevmode\hypertarget{ref-hutsonArtificialIntelligenceFaces2018}{}%
 Hutson, M. (2018). Artificial intelligence faces reproducibility crisis. \emph{Science}, \emph{359}(6377), 725--726. \url{https://doi.org/10.1126/science.359.6377.725}
 
+\leavevmode\hypertarget{ref-inceCaseOpenComputer2012}{}%
+Ince, D. C., Hatton, L., \& Graham-Cumming, J. (2012). The case for open computer programs. \emph{Nature}, \emph{482}(7386, 7386), 485--488. \url{https://doi.org/10.1038/nature10836}
+
 \leavevmode\hypertarget{ref-ioannidisWhyMostPublished2005}{}%
 Ioannidis, J. P. A. (2005). Why Most Published Research Findings Are False. \emph{PLOS Medicine}, \emph{2}(8), e124. \url{https://doi.org/10.1371/journal.pmed.0020124}
+
+\leavevmode\hypertarget{ref-jacobucciPracticalGuideVariable2019}{}%
+Jacobucci, R., Brandmaier, A. M., \& Kievit, R. A. (2019). A Practical Guide to Variable Selection in Structural Equation Modeling by Using Regularized Multiple-Indicators, Multiple-Causes Models. \emph{Advances in Methods and Practices in Psychological Science}, \emph{2}(1), 55--76. \url{https://doi.org/10.1177/2515245919826527}
 
 \leavevmode\hypertarget{ref-jordanMachineLearningTrends2015}{}%
 Jordan, M. I., \& Mitchell, T. M. (2015). Machine learning: Trends, perspectives, and prospects. \emph{Science}, \emph{349}(6245), 255--260. \url{https://doi.org/10.1126/science.aaa8415}
 
 \leavevmode\hypertarget{ref-krakerCaseOpenScience2011}{}%
 Kraker, P., Leony, D., Reinhardt, W., Gü, N., \& Beham, nter. (2011). The case for an open science in technology enhanced learning. \emph{International Journal of Technology Enhanced Learning}, \emph{3}(6), 643. \url{https://doi.org/10.1504/IJTEL.2011.045454}
+
+\leavevmode\hypertarget{ref-maitraDisasterRecoveryPlanning2011}{}%
+Maitra, S., Shanker, M., \& Mudholkar, P. K. (2011). Disaster recovery planning with virtualization technologies in banking industry. \emph{Proceedings of the International Conference \& Workshop on Emerging Trends in Technology}, 298--299. \url{https://doi.org/10.1145/1980022.1980089}
 
 \leavevmode\hypertarget{ref-martinCleanCoderCode2011}{}%
 Martin, R. C. (2011). \emph{The clean coder: A code of conduct for professional programmers / Robert C. Martin} (1. print.). Prentice Hall.
@@ -1024,8 +1218,17 @@ Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The prer
 \leavevmode\hypertarget{ref-nuijtenPrevalenceStatisticalReporting2016}{}%
 Nuijten, M. B., Hartgerink, C. H. J., van Assen, M. A. L. M., Epskamp, S., \& Wicherts, J. M. (2016). The prevalence of statistical reporting errors in psychology (1985--2013). \emph{Behavior Research Methods}, \emph{48}(4), 1205--1226. \url{https://doi.org/10.3758/s13428-015-0664-2}
 
+\leavevmode\hypertarget{ref-R-credentials}{}%
+Ooms, J. (2019a). \emph{Credentials: Tools for managing ssh and git credentials}. \url{https://CRAN.R-project.org/package=credentials}
+
+\leavevmode\hypertarget{ref-R-gert}{}%
+Ooms, J. (2019b). \emph{Gert: Simple git client for r}. \url{https://CRAN.R-project.org/package=gert}
+
 \leavevmode\hypertarget{ref-opensciencecollaborationEstimatingReproducibilityPsychological2015}{}%
 Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. \emph{Science}, \emph{349}(6251), aac4716--aac4716. \url{https://doi.org/10.1126/science.aac4716}
+
+\leavevmode\hypertarget{ref-pashlerEditorsIntroductionSpecial2012}{}%
+Pashler, H., \& Wagenmakers, E. (2012). Editors' Introduction to the Special Section on Replicability in Psychological Science: A Crisis of Confidence? \emph{Perspectives on Psychological Science}, \emph{7}(6), 528--530. \url{https://doi.org/10.1177/1745691612465253}
 
 \leavevmode\hypertarget{ref-peikertReproducibleDataAnalysis2019}{}%
 Peikert, A., \& Brandmaier, A. M. (2019). \emph{A Reproducible Data Analysis Workflow with R Markdown, Git, Make, and Docker} {[}Preprint{]}. PsyArXiv. \url{https://doi.org/10.31234/osf.io/8xzqy}
@@ -1062,5 +1265,8 @@ Williams, J. M. (2017). \emph{Style: Lessons in clarity and grace} (Twelfth Edit
 
 \leavevmode\hypertarget{ref-xieMarkdownDefinitiveGuide2019}{}%
 Xie, Y., Allaire, J. J., \& Grolemund, G. (2019). \emph{R Markdown: The definitive guide}.
+
+\leavevmode\hypertarget{ref-yarkoniChoosingPredictionExplanation2017}{}%
+Yarkoni, T., \& Westfall, J. (2017). Choosing Prediction Over Explanation in Psychology: Lessons From Machine Learning. \emph{Perspectives on Psychological Science}, \emph{12}(6), 1100--1122. \url{https://doi.org/10.1177/1745691617693393}
 
 \end{document}
