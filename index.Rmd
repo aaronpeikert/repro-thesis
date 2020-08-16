@@ -21,6 +21,7 @@ repro:
     - aaronpeikert/repro@7ab744a51d
     - bookdown
     - usethis
+    - gert
 ---
 
 <!-- general structure

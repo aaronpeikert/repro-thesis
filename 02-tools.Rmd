@@ -23,10 +23,10 @@ These pillars stipulate the relations between thought, code and data with their 
 
 1. understandable to other researchers,
 2. transferable across machines,
-3. presever over time.
+3. preserved over time.
 
 While comprehensibility to the scientific community is probably the most crucial objective, it is also the most difficult to achieve.
-That is because as a non-technical requirement, no set of rules can assure its fulfilment (though clear writing[^writing] and clean code[^clean] certainly help).
+That is because as a non-technical requirement, no set of rules can assure its fulfillment (though clear writing[^writing] and clean code[^clean] certainly help).
 Transfer and conservation, on the other hand, are problems with technical solutions.
 
 @peikertReproducibleDataAnalysis2019 propose to use a combination of RMarkdown, Git, Make, and Docker, for users of the R programming language [@R-base] and provide the high-level overview which can be seen in Figure \@ref(fig:nutshell).
@@ -43,7 +43,8 @@ However, they stress that any combination of tools is suitable as long as it fac
 
 [^clean]: @martinCleanCoderCode2011 proposes a coding paradigm that found widespread use because of its focus on understandability.
 
-Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package `repro`. The relation of these tools with `repro` is then expanded in the next chapter.
+Each of the following sections first raises a challenge for reproducibility, then outlines a conceptual remedy along with a concrete tool and concludes how they relate to the package `repro`.
+The relation of these tools with `repro` is then expanded in the next chapter.
 
 ## File Organisation
 
@@ -63,11 +64,14 @@ However, unlike the native R solution, this inference is consistent across opera
 
 The `repro` package offers a template for an RStudio Project, which sets up a file structure that follows best practices and conventions.
 This template provides the researcher with a minimal example of a reproducible analysis.
+It enables researcher to learn by easy to understand examples e.g.how files should refer to each other.
+Such learning by example complements the abstract arguments for best practices with a more hands on perspective.
 The researcher can thus adept code and files to their need, either by merely changing them manually or by the modular structure of `repro`.
+Furthermore does this template provide a reference for researchers that is more concise than any tutorial and connects the concept of file structure, with the ideas of the following sections.
 
 ## Dynamic Document Generation
 
-A clear file structure helps researchers to better understand how a scientific result relates to the code but an otherwise strict segregation of code and document may impede how both connect, e.g. which parts of code generate which results.
+A clear file structure helps researchers to better understand how a scientific result relates to the code but an otherwise strict segregation of code and document may obscure how both connect, e.g. which parts of code generate which results.
 Providing a direct link, dynamic document generation allows interspersing text with code and its results, in order to produce a human-readable document.
 The key feature is that every time such a document is rerun, the results are reproduced dynamically.
 This functionality eliminates errors due to copy and paste results from statistical software to a text processor. This mistake happens far too often; @nuijtenPrevalenceStatisticalReporting2016 reports that 50% of papers from the psychological sciences contain at least one error that could have been prevented.
@@ -125,7 +129,11 @@ Resulting in the rendered document seen in Figure \@ref(fig:rmarkdown):
 knitr::include_graphics("images/rmarkdown.svg", auto_pdf = TRUE)
 ```
 
-Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction. To virtually guarantee reproduction, the `repro` package extends the YAML metadata to incorporate [Dependency Management] and [Containerisation] into the process of dynamic document creation.
+Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction.
+To virtually guarantee reproduction, the `repro` package extends the YAML metadata to incorporate [Dependency Management] and [Containerisation] into the process of dynamic document creation.
+It therefore extends the existing metadata model of RMarkdown to capture all dependencies of the analysis and ensure reproduction.
+Because researcher are allready familiar with RMarkdown this solution provides minimal cognitive overhead.
+However even though the metadata relates to a single document, `repro` compiles all needed information from all documents across the project into suitable Docker- and Makefiles.
 
 ## Version Control
 
@@ -144,7 +152,7 @@ This linking procedure creates a "pedigree" of versions that makes it easy to se
 Going back in time to a specific version only requires knowing the hash of the commit. 
 To mark commits as special milestones, they can be tagged, e.g. as preregistration, preprint, submission or publication.
 
-While mastering Git requires some experience, most of the time, only four commands are needed, which may be accessed through RStudio's Git interface:
+While mastering Git requires some experience, most of the time, only four commands are needed, all of which can be accessed through RStudio's Git interface:
 
 git add
 : take a snapshot of the given file
@@ -159,6 +167,10 @@ git pull
 : download and integrate recent commits from the server
 
 While a few other commands are necessary to set up Git in a given project directory, this work is done by the `repro`-package.
+In my experience Git is overwhelming to learn because users have to interact with it through a terminal.
+While R users have some experience with interactive programms that can only be accessed through written commands (i.e. R itself), Git follows---from the perspective of R users---strange and archaic syntactical rules.
+Thanks to `usethis` and indirectly through `credentials` [@R-credentials] and `gert` [@R-gert] users can use most of Git through R commands.
+Because `repro` has the same interface as `usethis` the cognitive overhead is keept as low as possible.
 
 ## Dependency Management
 
@@ -180,7 +192,7 @@ Such intelligent behaviour is most useful when the preprocessing requires a lot 
 Make is a tool for dependency management. While originally designed for the compilation of programs, it is now increasingly recognised as a tool for ensuring reproducibility.
 It allows for all features mentioned above and even more as it a full-fledged programming language.
 
-The repro package provides a simplified interface to the essential features of Make, eschewing the need to learn yet another language, while leveraging its most important features dependency management for scientific data analyses.
+The repro package provides a simplified interface to the essential features of Make, eschewing the need to learn yet another language, while leveraging its most important feature: "dependency management" for scientific data analyses. Similiarly to Git does Make use an interface that is quit different to the way R is used. Because Make doesn't have to be used interactively, `repro` reuses the interface of RMarkdown to interact with Make.
 
 ## Containerisation
 
@@ -195,3 +207,17 @@ To overcome this challenge, the software environment of a project needs separati
 Docker allows virtualisation of the whole software stack down to the operating system, but in a much more lightweight way than traditional virtual machines. This lightweight but comprehensive virtualisation is called containerisation. Containers save storage by being based on each other, enabling reuse. Hence, one container is based on another, e.g. two containers with the same R version share the storage for everything but the different R packages. Containers are created from a plain specification called `Dockerfile`. This file defines on which container the result should be based upon and what software should be installed within it.
 
 The `repro`-package infers automatically which packages are needed and creates an appropriate Dockerfiles and the container from it.
+E.g. for this project this Dockerfile looks like this:
+
+```{r comment = "", echo = FALSE}
+dockerfile <- c(readLines('.repro/Dockerfile_base'),
+  readLines('.repro/Dockerfile_packages'))
+cat(dockerfile, sep = '\n')
+```
+
+Furthermore, does `repro` provide the infrastructure that connects Make and Docker e.g. it adds appropriate Make target for the container's image, and tunnels the other Make targests through the container.
+This results in a special Makefile for the Docker-related instruction that is incoporated in the main Makefile e.g. like this:
+
+```{r comment = "", echo = FALSE}
+cat(readLines(".repro/Makefile_Docker"), sep = "\n")
+```

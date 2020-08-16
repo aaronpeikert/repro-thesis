@@ -6,12 +6,14 @@ WORKDIR /home/rstudio
 RUN MRAN=https://mran.microsoft.com/snapshot/${BUILD_DATE} \
   && echo MRAN=$MRAN >> /etc/environment \
   && export MRAN=$MRAN \
-  && echo "options(repos = c(CRAN='$MRAN'), download.file.method = 'libcurl')" >> /usr/local/lib/R/etc/Rprofile.site
-RUN apt-get update -y && apt-get install -y inkscape
+  && echo "options(repos = c(CRAN='$MRAN'), download.file.method = 'libcurl')"\ 
+  >> /usr/local/lib/R/etc/Rprofile.site
+RUN apt-get update -y && apt-get install -y inkscape libgit2-dev
 RUN Rscript -e 'tinytex::tlmgr_install(pkgs = c("emptypage", "sourcecodepro", "libertinust1math", "libertine", "graphics-def", "graphics-cfg", "graphics", "oberdiek", "ifluatex", "ifxetex", "setspace", "crop", "nopageno"))'
 RUN install2.r --error --skipinstalled \ 
   bookdown \ 
   devtools \ 
+  gert \ 
   here \ 
   usethis
 RUN installGithub.r \ 
