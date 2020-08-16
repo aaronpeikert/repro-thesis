@@ -2,31 +2,31 @@
 
 The `repro` package is designed to streamline the researchers' workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
-To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the aforementioned tools.
-While there is a huge variety in how researchers can approach an empirical study and its analysis, Figure \@ref(fig:workflow) offers an idealized workflow.
+To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the tools as mentioned earlier.
+While there is a considerable variety in how researchers can approach an empirical study and its analysis, Figure \@ref(fig:workflow) offers an idealized workflow.
 
 ```{r workflow, eval = TRUE, echo = FALSE, fig.cap="Schematic illustration of a reproducible workflow.  ", out.width="50%", fig.align="center"}
 knitr::include_graphics("images/idealized-workflow.svg", auto_pdf = TRUE)
 ```
 
-This workflow can be approached from two perspectives, either as an author of a reproducible analysis or as a contributor.
+This workflow can be approached from two perspectives, that of an author of a reproducible analysis or as a contributor.
 I use the term contributor in its broadest possible meaning, because---in my view---even a reader who is thorough enough to reproduce an analysis contributes something of value.
-Consequently, I include everyone with an interest in reproducing the analysis in the group of collaborators, be it a coauthor, a reviewer or the very person who originally created the analysis at an earlier point in time.
+Consequently, I include everyone with interest in reproducing the analysis in the group of collaborators, be it a coauthor, a reviewer or the very person who created the analysis at an earlier point in time.
 
-From the contributor's point of view `repro` acts as an assistance system, advising users on how to setup their computers and how to reproduce an analysis.
+From the contributor's point of view `repro` acts as an assistance system, advising users on how to set up their computers and how to reproduce an analysis.
 It is a major difficulty for untrained users to detect their systems state accurately and act correspondingly.
-`repro` parses complex technical information and presents them in a straightforward way.
-It therefore enables even relatively inexperienced users to make use of tools which otherwise would require extensive training.
+`repro` parses complex technical information and straightforwardly presents them.
+It, therefore, enables even relatively inexperienced users to make use of tools which otherwise would require extensive training.
 From the perspective of the author who creates an analysis, `repro` is a toolbox which provides the right tools for most of the user's requirements.
 In the creation phase, the benefit for inexperienced users is even more accentuated.
 Following the standards of @peikertReproducibleDataAnalysis2019 usually requires experience in the use of Bash, Make, Docker, YAML, (R-)Markdown, R, Latex, knitr, and Git.
 Besides some practice, users need to be aware, remember, and correctly implement best practices in each tool.
 `repro` significantly lowers this threshold.
-`repro` still expects the user to have some training in the use of R, (R-)Markdown, and Git---which is increasingly recognized as a standard in the Open Science and R community---but forgos training in Make and Docker.
-An important guideline in designing `repro` was to make best practices easier to implement than their alternatives.
+`repro` still expects the user to have some training in the use of R, (R-)Markdown, and Git---which is increasingly recognized as a standard in the Open Science and R community---but forgoes training in Make and Docker.
+An essential guideline in designing `repro` was to make best practices more accessible to implement than their alternatives.
 Where possible `repro` allows the user to forget about the details of the often tricky implementation and abstracts them away.
 
-The structure of this chapter mirrors the workflow in Figure \@ref(fig:workflow), first from the perspective of an contributor, then from the perspective of an creator.
+The structure of this chapter mirrors the workflow in Figure \@ref(fig:workflow), first from the perspective of a contributor, then from the perspective of a creator.
 It explains step by step how to:
 
 1. Set up the required software;
@@ -102,7 +102,7 @@ options(opts)
 ## Reproduction
 
 This thesis was written according to the proposed standards using `repro` and may serve as an example of reproduction.
-I also provide a minimal example actually contains data and a data analysis in the [Creation] section below.
+I also provide a minimal example that contains a data analysis in the [Creation] section below.
 
 GitHub, Make, and Docker are sufficient to reproduce this very document.
 So if you followed the steps above, everything is set up to download the source files of this document, rerun the code within it, and verify its results.
@@ -119,7 +119,7 @@ usethis::create_from_github("aaronpeikert/repro-thesis",
                             fork = TRUE)
 ```
 
-If executed, this code opens a new R session and therefor, all code from here on out needs to run in the *new* session.
+If executed, this code opens a new R session, and therefore, all code from here on out needs to run in the *new* session.
 
 It is tempting to automate the reproduction part entirely and use a `rerun()` function that figures out what to do and does so for you.
 However, I decided the reproduction must be feasible without the `repro` package to avoid monopolization of reproducibility by a single software package. 
@@ -130,7 +130,7 @@ To balance the needs of long term support and usability, `repro` offers advice a
 Which steps one has to take, depends on the tools chosen to implement dependency management.
 This tool determines the "entry point" for an analysis.
 To detect the entry point, `repro` follows simple heuristics, which are informed by what most R users tend to use.
-These conventions are quite ambiguous, but the clearest entry point is a `Makefile`.
+These conventions are quite ambiguous, but the most explicit entry point is a `Makefile`.
 If no `Makefile` is available, the alternatives are either a central dynamic document (RMarkdown, Jupityer Notebook) or a primary script (R, Python, Oktave, Shell).
 In these cases, one can only guess from filenames like `manuscript.Rmd`, `analysis.Rmd`, `paper.Rmd`, `run.R` or `analysis.R`.
 
@@ -144,19 +144,19 @@ rerun(cache = FALSE)
 
 The argument `cache = FALSE` ensures that everything that can be recreated is recreated even when nothing was changed.
 
-It is difficult to verify wether an analysis was reproduced.
+It is challenging to verify wether an analysis was reproduced.
 As a minimum standard one could demand, that the analysis is rerun free of errors or, as a maximal standard, that the resulting documents are exactly the same.
-Neither solution strikes the right balance, because error-free does not imply the same results.
-At the same time the comparison of binary files often leads to spurious differences, e.g. because of numerical instabilities.
+Neither solution strikes the right balance because error-free does not imply the same results.
+At the same time, the comparison of binary files often leads to spurious differences, e.g. because of numerical instabilities.
 
 Currently, researchers need to revert to manual checking and common sense to verify a successful reproduction.
-An automated verification procedure would require the researcher to explicitly state which results need to be identical.
+An automated verification procedure would require the researcher to state which results need to be identical explicitly.
 Then a software solution could track changes for only these digital objects and accordingly flag mismatches.
 
 ## Change
 
 For a researcher, reproducing an analysis and verifying its results, is often only a first step to make intentional changes.
-How researchers contribute to a project lays strictly outside the realm of reproducibility, but warrants discussion because easy collaboration is one of the biggest practical advantages of reproducibility.
+How researchers contribute to a project lays strictly outside the realm of reproducibility, but warrants discussion because easy collaboration is one of the most significant practical advantages of reproducibility.
 That the primary beneficiary of this advantage is the researcher collaborating with its past self is a pun in the open science community that bears some truth.
 However, the workflow of an external researcher contributing is more complicated and hence here described.
 It is quite a challenge to collaborate under the circumstances where people do not work side by side or even know each other.
@@ -187,17 +187,17 @@ usethis::pr_push()
 ```
 
 If I---as the author of this document---would like to accept, I can incorporate the changes on GitHub.
-If not, the changes can be discussed in the pull request or I could make amends before merging them.
+If not, the changes can be discussed in the pull request, or I could make amends before merging them.
 
-Such distributed workflow allows for a much more controlled way of collaboration as opposed to mail back and forth or using cloud storage systems.
+Such a distributed workflow allows for a much more controlled way of collaboration as opposed to mailing back and forth or using cloud storage systems.
 This higher level of control matches the high standards of scientific work.
-However, even more important is, that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code [@thelinuxfoundation2017LinuxKernel2017]).
+However, even more important is that this kind of collaboration scales well for many collaborators (Git was originally developed for the collaboration on the Linux kernel, where as of 2017 more than 15.000 developers contributed code [@thelinuxfoundation2017LinuxKernel2017]).
 Empirical studies require a lot of work, which is usually distributed on many shoulders.
 As the authors carry the responsibility for the overall correctness, they ought to vet every single contribution.
 
-Affirming the correctness of a contribution can be partly automated by affirming successful reproduction.
+Affirming the correctness of a contribution can be partly automated by confirming successful reproduction.
 Such automatic checks of changes are part of a software developing process, called continuous integration.
-Continuous integration runs code in cloud computing environments that asserts the correctness, when changes are pushed to GitHub.
+Continuous integration runs code in cloud computing environments that asserts the correctness when changes are pushed to GitHub.
 In many ways, continuous integration is the logical next step for reproducible workflows.
 Because much effort was already invested in ensuring reproducibility across computers, it is easy to move the analysis to a continuous integration tool.
 
@@ -216,7 +216,7 @@ use_repro_template("path/to/new/project/")
 
 `repro` infers the dependencies to data and external code as well as the required packages from the `yaml` metadata of the RMarkdowns.
 Because analytic data projects have a particular structure, this markup can be much simpler than writing `Dockerfiles` and `Makefiles` manually.
-While Docker allows to install arbitrary Software, an analysis in R likely needs nothing but R-packages. Similarly, Make enables you to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.
+While Docker allows installing arbitrary software, an analysis in R likely needs nothing but R-packages. Similarly, Make enables you to run any software, but an analysis in R only needs to execute R-Scripts and render RMarkdowns.
 
 Hence, a minimal addition to the metadata, as can be seen in the following example, contains everything necessary to infer a complete `Dockerfile` and `Makefile`:
 
@@ -232,7 +232,7 @@ repro:
     mycars: data/mtcars.csv
 ```
 
-From this specification the function `automate()` creates a `Dockerfile` and a `Makefile`, which comply with all recommendations by @peikertReproducibleDataAnalysis2019.
+From this specification, the function `automate()` creates a `Dockerfile` and a `Makefile`, which comply with all recommendations by @peikertReproducibleDataAnalysis2019.
 Strictly speaking, it creates four Dockerfiles and three Makefiles.
 Most of the files are created in the `.repro` directory and then assembled into the main `Dockerfile`/`Makefile` at top-level.
 One `Dockerfile` contains the base docker image, including the R version and the current date and another `Dockerfile` contains only the R packages.
@@ -240,7 +240,7 @@ It also produces one file where the user can amend software installation or set 
 The `Makefiles` are similarly separated, with one file dedicated to RMarkdowns and another one for the required logic that executes the make commands in the container.
 
 The `automate()` function is designed to simplify the workflow proposed by @peikertReproducibleDataAnalysis2019 as much as possible.
-Such simplification means inevitably to restrict the users freedom.
+Such simplification means inevitably to restrict the user's freedom.
 While they can still do everything they want in the realm of Make and Docker, this approach does not allow other reproducibility software to be used.
 Users, which need more control and are more advanced, could instead rely on the modular nature of `repro`.
 Each component can be added to the project by the `use_*` functions.
