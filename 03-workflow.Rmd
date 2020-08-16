@@ -1,4 +1,4 @@
-# Working with `repro`
+# Working with repro
 
 The `repro` package is designed to streamline the researchers' workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
