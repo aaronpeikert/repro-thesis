@@ -136,7 +136,7 @@ In these cases, one can only guess from filenames like `manuscript.Rmd`, `analys
 
 To recreate this document you have to follow the steps below:
 
-```{r, eval=FALSE}
+```{r}
 # because this is a new R project / session, reload repro
 library("repro")
 rerun(cache = FALSE)
@@ -176,8 +176,8 @@ usethis::pr_init()
 Subsequently, you may change the files of this thesis as you like and track them with Git.
 You should make sure that the analysis is still reproducible with:
 
-```{r, eval=FALSE}
-rerun()
+```{r}
+rerun(cache = TRUE)
 ```
 
 If you are satisfied with the changes you made, you can trigger the pull request with:
