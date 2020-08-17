@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-08-16" />
+<meta name="date" content="2020-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
 <li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containerisation"><i class="fa fa-check"></i><b>2.5</b> Containerisation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="working-with-repro.html"><a href="working-with-repro.html"><i class="fa fa-check"></i><b>3</b> Working with <code>repro</code></a><ul>
+<li class="chapter" data-level="3" data-path="working-with-repro.html"><a href="working-with-repro.html"><i class="fa fa-check"></i><b>3</b> Working with repro</a><ul>
 <li class="chapter" data-level="3.1" data-path="working-with-repro.html"><a href="working-with-repro.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
 <li class="chapter" data-level="3.2" data-path="working-with-repro.html"><a href="working-with-repro.html#reproduction"><i class="fa fa-check"></i><b>3.2</b> Reproduction</a></li>
 <li class="chapter" data-level="3.3" data-path="working-with-repro.html"><a href="working-with-repro.html#change"><i class="fa fa-check"></i><b>3.3</b> Change</a></li>
@@ -172,7 +172,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="working-with-repro" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Working with <code>repro</code></h1>
+<h1><span class="header-section-number">Chapter 3</span> Working with repro</h1>
 <p>The <code>repro</code> package is designed to streamline the researchers’ workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
 To that end, it stands on the shoulders of giants and provides only a minimal layer of abstraction for the tools as mentioned earlier.
@@ -226,18 +226,18 @@ Currently, it supports all major operating systems (Windows, OS X, Linux).</p>
 <a class="sourceLine" id="cb5-8" data-line-number="8">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;aaronpeikert/repro&quot;</span>)</a></code></pre></div>
 <p>If repro is installed one may load it via:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;repro&quot;</span>)</a></code></pre></div>
-<pre><code>## ℹ repro is BETA software! Please report any bugs:
-##   &#39;https://github.com/aaronpeikert/repro/issues&#39;</code></pre>
-<pre><code>## </code></pre>
+<pre><code>&gt; ℹ repro is BETA software! Please report any bugs:
+&gt;   &#39;https://github.com/aaronpeikert/repro/issues&#39;</code></pre>
+<pre><code>&gt; </code></pre>
 <p>Subsequently, users can check if the required software is already installed.
 The workflow by <span class="citation">Peikert &amp; Brandmaier (<a href="#ref-peikertReproducibleDataAnalysis2019">2019</a>)</span> depends on Git (and GitHub), Make, and Docker.
 Consequently, the following commands check if the user has set up all the requirements:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">check_git</span>()</a></code></pre></div>
-<pre><code>## ✔ Git is installed, don&#39;t worry.</code></pre>
+<pre><code>&gt; ✔ Git is installed, don&#39;t worry.</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">check_make</span>()</a></code></pre></div>
-<pre><code>## ✔ Make is installed, don&#39;t worry.</code></pre>
+<pre><code>&gt; ✔ Make is installed, don&#39;t worry.</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">check_docker</span>()</a></code></pre></div>
-<pre><code>## ✔ You are inside a Docker containter!</code></pre>
+<pre><code>&gt; ✔ You are inside a Docker containter!</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># check_github() renders this document irreproducible</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co"># because it relies on user settings unavailable in the container</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co"># hence it is not evaluated</span></a>
@@ -245,13 +245,14 @@ Consequently, the following commands check if the user has set up all the requir
 <p>If everything is set up, users can proceed to reproduce an analysis that conforms to this workflow.</p>
 <p>If not, e.g. because Docker is not installed, users get an informative message appropriate for their platform (the following code chunk shows the message windows users get when Git is missing).</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">check_git</span>()</a></code></pre></div>
-<pre><code>## ✖ Git is not installed.</code></pre>
-<pre><code>## ℹ We recommend Chocolately for Windows users.</code></pre>
-<pre><code>## ✖ Chocolately is not installed.</code></pre>
-<pre><code>## ● To install it, follow directions on: &#39;https://chocolatey.org/docs/installation&#39;</code></pre>
-<pre><code>## ℹ Use an administrator terminal to install chocolately.</code></pre>
-<pre><code>## ● Restart your computer.</code></pre>
-<pre><code>## ● Run `choco install -y git` in an admin terminal to install Git.</code></pre>
+<pre><code>&gt; ✖ Git is not installed.</code></pre>
+<pre><code>&gt; ℹ We recommend Chocolately for Windows users.</code></pre>
+<pre><code>&gt; ✖ Chocolately is not installed.</code></pre>
+<pre><code>&gt; ● To install it, follow directions on:
+&gt;   &#39;https://chocolatey.org/docs/installation&#39;</code></pre>
+<pre><code>&gt; ℹ Use an administrator terminal to install chocolately.</code></pre>
+<pre><code>&gt; ● Restart your computer.</code></pre>
+<pre><code>&gt; ● Run `choco install -y git` in an admin terminal to install Git.</code></pre>
 </div>
 <div id="reproduction" class="section level2">
 <h2><span class="header-section-number">3.2</span> Reproduction</h2>
@@ -284,9 +285,9 @@ In these cases, one can only guess from filenames like <code>manuscript.Rmd</cod
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># because this is a new R project / session, reload repro</span></a>
 <a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;repro&quot;</span>)</a>
 <a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">rerun</span>(<span class="dt">cache =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<pre><code>## ● To reproduce this project, run the following code block in a terminal:</code></pre>
-<pre><code>##   make docker &amp;&amp;
-##   make -B DOCKER=TRUE</code></pre>
+<pre><code>&gt; ● To reproduce this project, run the following code in a terminal:</code></pre>
+<pre><code>&gt;   make docker &amp;&amp;
+&gt;   make -B DOCKER=TRUE</code></pre>
 <p>The argument <code>cache = FALSE</code> ensures that everything that can be recreated is recreated even when nothing was changed.</p>
 <p>It is challenging to verify wether an analysis was reproduced.
 As a minimum standard one could demand, that the analysis is rerun free of errors or, as a maximal standard, that the resulting documents are exactly the same.
@@ -314,9 +315,9 @@ You can initialize a pull request with:</p>
 <p>Subsequently, you may change the files of this thesis as you like and track them with Git.
 You should make sure that the analysis is still reproducible with:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">rerun</span>(<span class="dt">cache =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<pre><code>## ● To reproduce this project, run the following code block in a terminal:</code></pre>
-<pre><code>##   make docker &amp;&amp;
-##   make DOCKER=TRUE</code></pre>
+<pre><code>&gt; ● To reproduce this project, run the following code in a terminal:</code></pre>
+<pre><code>&gt;   make docker &amp;&amp;
+&gt;   make DOCKER=TRUE</code></pre>
 <p>If you are satisfied with the changes you made, you can trigger the pull request with:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">pr_push</span>()</a></code></pre></div>
 <p>If I—as the author of this document—would like to accept, I can incorporate the changes on GitHub.

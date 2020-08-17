@@ -36,7 +36,7 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage[left=4cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[left=3.9cm, right=3.3cm, top=2.5cm, bottom=3cm]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -113,7 +113,6 @@
 \usepackage{libertinust1math}
 \usepackage{sourcecodepro}
 \usepackage{emptypage}
-\usepackage{nopageno}
 \renewcommand{\textfraction}{0.05}
 \renewcommand{\topfraction}{0.8}
 \renewcommand{\bottomfraction}{0.8}
@@ -134,7 +133,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Automating reproducible research workflows}
 \author{Aaron Peikert}
-\date{2020-08-16}
+\date{2020-08-17}
 
 \begin{document}
 \maketitle
@@ -573,7 +572,7 @@ RUN install2.r --error --skipinstalled \
   here \ 
   usethis
 RUN installGithub.r \ 
-  aaronpeikert/repro@7ab744a51d
+  aaronpeikert/repro@adb5fa56
 \end{verbatim}
 
 Furthermore, does \texttt{repro} provide the infrastructure that connects Make and Docker, e.g.~it adds appropriate Make target for the container's image, and tunnels the other Make targets through the container.
@@ -624,7 +623,7 @@ $(PROJECT).tar.gz:
 \end{verbatim}
 
 \hypertarget{working-with-repro}{%
-\section{\texorpdfstring{Working with \texttt{repro}}{Working with repro}}\label{working-with-repro}}
+\section{Working with repro}\label{working-with-repro}}
 
 The \texttt{repro} package is designed to streamline the researchers' workflow.
 It helps researchers to set up, create, reproduce and change an analysis with little more than a simple mental model.
@@ -719,7 +718,7 @@ Consequently, the following commands check if the user has set up all the requir
 \end{Shaded}
 
 \begin{verbatim}
-## v Git is installed, don't worry.
+> v Git is installed, don't worry.
 \end{verbatim}
 
 \begin{Shaded}
@@ -729,7 +728,7 @@ Consequently, the following commands check if the user has set up all the requir
 \end{Shaded}
 
 \begin{verbatim}
-## v Make is installed, don't worry.
+> v Make is installed, don't worry.
 \end{verbatim}
 
 \begin{Shaded}
@@ -739,7 +738,7 @@ Consequently, the following commands check if the user has set up all the requir
 \end{Shaded}
 
 \begin{verbatim}
-## v You are inside a Docker containter!
+> v You are inside a Docker containter!
 \end{verbatim}
 
 \begin{Shaded}
@@ -762,31 +761,32 @@ If not, e.g.~because Docker is not installed, users get an informative message a
 \end{Shaded}
 
 \begin{verbatim}
-## x Git is not installed.
+> x Git is not installed.
 \end{verbatim}
 
 \begin{verbatim}
-## i We recommend Chocolately for Windows users.
+> i We recommend Chocolately for Windows users.
 \end{verbatim}
 
 \begin{verbatim}
-## x Chocolately is not installed.
+> x Chocolately is not installed.
 \end{verbatim}
 
 \begin{verbatim}
-## * To install it, follow directions on: 'https://chocolatey.org/docs/installation'
+> * To install it, follow directions on:
+>   'https://chocolatey.org/docs/installation'
 \end{verbatim}
 
 \begin{verbatim}
-## i Use an administrator terminal to install chocolately.
+> i Use an administrator terminal to install chocolately.
 \end{verbatim}
 
 \begin{verbatim}
-## * Restart your computer.
+> * Restart your computer.
 \end{verbatim}
 
 \begin{verbatim}
-## * Run `choco install -y git` in an admin terminal to install Git.
+> * Run `choco install -y git` in an admin terminal to install Git.
 \end{verbatim}
 
 \hypertarget{reproduction}{%
@@ -845,12 +845,12 @@ To recreate this document you have to follow the steps below:
 \end{Shaded}
 
 \begin{verbatim}
-## * To reproduce this project, run the following code block in a terminal:
+> * To reproduce this project, run the following code in a terminal:
 \end{verbatim}
 
 \begin{verbatim}
-##   make docker &&
-##   make -B DOCKER=TRUE
+>   make docker &&
+>   make -B DOCKER=TRUE
 \end{verbatim}
 
 The argument \texttt{cache\ =\ FALSE} ensures that everything that can be recreated is recreated even when nothing was changed.
@@ -897,12 +897,12 @@ You should make sure that the analysis is still reproducible with:
 \end{Shaded}
 
 \begin{verbatim}
-## * To reproduce this project, run the following code block in a terminal:
+> * To reproduce this project, run the following code in a terminal:
 \end{verbatim}
 
 \begin{verbatim}
-##   make docker &&
-##   make DOCKER=TRUE
+>   make docker &&
+>   make DOCKER=TRUE
 \end{verbatim}
 
 If you are satisfied with the changes you made, you can trigger the pull request with:

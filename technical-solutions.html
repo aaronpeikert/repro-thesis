@@ -24,7 +24,7 @@
 <meta name="author" content="Aaron Peikert" />
 
 
-<meta name="date" content="2020-08-16" />
+<meta name="date" content="2020-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="technical-solutions.html"><a href="technical-solutions.html#dependency-management"><i class="fa fa-check"></i><b>2.4</b> Dependency Management</a></li>
 <li class="chapter" data-level="2.5" data-path="technical-solutions.html"><a href="technical-solutions.html#containerisation"><i class="fa fa-check"></i><b>2.5</b> Containerisation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="working-with-repro.html"><a href="working-with-repro.html"><i class="fa fa-check"></i><b>3</b> Working with <code>repro</code></a><ul>
+<li class="chapter" data-level="3" data-path="working-with-repro.html"><a href="working-with-repro.html"><i class="fa fa-check"></i><b>3</b> Working with repro</a><ul>
 <li class="chapter" data-level="3.1" data-path="working-with-repro.html"><a href="working-with-repro.html#setup"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
 <li class="chapter" data-level="3.2" data-path="working-with-repro.html"><a href="working-with-repro.html#reproduction"><i class="fa fa-check"></i><b>3.2</b> Reproduction</a></li>
 <li class="chapter" data-level="3.3" data-path="working-with-repro.html"><a href="working-with-repro.html#change"><i class="fa fa-check"></i><b>3.3</b> Change</a></li>
@@ -380,7 +380,7 @@ RUN install2.r --error --skipinstalled \
   here \ 
   usethis
 RUN installGithub.r \ 
-  aaronpeikert/repro@7ab744a51d</code></pre>
+  aaronpeikert/repro@adb5fa56</code></pre>
 <p>Furthermore, does <code>repro</code> provide the infrastructure that connects Make and Docker, e.g. it adds appropriate Make target for the container’s image, and tunnels the other Make targets through the container.
 This results in a special Makefile for the Docker-related instruction that is incoporated in the main Makefile e.g. like this:</p>
 <pre><code>### Docker Options ###
