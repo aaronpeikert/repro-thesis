@@ -131,7 +131,7 @@ knitr::include_graphics("images/rmarkdown.svg", auto_pdf = TRUE)
 
 Undeniably, RMarkdown facilitates reproducibility greatly, but it cannot ensure reproduction.
 To virtually guarantee reproduction, the `repro` package extends the YAML metadata to incorporate [Dependency Management] and [Containerisation] into the process of dynamic document creation.
-It, therefore, extends the existing metadata model of RMarkdown to capture all dependencies of the analysis and ensure reproduction.
+It, therefore, extends the existing metadata model of RMarkdown to capture all dependencies of the analysis and ensures reproduction.
 Because many researchers are already familiar with RMarkdown this solution provides minimal cognitive overhead.
 However, even though the metadata relates to a single document, `repro` compiles all needed information from all documents across the project into suitable Docker- and Makefiles.
 
@@ -168,7 +168,7 @@ git pull
 
 While a few other commands are necessary to set up Git in a given project directory, this work is done by the `repro`-package.
 In my experience, Git is overwhelming to learn because users have to interact with it through a terminal.
-While R users have some experience with interactive programs that can only be accessed through written commands (i.e. R itself), Git follows---from the perspective of R users---strange and archaic syntactical rules.
+While R users have some experience with interactive programs that can only be accessed through written commands (e.g. R itself), Git follows---from the perspective of R users---strange and archaic syntactical rules.
 Thanks to `usethis` and indirectly through `credentials` [@R-credentials] and `gert` [@R-gert] users can use most of Git through R commands.
 Because `repro` has the same interface as `usethis` the cognitive overhead is kept as low as possible.
 
@@ -195,6 +195,7 @@ It allows for all features mentioned above and even more as it a full-fledged pr
 
 The repro package provides a simplified interface to the essential features of Make, eschewing the need to learn yet another language while leveraging its most important feature: "dependency management" for scientific data analyses. Similarly to Git Make uses an interface that is quite different from the way R is used.
 Because Make doesn't have to be used interactively, `repro` reuses the interface of RMarkdown to interact with Make.
+Users hence need only to learn RMarkdown and gain the ability to use Make (and as described in the next section Docker) if they use `repro`.
 
 ## Containerisation
 
@@ -210,7 +211,7 @@ Docker allows virtualisation of the whole software stack down to the operating s
 
 The `repro`-package automatically infers which packages are needed and creates an appropriate Dockerfiles and the container from it.
 This process relies on the same syntax as is employed for Make, so that users do not have to differentiate between file and software dependencies.
-E.g. for this project this Dockerfile looks like this:
+E.g. for this project the `repro`-generated Dockerfile looks like this:
 
 ```{r comment = "", echo = FALSE}
 dockerfile <- c(readLines('.repro/Dockerfile_base'),

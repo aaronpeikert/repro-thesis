@@ -14,7 +14,7 @@ I use the term contributor in its broadest possible meaning, because---in my vie
 Consequently, I include everyone with interest in reproducing the analysis in the group of collaborators, be it a coauthor, a reviewer or the very person who created the analysis at an earlier point in time.
 
 From the contributor's point of view `repro` acts as an assistance system, advising users on how to set up their computers and how to reproduce an analysis.
-It is a major difficulty for untrained users to detect their systems state accurately and act correspondingly.
+It is a major difficulty for untrained users to detect their systems state accurately and act correspondingly [@parasuramanAutomationHumanPerformance2018, Chapter 8: "Automation and Situation Awareness"].
 `repro` parses complex technical information and straightforwardly presents them.
 It, therefore, enables even relatively inexperienced users to make use of tools which otherwise would require extensive training.
 From the perspective of the author who creates an analysis, `repro` is a toolbox which provides the right tools for most of the user's requirements.

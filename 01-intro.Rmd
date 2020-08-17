@@ -53,9 +53,9 @@ As such, a reproducible analysis should be:
 
 1. understandable by other researchers,
 2. transferable across computers,
-3. conserved through time.
+3. preserved over time.
 
-This demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a "replication crises" [@ioannidisWhyMostPublished2005] and the rise of "machine learning" [@jordanMachineLearningTrends2015] as a scientific tool.
+This extended notion and demanding standard of reproducibility is justified by two recent developments in the social sciences in general and psychology in particular: the emergence of a "replication crises" [@ioannidisWhyMostPublished2005] and the rise of "machine learning" [@jordanMachineLearningTrends2015] as a scientific tool.
 Both trends link to the use of statistical modelling on which the social sciences became reliant for testing and developing their theories [@gigerenzerNullRitualWhat2004; @meehlTheoreticalRisksTabular1978].
 It turns out that, if one fits the very same statistical model as published on newly gathered data, one fails more often to achieve results that are consistent with what was published, than one succeeds. [@opensciencecollaborationEstimatingReproducibilityPsychological2015].
 
@@ -88,7 +88,7 @@ Such possibility enables commutative Science and allows the researcher to build 
 
 @peikertReproducibleDataAnalysis2019 put forth an analysis workflow which provides this convenience for everyone to reproduce any kind of analysis.
 However, they fail to provide the same level of convenience for the researcher who created an analysis in the first place.
-Setting up the workflow eats up a considerable amount of the researcher's time because it requires a level of technical sophistication that cannot be expected across all disciplines. This time should researcher rather spend on advancing research.
+Setting up the workflow eats up a considerable amount of the researcher's time because it requires a level of technical sophistication that cannot be expected across all disciplines. This time should researchers rather spend on advancing research.
 This additional effort offsets the increase in productivity, promised by reproducibility, which I regard as most significant in the workflows adoption.
 Persuading researchers, who find the meta-scientific argumentation noble but impractical, do not care about it or even oppose it, requires concrete, practical benefits.
 Luckily, most of this setup process may become automated, letting the researcher enjoy the workflows advantages while decreasing the efforts necessary to achieve them.

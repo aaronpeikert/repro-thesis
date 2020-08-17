@@ -9,4 +9,4 @@ I want to thank my advisers, Dr. Andreas M. Brandmaier and Prof. Manuel Völkle 
 * Caroline Gahrmann (commit [`d9a730c`](https://github.com/aaronpeikert/repro-thesis/commit/d9a730cb1bdcedef3312bc2be32ad81a3d2a45b9))
 * Andreas Brandmaier (commit [`9207348`](https://github.com/aaronpeikert/repro-thesis/commit/9207348f06a56d58637ced8636ad1e0005eb3e14))
 
-\newpage
+\newpage\null\thispagestyle{empty}\newpage
